@@ -67,7 +67,7 @@
 
 <section id="resultados">
   <h2>Los resultados</h2>
-  <p style="margin-bottom:22px">Cada ficha incluye la grabación y un enlace a la versión ejecutable original, sin tocar. Las grabaciones son capturas en tiempo real de la pestaña de Chrome a 1280×720 (más detalles en <a href="#metodo">cómo se grabaron</a>).</p>
+  <p style="margin-bottom:22px">Cada ficha incluye la grabación y un enlace a la versión ejecutable original, sin tocar. Las grabaciones son capturas en tiempo real de la pestaña de Chrome (más detalles en <a href="#metodo">cómo se grabaron</a>).</p>
   <div class="cards">
     <article class="card box" style="--c:var(--c4)">
       <div class="hd"><h3>Claude Opus 5.5</h3><small>Claude Code</small></div>
@@ -92,7 +92,7 @@
       <video controls preload="none" poster="videos/agy-gemini-3.8-flash.jpg" src="videos/agy-gemini-3.8-flash.mp4"></video>
       <div class="bd">
         <div class="facts"><span>4:20</span><span>1 prompt</span><span>10 min</span><span>6 módulos JS · ~3.600 líneas</span><span>Narración con voz</span></div>
-        <ul><li>El más ambicioso: seis actos (incluidos un prólogo preindustrial y un epílogo), motor gráfico en canvas, banda sonora procedural y una matriz comparativa.</li><li>Única versión con <b>narración en off</b>: usa la voz del sistema operativo (<code>speechSynthesis</code>), activable con un botón.</li><li>Más que un vídeo es una página: reproductor arriba y fichas informativas debajo. La grabación muestra solo el lienzo del vídeo, con el audio de todo el sistema para incluir la voz.</li></ul>
+        <ul><li>El más ambicioso: seis actos (incluidos un prólogo preindustrial y un epílogo), motor gráfico en canvas, banda sonora procedural y una matriz comparativa.</li><li>Única versión con <b>narración en off</b>: usa la voz del sistema operativo (<code>speechSynthesis</code>), activable con un botón.</li><li>Más que un vídeo es una página: reproductor arriba y fichas informativas debajo. La grabación la muestra entera, a su proporción real, y con el audio de todo el sistema para incluir la voz.</li></ul>
         <div class="act"><a class="btn" href="agy-3.8-flash-high/index.html" target="_blank" rel="noopener">▶ Abrir versión ejecutable</a><a class="btn alt" href="videos/agy-gemini-3.8-flash.mp4">Descargar MP4</a></div>
       </div>
     </article>
@@ -203,8 +203,9 @@
 <section id="metodo">
   <h2>Cómo se grabaron los vídeos</h2>
   <div class="box" style="padding:20px">
-    <p>Cada versión se abrió en Google Chrome 154 con una ventana de 1280×720, se pulsó su botón de inicio y se grabó la propia pestaña (imagen y sonido) con la API de captura de pestaña y <code>MediaRecorder</code>, a unos 26–30 fps. Después se convirtió a MP4 con ffmpeg. Al ser una captura en tiempo real, la fluidez de cada vídeo refleja también su rendimiento en el navegador.</p>
-    <p>Limitación: la narración en off de la versión de Gemini 3.8 Flash en Antigravity usa la voz del sistema (<code>speechSynthesis</code>), que no pasa por el audio de la pestaña y no aparece en la grabación. Ábrela en tu navegador para oírla.</p>
+    <p>Cada versión se abrió en Google Chrome 154, se mostró su pantalla de bienvenida durante unos 2 segundos, se pulsó su botón de inicio y se grabó la propia pestaña (imagen y sonido) con la API de captura de pestaña y <code>MediaRecorder</code>, a unos 26–30 fps. Después se convirtió a MP4 con ffmpeg. Al ser una captura en tiempo real, la fluidez de cada vídeo refleja también su rendimiento en el navegador.</p>
+    <p>La mayoría se grabaron con una ventana de 1280×720. Las tres versiones de Gemini 3.8 Flash (las dos de la app y la de Antigravity) son páginas más altas, con el reproductor arriba y fichas informativas debajo, así que se grabaron enteras a su proporción real (1280×1114, 1280×1132 y 1280×1330), sin recortar.</p>
+    <p>La narración en off de Gemini 3.8 Flash en Antigravity usa la síntesis de voz del navegador (<code>speechSynthesis</code>, con las voces de Google de Chrome), que no pasa por el audio de la pestaña. Para incluirla, esa versión se grabó con el audio de todo el sistema y se sincronizó con la imagen comparando la música presente en ambas pistas.</p>
     <p>Transparencia: las grabaciones, este sitio y su análisis técnico los ha preparado Claude Code (Opus 5.5) a petición mía, es decir, uno de los participantes. Los hechos técnicos (librerías usadas, origen del audio, duración) son comprobables en el código de cada versión; las valoraciones son mías.</p>
   </div>
 </section>
