@@ -94,3 +94,4 @@ footer .links{display:flex;gap:8px;flex-wrap:wrap}
 .byline small{font:700 12px var(--fm);text-transform:uppercase}
 .fby{display:flex;align-items:center;gap:14px}
 .fby img{width:64px;height:64px;border-radius:50%;border:3px solid var(--ink);object-fit:cover;background:#fff}
+.op{background:var(--paper);border-left:6px solid var(--c);padding:10px 12px;font-size:15px}
