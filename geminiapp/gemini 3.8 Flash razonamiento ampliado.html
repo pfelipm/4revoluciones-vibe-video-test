@@ -1,0 +1,1233 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cronología: Las 4 Revoluciones Industriales | Motion Video Neo-Brutalista</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/tone/14.8.49/Tone.js"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=JetBrains+Mono:wght@400;700;800&family=Space+Grotesk:wght@500;700;900&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --bg-brutal: #FFFDF0;
+      --black-brutal: #121212;
+      --yellow-brutal: #FFE500;
+      --red-brutal: #FF3366;
+      --blue-brutal: #2563EB;
+      --green-brutal: #00E676;
+      --purple-brutal: #A855F7;
+      --orange-brutal: #FF6B00;
+      --border-brutal: 3.5px solid #121212;
+      --shadow-brutal: 5px 5px 0px #121212;
+      --shadow-brutal-lg: 8px 8px 0px #121212;
+      --shadow-brutal-sm: 3px 3px 0px #121212;
+    }
+
+    body {
+      background-color: #F0EDE6;
+      background-image: radial-gradient(#121212 0.75px, transparent 0.75px);
+      background-size: 18px 18px;
+      font-family: 'Space Grotesk', sans-serif;
+      color: #121212;
+      overflow-x: hidden;
+    }
+
+    .font-archivo { font-family: 'Archivo Black', sans-serif; }
+    .font-mono-code { font-family: 'JetBrains Mono', monospace; }
+
+    /* Neo-brutalist buttons & panels */
+    .brutal-card {
+      border: var(--border-brutal);
+      box-shadow: var(--shadow-brutal-lg);
+      background-color: #FFFFFF;
+      transition: all 0.15s ease-in-out;
+    }
+
+    .brutal-btn {
+      border: var(--border-brutal);
+      box-shadow: var(--shadow-brutal);
+      font-weight: 800;
+      text-transform: uppercase;
+      transition: all 0.1s ease;
+      user-select: none;
+    }
+
+    .brutal-btn:hover {
+      transform: translate(-2px, -2px);
+      box-shadow: 7px 7px 0px #121212;
+    }
+
+    .brutal-btn:active {
+      transform: translate(3px, 3px);
+      box-shadow: 1px 1px 0px #121212;
+    }
+
+    /* Video Frame screen styling */
+    .video-screen {
+      position: relative;
+      aspect-ratio: 16 / 9;
+      width: 100%;
+      background: #000;
+      border: 4px solid #121212;
+      box-shadow: 9px 9px 0px #121212;
+      overflow: hidden;
+    }
+
+    /* Scanlines and CRT texture simulation */
+    .scanlines {
+      background: linear-gradient(
+        rgba(18, 16, 16, 0) 50%, 
+        rgba(0, 0, 0, 0.25) 50%
+      ), linear-gradient(
+        90deg,
+        rgba(255, 0, 0, 0.04),
+        rgba(0, 255, 0, 0.02),
+        rgba(0, 0, 255, 0.04)
+      );
+      background-size: 100% 4px, 6px 100%;
+      pointer-events: none;
+    }
+
+    /* Infinite scrolling ticker */
+    @keyframes marquee {
+      0% { transform: translateX(0%); }
+      100% { transform: translateX(-50%); }
+    }
+    .animate-marquee {
+      display: inline-flex;
+      white-space: nowrap;
+      animation: marquee 18s linear infinite;
+    }
+
+    /* Rotational mechanical gears */
+    @keyframes spinClockwise {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+    @keyframes spinCounter {
+      0% { transform: rotate(360deg); }
+      100% { transform: rotate(0deg); }
+    }
+    .spin-cw { animation: spinClockwise 8s linear infinite; }
+    .spin-ccw { animation: spinCounter 6s linear infinite; }
+    .spin-fast { animation: spinClockwise 2.5s linear infinite; }
+
+    /* Flash and Camera Shake */
+    @keyframes cameraShake {
+      0% { transform: translate(0, 0) rotate(0deg); }
+      20% { transform: translate(-3px, 2px) rotate(-0.5deg); }
+      40% { transform: translate(3px, -2px) rotate(0.5deg); }
+      60% { transform: translate(-2px, -3px) rotate(0deg); }
+      80% { transform: translate(2px, 3px) rotate(0.3deg); }
+      100% { transform: translate(0, 0) rotate(0deg); }
+    }
+    .camera-shake {
+      animation: cameraShake 0.35s cubic-bezier(.36,.07,.19,.97) both;
+    }
+
+    /* Glitch flash */
+    @keyframes glitchFlash {
+      0% { opacity: 1; filter: invert(0); }
+      50% { opacity: 0.85; filter: invert(1); }
+      100% { opacity: 1; filter: invert(0); }
+    }
+    .glitch-transition {
+      animation: glitchFlash 0.25s ease-out;
+    }
+
+    /* Custom range input slider */
+    input[type=range] {
+      -webkit-appearance: none;
+      background: #121212;
+      height: 12px;
+      border: 2px solid #121212;
+      border-radius: 0px;
+    }
+    input[type=range]::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      height: 24px;
+      width: 24px;
+      background: #FFE500;
+      border: 3px solid #121212;
+      box-shadow: 2px 2px 0px #000;
+      cursor: pointer;
+    }
+    input[type=range]::-moz-range-thumb {
+      height: 24px;
+      width: 24px;
+      background: #FFE500;
+      border: 3px solid #121212;
+      box-shadow: 2px 2px 0px #000;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body class="p-2 sm:p-4 md:p-6 lg:p-8 antialiased selection:bg-black selection:text-yellow-300">
+
+  <div class="max-w-6xl mx-auto space-y-5">
+    
+    <!-- Top Neo-Brutalist Marquee Bar -->
+    <header class="brutal-card bg-yellow-300 p-2 sm:p-3 overflow-hidden flex items-center gap-3">
+      <span class="bg-black text-yellow-300 text-xs sm:text-sm font-archivo px-3 py-1 uppercase tracking-wider shrink-0 rotate-[-1deg] border border-black">
+        PRODUCCIÓN EDUCATIVA
+      </span>
+      <div class="overflow-hidden flex-1 select-none text-xs sm:text-sm font-bold tracking-tight font-mono-code">
+        <div class="animate-marquee">
+          <span>HISTORIA ECONÓMICA // DE LA FUERZA MUSCULAR AL ALGORITMO // 1ª REV: VAPOR Y CARBÓN (1760) // 2ª REV: ELECTRICIDAD Y ACERO (1870) // 3ª REV: INFORMÁTICA E INTERNET (1960) // 4ª REV: SISTEMAS CIBERFÍSICOS E INTELIGENCIA ARTIFICIAL // SÍNTESIS GLOBAL // &nbsp;</span>
+          <span>HISTORIA ECONÓMICA // DE LA FUERZA MUSCULAR AL ALGORITMO // 1ª REV: VAPOR Y CARBÓN (1760) // 2ª REV: ELECTRICIDAD Y ACERO (1870) // 3ª REV: INFORMÁTICA E INTERNET (1960) // 4ª REV: SISTEMAS CIBERFÍSICOS E INTELIGENCIA ARTIFICIAL // SÍNTESIS GLOBAL // &nbsp;</span>
+        </div>
+      </div>
+    </header>
+
+    <!-- Main Video Frame Container -->
+    <main class="relative">
+      
+      <!-- Video Screen Wrapper -->
+      <div id="videoContainer" class="video-screen bg-[#FFFDF0] relative flex flex-col justify-between select-none">
+        
+        <!-- Broadcast HUD Overlays (Top Bar) -->
+        <div class="absolute top-0 left-0 right-0 z-30 p-2 sm:p-4 flex items-center justify-between pointer-events-none">
+          <div class="flex items-center gap-2">
+            <span class="inline-flex items-center gap-1.5 bg-red-600 text-white font-mono-code font-bold text-[10px] sm:text-xs px-2 py-0.5 border-2 border-black shadow-[2px_2px_0px_#000]">
+              <span class="w-2 h-2 rounded-full bg-white animate-ping"></span>
+              REC
+            </span>
+            <span id="timecodeDisplay" class="bg-black text-green-400 font-mono-code font-bold text-[10px] sm:text-xs px-2 py-0.5 border-2 border-black">
+              00:00.0 / 01:15.0
+            </span>
+            <span class="hidden sm:inline-block bg-white text-black font-mono-code font-extrabold text-[10px] sm:text-xs px-2 py-0.5 border-2 border-black">
+              60 FPS // UHD MASTER
+            </span>
+          </div>
+
+          <div class="flex items-center gap-2">
+            <span id="currentEraBadge" class="bg-black text-white font-archivo text-[10px] sm:text-xs px-2.5 py-1 uppercase tracking-wider rotate-[1deg] border border-black shadow-[2px_2px_0px_#FFE500]">
+              INTRODUCCIÓN
+            </span>
+            <canvas id="audioVisualizer" width="90" height="22" class="border-2 border-black bg-black hidden xs:block"></canvas>
+          </div>
+        </div>
+
+        <!-- Scanline & Noise CRT Filter -->
+        <div class="absolute inset-0 scanlines z-20 pointer-events-none opacity-40"></div>
+
+        
+        <!-- ==============================================
+             SCENE 0: INTRO / COUNTDOWN & TITLE SEQUENCE
+        =============================================== -->
+        <div id="scene0" class="scene absolute inset-0 flex flex-col items-center justify-center p-4 bg-[#FFE500] text-black transition-opacity duration-300">
+          <div class="absolute inset-0 opacity-10 bg-[linear-gradient(45deg,#000_25%,transparent_25%),linear-gradient(-45deg,#000_25%,transparent_25%),linear-gradient(45deg,transparent_75%,#000_75%),linear-gradient(-45deg,transparent_75%,#000_75%)] bg-[size:24px_24px]"></div>
+          
+          <div class="relative z-10 text-center max-w-3xl space-y-4">
+            <div class="inline-block bg-black text-yellow-300 font-mono-code font-extrabold text-xs sm:text-sm px-4 py-1.5 uppercase border-2 border-black shadow-[4px_4px_0_#fff] -rotate-1">
+              DOCUMENTAL AUDIOVISUAL SINTETIZADO
+            </div>
+            <h1 class="font-archivo text-3xl sm:text-5xl md:text-6xl uppercase tracking-tighter leading-none bg-white p-4 border-4 border-black shadow-[7px_7px_0_#000]">
+              LAS 4 REVOLUCIONES <br class="hidden sm:inline"><span class="text-red-600 underline decoration-black decoration-4">INDUSTRIALES</span>
+            </h1>
+            <p class="font-mono-code text-xs sm:text-base font-bold bg-white inline-block px-3 py-1 border-2 border-black shadow-[3px_3px_0_#000]">
+              1760 A LA ACTUALIDAD: DEL VAPOR A LOS SISTEMAS CIBERFÍSICOS
+            </p>
+            <div class="pt-2 flex justify-center items-center gap-3">
+              <span id="countdownNumber" class="font-archivo text-4xl sm:text-6xl bg-red-500 text-white px-5 py-2 border-4 border-black shadow-[5px_5px_0_#000]">
+                03
+              </span>
+            </div>
+          </div>
+        </div>
+
+        <!-- ==============================================
+             SCENE 1: PRIMERA REVOLUCIÓN INDUSTRIAL (1760-1840)
+        =============================================== -->
+        <div id="scene1" class="scene absolute inset-0 hidden flex-col justify-between p-4 sm:p-8 bg-[#FFB703] text-black transition-opacity duration-300">
+          <div class="relative z-10 flex justify-between items-start pt-6 sm:pt-8">
+            <div class="space-y-1">
+              <div class="inline-flex items-center gap-2 bg-black text-yellow-400 font-mono-code font-black text-xs px-2.5 py-1 border-2 border-black">
+                <span>FASE 01</span> // 1760 – 1840
+              </div>
+              <h2 class="font-archivo text-2xl sm:text-4xl md:text-5xl uppercase tracking-tight bg-white px-3 py-1 inline-block border-3 border-black shadow-[4px_4px_0_#000]">
+                EL VAPOR Y LA MECANIZACIÓN
+              </h2>
+            </div>
+            <div class="bg-white border-3 border-black p-2 shadow-[3px_3px_0_#000] text-center hidden sm:block">
+              <span class="block font-mono-code text-[10px] font-black uppercase">EPICENTRO</span>
+              <span class="font-archivo text-base text-red-600">GRAN BRETAÑA</span>
+            </div>
+          </div>
+
+          <!-- Animated Graphic Core: Steam Engine Piston + Rail Tracks -->
+          <div class="relative z-10 grid grid-cols-1 md:grid-cols-12 gap-4 items-center my-auto">
+            <!-- Diagram & Motion -->
+            <div class="md:col-span-6 flex flex-col items-center justify-center">
+              <div class="relative bg-white border-4 border-black p-4 shadow-[6px_6px_0_#000] w-full max-w-sm">
+                <!-- SVG Steam Mechanism -->
+                <svg viewBox="0 0 320 180" class="w-full h-auto">
+                  <!-- Coal & Fire Base -->
+                  <rect x="20" y="140" width="80" height="25" fill="#121212" />
+                  <polygon points="30,140 45,115 60,140 75,120 90,140" fill="#FF3366" class="animate-pulse" />
+                  
+                  <!-- Boiler -->
+                  <rect x="25" y="55" width="70" height="65" rx="10" fill="#FFE500" stroke="#000" stroke-width="3"/>
+                  <text x="60" y="92" font-size="10" font-weight="900" text-anchor="middle" font-family="'JetBrains Mono', monospace">CALDERA</text>
+                  
+                  <!-- Steam Pipe -->
+                  <path d="M 95 70 L 140 70 L 140 85" fill="none" stroke="#121212" stroke-width="6" stroke-linecap="round"/>
+                  
+                  <!-- Cylinder & Piston -->
+                  <rect x="125" y="85" width="50" height="70" fill="#E2E8F0" stroke="#000" stroke-width="3"/>
+                  <!-- Moving Piston Head -->
+                  <g id="pistonRod">
+                    <rect x="130" y="100" width="40" height="12" fill="#FF3366" stroke="#000" stroke-width="2"/>
+                    <line x1="150" y1="100" x2="220" y2="70" stroke="#000" stroke-width="5" stroke-linecap="round"/>
+                  </g>
+                  
+                  <!-- Flywheel -->
+                  <g transform="translate(240, 70)">
+                    <circle cx="0" cy="0" r="42" fill="#FFFFFF" stroke="#000" stroke-width="4"/>
+                    <circle cx="0" cy="0" r="8" fill="#FF3366" stroke="#000" stroke-width="2"/>
+                    <line x1="-42" y1="0" x2="42" y2="0" stroke="#000" stroke-width="3" class="spin-cw origin-center"/>
+                    <line x1="0" y1="-42" x2="0" y2="42" stroke="#000" stroke-width="3" class="spin-cw origin-center"/>
+                    <line x1="-30" y1="-30" x2="30" y2="30" stroke="#000" stroke-width="3" class="spin-cw origin-center"/>
+                  </g>
+
+                  <!-- Steam clouds -->
+                  <circle cx="105" cy="50" r="6" fill="#FFF" stroke="#000" stroke-width="2" class="animate-bounce"/>
+                  <circle cx="118" cy="40" r="9" fill="#FFF" stroke="#000" stroke-width="2" class="animate-ping"/>
+                </svg>
+                <div class="mt-2 text-center font-mono-code font-bold text-xs bg-yellow-200 border-2 border-black py-0.5">
+                  MÁQUINA DE VAPOR DE WATT (1769)
+                </div>
+              </div>
+            </div>
+
+            <!-- Bullet Information Cards -->
+            <div class="md:col-span-6 space-y-2 text-xs sm:text-sm font-bold">
+              <div class="bg-white border-2 border-black p-2.5 shadow-[3px_3px_0_#000] flex items-center gap-2">
+                <span class="bg-black text-white px-2 py-0.5 font-archivo text-xs shrink-0">TECNOLOGÍA</span>
+                <span>Máquina de James Watt, Telar mecánico (1785), Locomotora Stephenson (1814).</span>
+              </div>
+              <div class="bg-white border-2 border-black p-2.5 shadow-[3px_3px_0_#000] flex items-center gap-2">
+                <span class="bg-orange-500 text-white px-2 py-0.5 font-archivo text-xs shrink-0">ENERGÍA</span>
+                <span>Carbón mineral sustituyendo a la madera y la fuerza muscular/animal.</span>
+              </div>
+              <div class="bg-white border-2 border-black p-2.5 shadow-[3px_3px_0_#000] flex items-center gap-2">
+                <span class="bg-blue-600 text-white px-2 py-0.5 font-archivo text-xs shrink-0">SOCIEDAD</span>
+                <span>Nace el proletariado fabril y el éxodo masivo del campo a las urbes industriales.</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Bottom Metric Strip -->
+          <div class="relative z-10 flex flex-wrap gap-2 text-[10px] sm:text-xs font-mono-code font-bold pb-2">
+            <span class="bg-black text-white px-2 py-1">VÍAS FÉRREAS R.U. (1850): &gt;10.000 KM</span>
+            <span class="bg-white text-black px-2 py-1 border border-black shadow-[2px_2px_0_#000]">TRANSFORMACIÓN TEXTIL Y SIDERÚRGICA</span>
+          </div>
+        </div>
+
+        <!-- ==============================================
+             SCENE 2: SEGUNDA REVOLUCIÓN INDUSTRIAL (1870-1914)
+        =============================================== -->
+        <div id="scene2" class="scene absolute inset-0 hidden flex-col justify-between p-4 sm:p-8 bg-[#00F0FF] text-black transition-opacity duration-300">
+          <div class="relative z-10 flex justify-between items-start pt-6 sm:pt-8">
+            <div class="space-y-1">
+              <div class="inline-flex items-center gap-2 bg-black text-cyan-300 font-mono-code font-black text-xs px-2.5 py-1 border-2 border-black">
+                <span>FASE 02</span> // 1870 – 1914
+              </div>
+              <h2 class="font-archivo text-2xl sm:text-4xl md:text-5xl uppercase tracking-tight bg-white px-3 py-1 inline-block border-3 border-black shadow-[4px_4px_0_#000]">
+                ELECTRICIDAD, ACERO Y PRODUCCIÓN EN SERIE
+              </h2>
+            </div>
+            <div class="bg-white border-3 border-black p-2 shadow-[3px_3px_0_#000] text-center hidden sm:block">
+              <span class="block font-mono-code text-[10px] font-black uppercase">LÍDERES</span>
+              <span class="font-archivo text-base text-blue-700">EE.UU. / ALEMANIA</span>
+            </div>
+          </div>
+
+          <!-- Animated Assembly Line & Dynamo Grid -->
+          <div class="relative z-10 grid grid-cols-1 md:grid-cols-12 gap-4 items-center my-auto">
+            <!-- Animated Graphic -->
+            <div class="md:col-span-6 flex flex-col items-center justify-center">
+              <div class="relative bg-white border-4 border-black p-4 shadow-[6px_6px_0_#000] w-full max-w-sm overflow-hidden">
+                <svg viewBox="0 0 320 180" class="w-full h-auto">
+                  <!-- Electric Lightning Bolt in Center -->
+                  <polygon points="160,10 135,75 165,75 140,135 185,60 155,60" fill="#FFE500" stroke="#000" stroke-width="2.5" class="animate-pulse"/>
+                  
+                  <!-- Conveyor belt (Fordism) -->
+                  <rect x="20" y="130" width="280" height="24" rx="12" fill="#E2E8F0" stroke="#000" stroke-width="3"/>
+                  <!-- Moving Gear Wheels inside belt -->
+                  <circle cx="40" cy="142" r="9" fill="#121212" class="spin-fast origin-center"/>
+                  <circle cx="100" cy="142" r="9" fill="#121212" class="spin-fast origin-center"/>
+                  <circle cx="160" cy="142" r="9" fill="#121212" class="spin-fast origin-center"/>
+                  <circle cx="220" cy="142" r="9" fill="#121212" class="spin-fast origin-center"/>
+                  <circle cx="280" cy="142" r="9" fill="#121212" class="spin-fast origin-center"/>
+                  
+                  <!-- Assembled Cars on Belt (Model T outline) -->
+                  <g class="animate-pulse">
+                    <rect x="50" y="98" width="55" height="25" fill="#FF3366" stroke="#000" stroke-width="2"/>
+                    <rect x="62" y="85" width="30" height="15" fill="#FFE500" stroke="#000" stroke-width="2"/>
+                    <circle cx="62" cy="123" r="6" fill="#000"/>
+                    <circle cx="93" cy="123" r="6" fill="#000"/>
+                  </g>
+                  <g class="animate-pulse">
+                    <rect x="180" y="98" width="55" height="25" fill="#2563EB" stroke="#000" stroke-width="2"/>
+                    <rect x="192" y="85" width="30" height="15" fill="#FFF" stroke="#000" stroke-width="2"/>
+                    <circle cx="192" cy="123" r="6" fill="#000"/>
+                    <circle cx="223" cy="123" r="6" fill="#000"/>
+                  </g>
+
+                  <!-- Spark lines -->
+                  <line x1="140" y1="20" x2="115" y2="45" stroke="#000" stroke-width="3"/>
+                  <line x1="180" y1="20" x2="205" y2="45" stroke="#000" stroke-width="3"/>
+                  <text x="160" y="172" font-size="10" font-weight="900" text-anchor="middle" font-family="'JetBrains Mono', monospace">SISTEMA UNIT DRIVE + CADENA MONTAJE</text>
+                </svg>
+              </div>
+            </div>
+
+            <!-- Bullet Information Cards -->
+            <div class="md:col-span-6 space-y-2 text-xs sm:text-sm font-bold">
+              <div class="bg-white border-2 border-black p-2.5 shadow-[3px_3px_0_#000] flex items-center gap-2">
+                <span class="bg-yellow-400 text-black px-2 py-0.5 font-archivo text-xs shrink-0">ENERGÍA</span>
+                <span>Electricidad (dinamo, motor eléctrico) y Petróleo (motor combustión Otto/Benz).</span>
+              </div>
+              <div class="bg-white border-2 border-black p-2.5 shadow-[3px_3px_0_#000] flex items-center gap-2">
+                <span class="bg-black text-white px-2 py-0.5 font-archivo text-xs shrink-0">MATERIAL</span>
+                <span>Acero barato con convertidores Bessemer & hornos Siemens-Martin.</span>
+              </div>
+              <div class="bg-white border-2 border-black p-2.5 shadow-[3px_3px_0_#000] flex items-center gap-2">
+                <span class="bg-red-500 text-white px-2 py-0.5 font-archivo text-xs shrink-0">MÉTODO</span>
+                <span>Fordismo y Taylorismo: producción estandarizada y consumo de masas.</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Bottom Metric Strip -->
+          <div class="relative z-10 flex flex-wrap gap-2 text-[10px] sm:text-xs font-mono-code font-bold pb-2">
+            <span class="bg-black text-cyan-300 px-2 py-1">ACERO EE.UU. (1914): 27.600.000 TONS/AÑO</span>
+            <span class="bg-white text-black px-2 py-1 border border-black shadow-[2px_2px_0_#000]">SURGE LA GRAN EMPRESA Y EL CAPITAL FINANCIERO</span>
+          </div>
+        </div>
+
+        <!-- ==============================================
+             SCENE 3: TERCERA REVOLUCIÓN INDUSTRIAL (1960-2000)
+        =============================================== -->
+        <div id="scene3" class="scene absolute inset-0 hidden flex-col justify-between p-4 sm:p-8 bg-[#00E676] text-black transition-opacity duration-300">
+          <div class="relative z-10 flex justify-between items-start pt-6 sm:pt-8">
+            <div class="space-y-1">
+              <div class="inline-flex items-center gap-2 bg-black text-green-400 font-mono-code font-black text-xs px-2.5 py-1 border-2 border-black">
+                <span>FASE 03</span> // 1960 – 2000
+              </div>
+              <h2 class="font-archivo text-2xl sm:text-4xl md:text-5xl uppercase tracking-tight bg-white px-3 py-1 inline-block border-3 border-black shadow-[4px_4px_0_#000]">
+                ERA DIGITAL Y DE LA INFORMACIÓN
+              </h2>
+            </div>
+            <div class="bg-white border-3 border-black p-2 shadow-[3px_3px_0_#000] text-center hidden sm:block">
+              <span class="block font-mono-code text-[10px] font-black uppercase">EXPANSIÓN</span>
+              <span class="font-archivo text-base text-purple-700">EE.UU. / JAPÓN</span>
+            </div>
+          </div>
+
+          <!-- Microchip & Network Diagram -->
+          <div class="relative z-10 grid grid-cols-1 md:grid-cols-12 gap-4 items-center my-auto">
+            <!-- Animated Chip & Fiber -->
+            <div class="md:col-span-6 flex flex-col items-center justify-center">
+              <div class="relative bg-black border-4 border-black p-4 shadow-[6px_6px_0_#000] w-full max-w-sm text-green-400">
+                <svg viewBox="0 0 320 180" class="w-full h-auto">
+                  <!-- Circuit board traces -->
+                  <path d="M 20 40 H 80 V 80 H 120" stroke="#00E676" stroke-width="2" fill="none"/>
+                  <path d="M 20 140 H 70 V 100 H 120" stroke="#00E676" stroke-width="2" fill="none"/>
+                  <path d="M 300 40 H 240 V 80 H 200" stroke="#00E676" stroke-width="2" fill="none"/>
+                  <path d="M 300 140 H 250 V 100 H 200" stroke="#00E676" stroke-width="2" fill="none"/>
+                  
+                  <!-- Central CPU Chip -->
+                  <rect x="120" y="55" width="80" height="70" fill="#1E293B" stroke="#00E676" stroke-width="3"/>
+                  <text x="160" y="85" fill="#FFE500" font-size="11" font-weight="900" text-anchor="middle" font-family="'JetBrains Mono', monospace">MICRO-CHIP</text>
+                  <text x="160" y="105" fill="#FFF" font-size="9" font-weight="700" text-anchor="middle" font-family="'JetBrains Mono', monospace">SILICIO 1971</text>
+                  
+                  <!-- Satellite Beam & World Web -->
+                  <circle cx="160" cy="20" r="12" fill="#FF3366" stroke="#FFF" stroke-width="2" class="animate-bounce"/>
+                  <line x1="160" y1="32" x2="160" y2="55" stroke="#FFE500" stroke-width="2" stroke-dasharray="3,3" class="animate-pulse"/>
+                  
+                  <!-- Blinking Binary Data -->
+                  <text x="35" y="30" fill="#00E676" font-size="10" font-family="monospace">01001001</text>
+                  <text x="220" y="30" fill="#00E676" font-size="10" font-family="monospace">INTERNET</text>
+                  <text x="40" y="165" fill="#00E676" font-size="10" font-family="monospace">ARPANET 1969</text>
+                  <text x="210" y="165" fill="#00E676" font-size="10" font-family="monospace">AUTOMATIZACIÓN</text>
+                </svg>
+              </div>
+            </div>
+
+            <!-- Bullet Information Cards -->
+            <div class="md:col-span-6 space-y-2 text-xs sm:text-sm font-bold">
+              <div class="bg-white border-2 border-black p-2.5 shadow-[3px_3px_0_#000] flex items-center gap-2">
+                <span class="bg-green-600 text-white px-2 py-0.5 font-archivo text-xs shrink-0">NÚCLEO</span>
+                <span>Transistor (1947), microprocesadores, fibra óptica y computadoras personales.</span>
+              </div>
+              <div class="bg-white border-2 border-black p-2.5 shadow-[3px_3px_0_#000] flex items-center gap-2">
+                <span class="bg-blue-600 text-white px-2 py-0.5 font-archivo text-xs shrink-0">RED</span>
+                <span>Nacimiento de ARPANET, internet civil y telecomunicaciones vía satélite.</span>
+              </div>
+              <div class="bg-white border-2 border-black p-2.5 shadow-[3px_3px_0_#000] flex items-center gap-2">
+                <span class="bg-black text-yellow-300 px-2 py-0.5 font-archivo text-xs shrink-0">IMPACTO</span>
+                <span>Automatización con autómatas programables (PLCs) y sociedad de la información.</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Bottom Metric Strip -->
+          <div class="relative z-10 flex flex-wrap gap-2 text-[10px] sm:text-xs font-mono-code font-bold pb-2">
+            <span class="bg-black text-green-400 px-2 py-1">CRECIMIENTO PIB DIGITAL: 3X SOBRE TRADICIONAL</span>
+            <span class="bg-white text-black px-2 py-1 border border-black shadow-[2px_2px_0_#000]">DESCENTRALIZACIÓN PRODUCTIVA GLOBAL</span>
+          </div>
+        </div>
+
+        <!-- ==============================================
+             SCENE 4: CUARTA REVOLUCIÓN INDUSTRIAL (2010-PRESENTE)
+        =============================================== -->
+        <div id="scene4" class="scene absolute inset-0 hidden flex-col justify-between p-4 sm:p-8 bg-[#C084FC] text-black transition-opacity duration-300">
+          <div class="relative z-10 flex justify-between items-start pt-6 sm:pt-8">
+            <div class="space-y-1">
+              <div class="inline-flex items-center gap-2 bg-black text-fuchsia-300 font-mono-code font-black text-xs px-2.5 py-1 border-2 border-black">
+                <span>FASE 04</span> // 2010 – HOY
+              </div>
+              <h2 class="font-archivo text-2xl sm:text-4xl md:text-5xl uppercase tracking-tight bg-white px-3 py-1 inline-block border-3 border-black shadow-[4px_4px_0_#000]">
+                SISTEMAS CIBERFÍSICOS E INTELIGENCIA ARTIFICIAL
+              </h2>
+            </div>
+            <div class="bg-white border-3 border-black p-2 shadow-[3px_3px_0_#000] text-center hidden sm:block">
+              <span class="block font-mono-code text-[10px] font-black uppercase">ALCANCE</span>
+              <span class="font-archivo text-base text-black">MUNDO HIPERCONECTADO</span>
+            </div>
+          </div>
+
+          <!-- Cyber-Physical AI & IoT Mesh Graphic -->
+          <div class="relative z-10 grid grid-cols-1 md:grid-cols-12 gap-4 items-center my-auto">
+            <!-- Animated Cyber Graphic -->
+            <div class="md:col-span-6 flex flex-col items-center justify-center">
+              <div class="relative bg-white border-4 border-black p-4 shadow-[6px_6px_0_#000] w-full max-w-sm">
+                <svg viewBox="0 0 320 180" class="w-full h-auto">
+                  <!-- Interconnected Neural Nodes -->
+                  <g stroke="#121212" stroke-width="2">
+                    <line x1="60" y1="50" x2="160" y2="90" stroke-dasharray="2,2"/>
+                    <line x1="60" y1="130" x2="160" y2="90"/>
+                    <line x1="260" y1="50" x2="160" y2="90"/>
+                    <line x1="260" y1="130" x2="160" y2="90" stroke-dasharray="2,2"/>
+                    <line x1="160" y1="20" x2="160" y2="90"/>
+                  </g>
+
+                  <!-- Outer Nodes -->
+                  <circle cx="60" cy="50" r="18" fill="#FFE500" stroke="#000" stroke-width="3"/>
+                  <text x="60" y="54" font-size="9" font-weight="900" text-anchor="middle" font-family="'JetBrains Mono'">IoT</text>
+                  
+                  <circle cx="60" cy="130" r="18" fill="#00F0FF" stroke="#000" stroke-width="3"/>
+                  <text x="60" y="134" font-size="8" font-weight="900" text-anchor="middle" font-family="'JetBrains Mono'">BIG DATA</text>
+                  
+                  <circle cx="260" cy="50" r="18" fill="#FF3366" stroke="#000" stroke-width="3"/>
+                  <text x="260" y="54" font-size="8" font-weight="900" text-anchor="middle" font-family="'JetBrains Mono'" fill="#FFF">CLOUD</text>
+                  
+                  <circle cx="260" cy="130" r="18" fill="#00E676" stroke="#000" stroke-width="3"/>
+                  <text x="260" y="134" font-size="8" font-weight="900" text-anchor="middle" font-family="'JetBrains Mono'">ROBÓTICA</text>
+                  
+                  <!-- Central AI Core -->
+                  <g class="animate-pulse">
+                    <circle cx="160" cy="90" r="32" fill="#121212" stroke="#FFF" stroke-width="3"/>
+                    <circle cx="160" cy="90" r="24" fill="#A855F7" stroke="#FFF" stroke-width="2"/>
+                    <text x="160" y="94" font-size="12" font-weight="900" text-anchor="middle" font-family="'Archivo Black'" fill="#FFF">IA</text>
+                  </g>
+                  
+                  <text x="160" y="165" font-size="9" font-weight="900" text-anchor="middle" font-family="'JetBrains Mono'">CONVERGENCIA FÍSICO-DIGITAL-BIOLÓGICA</text>
+                </svg>
+              </div>
+            </div>
+
+            <!-- Bullet Information Cards -->
+            <div class="md:col-span-6 space-y-2 text-xs sm:text-sm font-bold">
+              <div class="bg-white border-2 border-black p-2.5 shadow-[3px_3px_0_#000] flex items-center gap-2">
+                <span class="bg-purple-600 text-white px-2 py-0.5 font-archivo text-xs shrink-0">CONVERGENCIA</span>
+                <span>Fusión de esferas físicas, digitales y biológicas (Klaus Schwab, 2016).</span>
+              </div>
+              <div class="bg-white border-2 border-black p-2.5 shadow-[3px_3px_0_#000] flex items-center gap-2">
+                <span class="bg-black text-white px-2 py-0.5 font-archivo text-xs shrink-0">DATA & CLOUD</span>
+                <span>Los datos superan al petróleo como activo principal; toma autónoma de decisiones.</span>
+              </div>
+              <div class="bg-white border-2 border-black p-2.5 shadow-[3px_3px_0_#000] flex items-center gap-2">
+                <span class="bg-red-500 text-white px-2 py-0.5 font-archivo text-xs shrink-0">FÁBRICA 4.0</span>
+                <span>Gemelos digitales, mantenimiento predictivo (-30% tiempo, -40% coste energético).</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Bottom Metric Strip -->
+          <div class="relative z-10 flex flex-wrap gap-2 text-[10px] sm:text-xs font-mono-code font-bold pb-2">
+            <span class="bg-black text-fuchsia-300 px-2 py-1">WEF: 85M EMPLEOS REEMPLAZADOS / 97M NUEVOS CREADOS</span>
+            <span class="bg-white text-black px-2 py-1 border border-black shadow-[2px_2px_0_#000]">NUEVOS ROLES HÍBRIDOS Y ÉTICA DE DATOS</span>
+          </div>
+        </div>
+
+        <!-- ==============================================
+             SCENE 5: SÍNTESIS COMPARATIVA & INDUSTRIA 5.0
+        =============================================== -->
+        <div id="scene5" class="scene absolute inset-0 hidden flex-col justify-between p-4 sm:p-6 bg-[#FFFFFF] text-black transition-opacity duration-300">
+          <div class="relative z-10 flex justify-between items-start pt-5 sm:pt-6">
+            <div>
+              <span class="bg-black text-white font-mono-code font-bold text-xs px-2 py-0.5">SÍNTESIS CRONOLÓGICA</span>
+              <h2 class="font-archivo text-xl sm:text-3xl uppercase tracking-tight mt-1">
+                MATRIZ COMPARATIVA EVOLUTIVA
+              </h2>
+            </div>
+            <div class="bg-green-400 border-2 border-black px-3 py-1 font-mono-code font-black text-xs shadow-[2px_2px_0_#000] -rotate-1 hidden sm:block">
+              HACIA LA INDUSTRIA 5.0
+            </div>
+          </div>
+
+          <!-- 4-Era Comparative Table Brutalist Matrix -->
+          <div class="relative z-10 grid grid-cols-2 md:grid-cols-4 gap-2.5 my-auto">
+            
+            <div class="bg-[#FFB703] border-3 border-black p-2.5 shadow-[3px_3px_0_#000] space-y-1">
+              <span class="font-archivo text-xs block bg-black text-yellow-300 px-1.5 py-0.5">1ª // 1760-1840</span>
+              <h3 class="font-archivo text-sm uppercase">VAPOR</h3>
+              <p class="font-mono-code text-[11px] leading-tight font-bold">Mecanización textil, ferrocarril, carbón. Nace el proletariado.</p>
+            </div>
+
+            <div class="bg-[#00F0FF] border-3 border-black p-2.5 shadow-[3px_3px_0_#000] space-y-1">
+              <span class="font-archivo text-xs block bg-black text-cyan-300 px-1.5 py-0.5">2ª // 1870-1914</span>
+              <h3 class="font-archivo text-sm uppercase">ELECTRICIDAD</h3>
+              <p class="font-mono-code text-[11px] leading-tight font-bold">Producción en serie Ford, acero Bessemer, motor explosión.</p>
+            </div>
+
+            <div class="bg-[#00E676] border-3 border-black p-2.5 shadow-[3px_3px_0_#000] space-y-1">
+              <span class="font-archivo text-xs block bg-black text-green-300 px-1.5 py-0.5">3ª // 1960-2000</span>
+              <h3 class="font-archivo text-sm uppercase">INFORMÁTICA</h3>
+              <p class="font-mono-code text-[11px] leading-tight font-bold">Transistor, internet ARPANET, PLCs, sociedad de la información.</p>
+            </div>
+
+            <div class="bg-[#C084FC] border-3 border-black p-2.5 shadow-[3px_3px_0_#000] space-y-1">
+              <span class="font-archivo text-xs block bg-black text-fuchsia-300 px-1.5 py-0.5">4ª // 2010-HOY</span>
+              <h3 class="font-archivo text-sm uppercase">CIBERFÍSICA</h3>
+              <p class="font-mono-code text-[11px] leading-tight font-bold">IA, gemelos digitales, Big Data, hiperconectividad IoT.</p>
+            </div>
+
+          </div>
+
+          <!-- Industry 5.0 Note Box -->
+          <div class="relative z-10 bg-yellow-200 border-3 border-black p-2 sm:p-3 shadow-[4px_4px_0_#000] flex items-center justify-between gap-2">
+            <div class="text-xs sm:text-sm font-bold">
+              <span class="font-archivo text-red-600 uppercase">PRÓXIMO HORIZONTE: INDUSTRIA 5.0</span>
+              <p class="font-mono-code text-[11px] sm:text-xs">Colaboración humano + cobots, sostenibilidad ecológica con energías renovables y economía circular.</p>
+            </div>
+            <button onclick="videoEngine.restart()" class="brutal-btn bg-black text-white text-xs px-3 py-1.5 shrink-0">
+              REPETIR VIDEO ↺
+            </button>
+          </div>
+        </div>
+
+        <div id="subtitlesBox" class="absolute bottom-2 left-2 right-2 sm:bottom-4 sm:left-6 sm:right-6 z-30 pointer-events-none transition-all duration-150">
+          <div class="bg-black/95 text-white border-2 border-white px-3 py-1.5 sm:px-4 sm:py-2 text-center shadow-[4px_4px_0_#FFE500]">
+            <span id="subtitleSpeaker" class="font-mono-code text-yellow-300 text-[10px] sm:text-xs font-bold mr-2 uppercase tracking-widest">[NARRADOR]:</span>
+            <span id="subtitleText" class="font-archivo text-xs sm:text-sm md:text-base leading-tight">
+              Bienvenido al recorrido audiovisual de las cuatro revoluciones que transformaron a la humanidad.
+            </span>
+          </div>
+        </div>
+
+        <!-- Start Overlay Prompt (to enable AudioContext seamlessly) -->
+        <div id="startOverlay" class="absolute inset-0 bg-black/90 z-40 flex flex-col items-center justify-center p-4 text-center">
+          <div class="bg-yellow-300 border-4 border-black p-6 sm:p-8 max-w-lg shadow-[8px_8px_0_#FFF] space-y-4">
+            <span class="bg-black text-yellow-300 text-xs font-mono-code px-2 py-1 uppercase font-bold">PRODUCCIÓN AUDIOVISUAL</span>
+            <h2 class="font-archivo text-2xl sm:text-4xl uppercase leading-tight">
+              CRONOLOGÍA DE LAS 4 REVOLUCIONES
+            </h2>
+            <p class="font-bold text-xs sm:text-sm text-gray-800">
+              Diseño Neo-Brutalista con música procedural sincronizada, transiciones kinetic y locución sincronizada.
+            </p>
+            <button id="btnStartExperience" class="brutal-btn w-full bg-red-500 text-white font-archivo text-base sm:text-lg py-3 hover:bg-red-600 tracking-wider">
+              ▶ INICIAR VIDEO CON AUDIO
+            </button>
+            <p class="font-mono-code text-[10px] text-gray-700 font-bold">
+              *Generado 100% mediante Web Audio API / Tone.js sin archivos externos.
+            </p>
+          </div>
+        </div>
+
+      </div>
+
+      
+      <!-- Video Player Control Panel -->
+      <div class="brutal-card bg-white p-3 sm:p-4 mt-3 space-y-3">
+        
+        <!-- Timeline Slider Bar -->
+        <div class="space-y-1">
+          <div class="flex justify-between items-center text-xs font-mono-code font-bold">
+            <span class="flex items-center gap-1.5">
+              <span class="w-2.5 h-2.5 bg-yellow-400 border border-black inline-block"></span>
+              LÍNEA TEMPORAL SINCRONIZADA
+            </span>
+            <span id="sliderTimeDisplay">00:00 / 01:15</span>
+          </div>
+          <div class="relative">
+            <input id="timelineSlider" type="range" min="0" max="75" step="0.1" value="0" class="w-full cursor-pointer">
+            <!-- Timeline milestone ticks -->
+            <div class="flex justify-between text-[9px] font-mono-code font-bold text-gray-500 pt-1">
+              <span>0s [INTRO]</span>
+              <span>7s [1ª VAPOR]</span>
+              <span>22s [2ª ACERO]</span>
+              <span>38s [3ª DIGITAL]</span>
+              <span>54s [4ª CIBERFÍSICA]</span>
+              <span>68s [MATRIZ]</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Controls Row -->
+        <div class="flex flex-wrap items-center justify-between gap-2 pt-1 border-t-2 border-black">
+          
+          <!-- Playback and jumps -->
+          <div class="flex items-center gap-2">
+            <button id="btnPlayPause" class="brutal-btn bg-yellow-300 px-4 py-2 text-sm flex items-center gap-1.5">
+              <span id="playIcon">▶</span>
+              <span id="playText">PLAY</span>
+            </button>
+
+            <button id="btnRestart" class="brutal-btn bg-gray-100 px-2.5 py-2 text-xs" title="Reiniciar">
+              ↺
+            </button>
+
+            <!-- Sound toggle -->
+            <button id="btnAudioToggle" class="brutal-btn bg-cyan-300 px-3 py-2 text-xs font-mono-code flex items-center gap-1">
+              <span id="audioIcon">🔊</span>
+              <span id="audioStatusText">BANDA SONORA: ON</span>
+            </button>
+          </div>
+
+          <!-- Chapter Selector Pills -->
+          <div class="flex flex-wrap items-center gap-1.5 text-[11px] font-mono-code font-bold">
+            <button onclick="videoEngine.seekTo(0)" class="px-2 py-1 border-2 border-black bg-white hover:bg-yellow-200">INTRO</button>
+            <button onclick="videoEngine.seekTo(7)" class="px-2 py-1 border-2 border-black bg-[#FFB703] hover:opacity-90">1ª REV</button>
+            <button onclick="videoEngine.seekTo(22)" class="px-2 py-1 border-2 border-black bg-[#00F0FF] hover:opacity-90">2ª REV</button>
+            <button onclick="videoEngine.seekTo(38)" class="px-2 py-1 border-2 border-black bg-[#00E676] hover:opacity-90">3ª REV</button>
+            <button onclick="videoEngine.seekTo(54)" class="px-2 py-1 border-2 border-black bg-[#C084FC] hover:opacity-90">4ª REV</button>
+            <button onclick="videoEngine.seekTo(68)" class="px-2 py-1 border-2 border-black bg-yellow-300 hover:opacity-90">SÍNTESIS</button>
+          </div>
+
+          <!-- Speed & CC Options -->
+          <div class="flex items-center gap-2">
+            <button id="btnSpeed" class="brutal-btn bg-white px-2.5 py-1.5 text-xs font-mono-code">
+              1.0X
+            </button>
+            <button id="btnCaptions" class="brutal-btn bg-black text-yellow-300 px-2.5 py-1.5 text-xs font-mono-code">
+              CC: ON
+            </button>
+            <button id="btnFullscreen" class="brutal-btn bg-white px-2.5 py-1.5 text-xs" title="Pantalla completa">
+              ⛶
+            </button>
+          </div>
+
+        </div>
+
+      </div>
+
+    </main>
+
+    <section class="grid grid-cols-1 md:grid-cols-3 gap-4">
+      
+      <div class="brutal-card bg-white p-4 space-y-2">
+        <div class="flex items-center gap-2">
+          <span class="w-3 h-3 bg-red-500 border border-black"></span>
+          <h3 class="font-archivo text-base uppercase">¿QUÉ DEFINE UNA REVOLUCIÓN?</h3>
+        </div>
+        <p class="text-xs font-medium leading-relaxed text-gray-700">
+          Transformación profunda de las estructuras productivas, económicas y sociales que se produce en un tiempo comparativamente corto y representa un <strong>punto de no retorno</strong> civilizatorio.
+        </p>
+      </div>
+
+      <div class="brutal-card bg-white p-4 space-y-2">
+        <div class="flex items-center gap-2">
+          <span class="w-3 h-3 bg-yellow-400 border border-black"></span>
+          <h3 class="font-archivo text-base uppercase">PARADIGMA ENERGÉTICO</h3>
+        </div>
+        <ul class="text-xs font-mono-code font-bold space-y-1 text-gray-800">
+          <li>• 1ª: Carbón mineral y vapor (1760)</li>
+          <li>• 2ª: Electricidad y petróleo (1870)</li>
+          <li>• 3ª: Electrónica y energía nuclear (1960)</li>
+          <li>• 4ª: Renovables + Big Data (2010+)</li>
+        </ul>
+      </div>
+
+      <div class="brutal-card bg-white p-4 space-y-2">
+        <div class="flex items-center gap-2">
+          <span class="w-3 h-3 bg-cyan-400 border border-black"></span>
+          <h3 class="font-archivo text-base uppercase">CONVERGENCIA 4.0</h3>
+        </div>
+        <p class="text-xs font-medium leading-relaxed text-gray-700">
+          A diferencia de las tres previas, la Industria 4.0 integra <strong>sistemas ciberfísicos, computación en la nube, sensórica IoT e Inteligencia Artificial</strong>, cerrando la brecha entre el mundo digital, físico y biológico.
+        </p>
+      </div>
+
+    </section>
+
+  </div>
+
+  <script>
+    /**
+     * PROCEDURAL SYNTH SOUNDTRACK ENGINE (TONE.JS)
+     * Generates era-specific musical accompaniment synchronized with the visuals.
+     */
+    class SoundTrackSynthesizer {
+      constructor() {
+        this.initialized = false;
+        this.muted = false;
+        this.currentEra = -1;
+
+        // Tone synths
+        this.bassSynth = null;
+        this.leadSynth = null;
+        this.kickDrum = null;
+        this.snareNoise = null;
+        this.analyser = null;
+      }
+
+      async init() {
+        if (this.initialized) return;
+        try {
+          await Tone.start();
+
+          // Bass synthesizer
+          this.bassSynth = new Tone.MonoSynth({
+            oscillator: { type: "sawtooth" },
+            envelope: { attack: 0.02, decay: 0.2, sustain: 0.4, release: 0.4 },
+            filterEnvelope: { attack: 0.01, decay: 0.1, sustain: 0.5, release: 0.5, baseFrequency: 80, octaves: 3 }
+          }).toDestination();
+          this.bassSynth.volume.value = -8;
+
+          // Lead synth for melodic arpeggios
+          this.leadSynth = new Tone.PolySynth(Tone.Synth, {
+            oscillator: { type: "square" },
+            envelope: { attack: 0.01, decay: 0.15, sustain: 0.2, release: 0.3 }
+          }).toDestination();
+          this.leadSynth.volume.value = -12;
+
+          // Kick synthesizer
+          this.kickDrum = new Tone.MembraneSynth({
+            pitchDecay: 0.05,
+            octaves: 6,
+            oscillator: { type: "sine" },
+            envelope: { attack: 0.001, decay: 0.3, sustain: 0.01, release: 0.4 }
+          }).toDestination();
+          this.kickDrum.volume.value = -4;
+
+          // Industrial noise snare / steam hiss
+          this.snareNoise = new Tone.NoiseSynth({
+            noise: { type: "white" },
+            envelope: { attack: 0.005, decay: 0.18, sustain: 0 }
+          }).toDestination();
+          this.snareNoise.volume.value = -14;
+
+          // Web Audio Analyser for the HUD visualizer
+          this.analyser = Tone.context.createAnalyser();
+          this.analyser.fftSize = 64;
+          Tone.Destination.connect(this.analyser);
+
+          this.initialized = true;
+        } catch (e) {
+          console.warn("AudioContext setup deferred:", e);
+        }
+      }
+
+      // Trigger beat per second slice based on the current scene era
+      triggerPulse(seconds, era) {
+        if (!this.initialized || this.muted) return;
+        const beatStep = Math.floor(seconds * 4) % 16; // 16th step clock
+
+        try {
+          // Kick on 4/4 beats
+          if (beatStep % 4 === 0) {
+            this.kickDrum.triggerAttackRelease(era === 1 ? "C1" : era === 4 ? "F1" : "G1", "8n");
+          }
+
+          // Era-specific sonic characters
+          if (era === 0) {
+            // Intro: suspense beep countdown
+            if (beatStep % 4 === 0) {
+              this.leadSynth.triggerAttackRelease("A4", "16n");
+            }
+          } else if (era === 1) {
+            // Era 1 (Steam Engine): Industrial chug, noise hiss like steam
+            if (beatStep % 2 === 1) {
+              this.snareNoise.triggerAttackRelease("16n");
+            }
+            if (beatStep % 4 === 2) {
+              this.bassSynth.triggerAttackRelease("D2", "8n");
+            }
+          } else if (era === 2) {
+            // Era 2 (Electricity & Dynamo): Upbeat electro drive
+            if (beatStep % 4 === 2) {
+              this.snareNoise.triggerAttackRelease("16n");
+            }
+            const notes = ["E2", "E2", "G2", "B2"];
+            this.bassSynth.triggerAttackRelease(notes[Math.floor(beatStep / 4)], "16n");
+            if (beatStep % 2 === 0) {
+              this.leadSynth.triggerAttackRelease("E4", "32n");
+            }
+          } else if (era === 3) {
+            // Era 3 (Digital / Computing): Chiptune rapid arpeggios
+            const arp = ["C3", "G3", "A#3", "C4", "D#4", "G4", "C5", "G4"];
+            this.leadSynth.triggerAttackRelease(arp[beatStep % arp.length], "32n");
+            if (beatStep % 4 === 2) {
+              this.snareNoise.triggerAttackRelease("32n");
+            }
+          } else if (era === 4) {
+            // Era 4 (Cyber / AI): Futuristic syncopated bass & cyber glitches
+            if (beatStep === 0 || beatStep === 6 || beatStep === 10) {
+              this.bassSynth.triggerAttackRelease("F1", "8n");
+            }
+            if (beatStep % 4 === 2) {
+              this.snareNoise.triggerAttackRelease("16n");
+            }
+            if (beatStep % 3 === 0) {
+              this.leadSynth.triggerAttackRelease("F5", "32n");
+            }
+          } else if (era === 5) {
+            // Outro: Majestic synth chords
+            if (beatStep % 8 === 0) {
+              this.leadSynth.triggerAttackRelease(["C4", "E4", "G4", "B4"], "4n");
+              this.bassSynth.triggerAttackRelease("C2", "2n");
+            }
+          }
+        } catch (err) {
+          // Guard against rapid scrubbing race conditions
+        }
+      }
+
+      setMute(state) {
+        this.muted = state;
+        if (this.initialized) {
+          Tone.Destination.mute = this.muted;
+        }
+      }
+    }
+
+    /**
+     * VIDEO NARRATION & TIMELINE SCRIPT DATA
+     * Synced milestones, closed captions, and era scene transitions.
+     */
+    const VIDEO_TIMELINE = [
+      // SCENE 0: INTRO (0s - 7s)
+      { start: 0.0, end: 2.5, scene: 0, badge: "INTRO", speaker: "SISTEMA", text: "Iniciando transmisión de cronología histórica. 3... 2... 1..." },
+      { start: 2.5, end: 7.0, scene: 0, badge: "INTRO", speaker: "NARRADOR", text: "Cuatro grandes saltos productivos han redefinido la civilización humana. Bienvenidos." },
+
+      // SCENE 1: 1ª REVOLUCIÓN (7s - 22s)
+      { start: 7.0, end: 11.5, scene: 1, badge: "1ª REV // 1760-1840", speaker: "NARRADOR", text: "1760: La Primera Revolución Industrial surge en Gran Bretaña impulsada por el carbón mineral." },
+      { start: 11.5, end: 16.5, scene: 1, badge: "1ª REV // 1760-1840", speaker: "NARRADOR", text: "James Watt perfecciona la máquina de vapor en 1769. La producción pasa del taller artesanal a las fábricas mecanizadas." },
+      { start: 16.5, end: 22.0, scene: 1, badge: "1ª REV // 1760-1840", speaker: "NARRADOR", text: "El telar mecánico y el ferrocarril de Stephenson conectan mercados y dan origen a la clase obrera moderna." },
+
+      // SCENE 2: 2ª REVOLUCIÓN (22s - 38s)
+      { start: 22.0, end: 26.5, scene: 2, badge: "2ª REV // 1870-1914", speaker: "NARRADOR", text: "1870: La Segunda Revolución Industrial introduce la electricidad, el acero masivo y el petróleo." },
+      { start: 26.5, end: 32.0, scene: 2, badge: "2ª REV // 1870-1914", speaker: "NARRADOR", text: "El convertidor Bessemer abarata el acero; Henry Ford estandariza la línea de montaje continua y nace la gran corporación." },
+      { start: 32.0, end: 38.0, scene: 2, badge: "2ª REV // 1870-1914", speaker: "NARRADOR", text: "El motor eléctrico y el sistema 'unit drive' descentralizan la energía en cada máquina, multiplicando la productividad." },
+
+      // SCENE 3: 3ª REVOLUCIÓN (38s - 54s)
+      { start: 38.0, end: 42.5, scene: 3, badge: "3ª REV // 1960-2000", speaker: "NARRADOR", text: "1960: Emerge la Tercera Revolución o Revolución Digital, liderada por semiconductores e informática." },
+      { start: 42.5, end: 48.0, scene: 3, badge: "3ª REV // 1960-2000", speaker: "NARRADOR", text: "La invención del transistor, las computadoras y la red global ARPANET/Internet transforman la gestión de datos." },
+      { start: 48.0, end: 54.0, scene: 3, badge: "3ª REV // 1960-2000", speaker: "NARRADOR", text: "Los autómatas industriales automatizan las plantas y la economía global transita hacia la era de los servicios." },
+
+      // SCENE 4: 4ª REVOLUCIÓN (54s - 68s)
+      { start: 54.0, end: 58.5, scene: 4, badge: "4ª REV // 2010-HOY", speaker: "NARRADOR", text: "2010 a la actualidad: La Cuarta Revolución Industrial fusiona el mundo físico, digital y biológico." },
+      { start: 58.5, end: 63.5, scene: 4, badge: "4ª REV // 2010-HOY", speaker: "NARRADOR", text: "Inteligencia Artificial, gemelos digitales e Internet de las Cosas (IoT) permiten máquinas que se autogestionan." },
+      { start: 63.5, end: 68.0, scene: 4, badge: "4ª REV // 2010-HOY", speaker: "NARRADOR", text: "Los datos se convierten en el recurso más valioso, redefiniendo el empleo hacia roles cognitivos e interdisciplinarios." },
+
+      // SCENE 5: SÍNTESIS & 5.0 (68s - 75s)
+      { start: 68.0, end: 75.0, scene: 5, badge: "SÍNTESIS // 5.0", speaker: "NARRADOR", text: "Hacia la Industria 5.0: Una nueva etapa orientada a la colaboración humano-cobot, bienestar y sostenibilidad verde." }
+    ];
+
+    /**
+     * MAIN MOTION VIDEO & BROADCAST ENGINE
+     */
+    class IndustrialVideoEngine {
+      constructor() {
+        this.currentTime = 0;
+        this.duration = 75.0; // Total duration in seconds
+        this.isPlaying = false;
+        this.playbackRate = 1.0;
+        this.showCaptions = true;
+        this.currentSceneIndex = -1;
+        this.lastFrameTimestamp = null;
+        
+        // Synth sound engine instance
+        this.synth = new SoundTrackSynthesizer();
+
+        // Cached DOM Elements
+        this.dom = {
+          container: document.getElementById('videoContainer'),
+          scenes: [
+            document.getElementById('scene0'),
+            document.getElementById('scene1'),
+            document.getElementById('scene2'),
+            document.getElementById('scene3'),
+            document.getElementById('scene4'),
+            document.getElementById('scene5')
+          ],
+          timecode: document.getElementById('timecodeDisplay'),
+          sliderTime: document.getElementById('sliderTimeDisplay'),
+          slider: document.getElementById('timelineSlider'),
+          eraBadge: document.getElementById('currentEraBadge'),
+          subtitlesBox: document.getElementById('subtitlesBox'),
+          subtitleSpeaker: document.getElementById('subtitleSpeaker'),
+          subtitleText: document.getElementById('subtitleText'),
+          countdownNumber: document.getElementById('countdownNumber'),
+          btnPlayPause: document.getElementById('btnPlayPause'),
+          playIcon: document.getElementById('playIcon'),
+          playText: document.getElementById('playText'),
+          btnRestart: document.getElementById('btnRestart'),
+          btnAudioToggle: document.getElementById('btnAudioToggle'),
+          audioIcon: document.getElementById('audioIcon'),
+          audioStatusText: document.getElementById('audioStatusText'),
+          btnSpeed: document.getElementById('btnSpeed'),
+          btnCaptions: document.getElementById('btnCaptions'),
+          btnFullscreen: document.getElementById('btnFullscreen'),
+          startOverlay: document.getElementById('startOverlay'),
+          btnStartExperience: document.getElementById('btnStartExperience'),
+          audioCanvas: document.getElementById('audioVisualizer')
+        };
+
+        this.canvasCtx = this.dom.audioCanvas.getContext('2d');
+        this.bindEvents();
+      }
+
+      bindEvents() {
+        // Start overlay trigger
+        this.dom.btnStartExperience.addEventListener('click', async () => {
+          await this.synth.init();
+          this.dom.startOverlay.classList.add('hidden');
+          this.play();
+        });
+
+        // Play/Pause button
+        this.dom.btnPlayPause.addEventListener('click', () => {
+          this.togglePlay();
+        });
+
+        // Restart button
+        this.dom.btnRestart.addEventListener('click', () => {
+          this.restart();
+        });
+
+        // Timeline range scrubber
+        this.dom.slider.addEventListener('input', (e) => {
+          this.seekTo(parseFloat(e.target.value));
+        });
+
+        // Audio Mute toggle
+        this.dom.btnAudioToggle.addEventListener('click', () => {
+          this.synth.setMute(!this.synth.muted);
+          if (this.synth.muted) {
+            this.dom.audioIcon.textContent = '🔇';
+            this.dom.audioStatusText.textContent = 'BANDA SONORA: MUTED';
+            this.dom.btnAudioToggle.classList.replace('bg-cyan-300', 'bg-gray-300');
+          } else {
+            this.dom.audioIcon.textContent = '🔊';
+            this.dom.audioStatusText.textContent = 'BANDA SONORA: ON';
+            this.dom.btnAudioToggle.classList.replace('bg-gray-300', 'bg-cyan-300');
+          }
+        });
+
+        // Playback speed cycle
+        const speeds = [1.0, 1.25, 1.5, 2.0];
+        this.dom.btnSpeed.addEventListener('click', () => {
+          const nextIndex = (speeds.indexOf(this.playbackRate) + 1) % speeds.length;
+          this.playbackRate = speeds[nextIndex];
+          this.dom.btnSpeed.textContent = `${this.playbackRate.toFixed(2).replace('.00', '')}X`;
+        });
+
+        // Captions toggle
+        this.dom.btnCaptions.addEventListener('click', () => {
+          this.showCaptions = !this.showCaptions;
+          this.dom.subtitlesBox.style.display = this.showCaptions ? 'block' : 'none';
+          this.dom.btnCaptions.textContent = this.showCaptions ? 'CC: ON' : 'CC: OFF';
+          this.dom.btnCaptions.classList.toggle('bg-yellow-300', this.showCaptions);
+        });
+
+        // Fullscreen toggle
+        this.dom.btnFullscreen.addEventListener('click', () => {
+          if (!document.fullscreenElement) {
+            this.dom.container.requestFullscreen?.().catch(e => console.log(e));
+          } else {
+            document.exitFullscreen?.();
+          }
+        });
+
+        // Keyboard hotkeys (Space for play/pause, left/right arrows for seek)
+        window.addEventListener('keydown', (e) => {
+          if (e.target.tagName === 'INPUT') return;
+          if (e.code === 'Space') {
+            e.preventDefault();
+            this.togglePlay();
+          } else if (e.code === 'ArrowRight') {
+            this.seekTo(Math.min(this.duration, this.currentTime + 5));
+          } else if (e.code === 'ArrowLeft') {
+            this.seekTo(Math.max(0, this.currentTime - 5));
+          }
+        });
+      }
+
+      play() {
+        this.isPlaying = true;
+        this.lastFrameTimestamp = performance.now();
+        this.dom.playIcon.textContent = '⏸';
+        this.dom.playText.textContent = 'PAUSA';
+        this.dom.btnPlayPause.classList.replace('bg-yellow-300', 'bg-red-400');
+        requestAnimationFrame((t) => this.renderLoop(t));
+      }
+
+      pause() {
+        this.isPlaying = false;
+        this.dom.playIcon.textContent = '▶';
+        this.dom.playText.textContent = 'PLAY';
+        this.dom.btnPlayPause.classList.replace('bg-red-400', 'bg-yellow-300');
+      }
+
+      togglePlay() {
+        if (!this.synth.initialized) {
+          this.synth.init();
+        }
+        if (this.isPlaying) {
+          this.pause();
+        } else {
+          this.play();
+        }
+      }
+
+      restart() {
+        this.seekTo(0);
+        this.play();
+      }
+
+      seekTo(time) {
+        this.currentTime = Math.max(0, Math.min(this.duration, time));
+        this.updateTimeDisplay();
+        this.updateSceneState(true);
+      }
+
+      // Format seconds into MM:SS.S
+      formatTime(seconds) {
+        const mins = Math.floor(seconds / 60);
+        const secs = (seconds % 60).toFixed(1);
+        return `${mins.toString().padStart(2, '0')}:${secs.padStart(4, '0')}`;
+      }
+
+      updateTimeDisplay() {
+        const formatted = this.formatTime(this.currentTime);
+        this.dom.timecode.textContent = `${formatted} / 01:15.0`;
+        this.dom.sliderTime.textContent = `${formatted.split('.')[0]} / 01:15`;
+        this.dom.slider.value = this.currentTime;
+      }
+
+      // Frame tick loop
+      renderLoop(timestamp) {
+        if (!this.isPlaying) return;
+
+        const delta = (timestamp - (this.lastFrameTimestamp || timestamp)) / 1000;
+        this.lastFrameTimestamp = timestamp;
+
+        this.currentTime += delta * this.playbackRate;
+
+        // Auto end of video
+        if (this.currentTime >= this.duration) {
+          this.currentTime = this.duration;
+          this.pause();
+          this.updateTimeDisplay();
+          this.updateSceneState();
+          return;
+        }
+
+        this.updateTimeDisplay();
+        this.updateSceneState();
+        this.renderAudioVisualizer();
+
+        requestAnimationFrame((t) => this.renderLoop(t));
+      }
+
+      updateSceneState(forceJump = false) {
+        // Locate matching segment from timeline data
+        const currentSegment = VIDEO_TIMELINE.find(item => 
+          this.currentTime >= item.start && this.currentTime < item.end
+        ) || VIDEO_TIMELINE[VIDEO_TIMELINE.length - 1];
+
+        // Scene switch handling with camera shake & glitch flash
+        if (currentSegment.scene !== this.currentSceneIndex || forceJump) {
+          const prevScene = this.currentSceneIndex;
+          this.currentSceneIndex = currentSegment.scene;
+
+          // Camera glitch transition effect
+          this.dom.container.classList.remove('camera-shake', 'glitch-transition');
+          void this.dom.container.offsetWidth; // Force reflow
+          this.dom.container.classList.add('camera-shake', 'glitch-transition');
+
+          // Switch scene displays
+          this.dom.scenes.forEach((sceneEl, idx) => {
+            if (idx === this.currentSceneIndex) {
+              sceneEl.classList.remove('hidden');
+              sceneEl.classList.add('flex');
+            } else {
+              sceneEl.classList.add('hidden');
+              sceneEl.classList.remove('flex');
+            }
+          });
+
+          // Update HUD Badge
+          this.dom.eraBadge.textContent = currentSegment.badge;
+        }
+
+        // Countdown visual updater for scene 0
+        if (this.currentSceneIndex === 0) {
+          const cd = Math.max(1, Math.ceil(3 - (this.currentTime / 2.3)));
+          this.dom.countdownNumber.textContent = `0${cd}`;
+        }
+
+        // Subtitles updater
+        if (this.showCaptions) {
+          this.dom.subtitleSpeaker.textContent = `[${currentSegment.speaker}]:`;
+          this.dom.subtitleText.textContent = currentSegment.text;
+        }
+
+        // Trigger procedural music sound pulses
+        this.synth.triggerPulse(this.currentTime, this.currentSceneIndex);
+      }
+
+      // Draw real-time brutalist audio frequency analyzer
+      renderAudioVisualizer() {
+        if (!this.synth.initialized || !this.synth.analyser) return;
+
+        const ctx = this.canvasCtx;
+        const width = this.dom.audioCanvas.width;
+        const height = this.dom.audioCanvas.height;
+
+        const bufferLength = this.synth.analyser.frequencyBinCount;
+        const dataArray = new Uint8Array(bufferLength);
+        this.synth.analyser.getByteFrequencyData(dataArray);
+
+        ctx.fillStyle = '#000000';
+        ctx.fillRect(0, 0, width, height);
+
+        const barWidth = (width / bufferLength) * 1.8;
+        let x = 0;
+
+        for (let i = 0; i < bufferLength; i++) {
+          const barHeight = (dataArray[i] / 255) * height;
+
+          // Neo-brutalist neon green & yellow audio bars
+          ctx.fillStyle = i % 2 === 0 ? '#FFE500' : '#00E676';
+          ctx.fillRect(x, height - barHeight, barWidth - 1, barHeight);
+          x += barWidth;
+        }
+      }
+    }
+
+    let videoEngine = null;
+    window.addEventListener('DOMContentLoaded', () => {
+      videoEngine = new IndustrialVideoEngine();
+    });
+  </script>
+</body>
+</html>

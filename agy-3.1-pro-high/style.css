@@ -1,0 +1,140 @@
+:root {
+    --bg-yellow: #ffde59;
+    --bg-blue: #59b5ff;
+    --bg-pink: #ff59d4;
+    --bg-green: #59ff8e;
+    --bg-black: #1a1a1a;
+    --border-thick: 6px solid #000;
+    --shadow-hard: 12px 12px 0px #000;
+    --shadow-btn: 6px 6px 0px #000;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { 
+    font-family: 'Space Grotesk', sans-serif; 
+    overflow: hidden; 
+    background-color: var(--bg-black); 
+    color: #000; 
+}
+
+/* CRT Overlays */
+#noise-overlay {
+    position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+    background-image: url('data:image/svg+xml;utf8,%3Csvg viewBox=%220 0 200 200%22 xmlns=%22http://www.w3.org/2000/svg%22%3E%3Cfilter id=%22noiseFilter%22%3E%3CfeTurbulence type=%22fractalNoise%22 baseFrequency=%220.65%22 numOctaves=%223%22 stitchTiles=%22stitch%22/%3E%3C/filter%3E%3Crect width=%22100%25%22 height=%22100%25%22 filter=%22url(%23noiseFilter)%22/%3E%3C/svg%3E');
+    opacity: 0.05; z-index: 999; pointer-events: none;
+}
+#scanlines {
+    position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+    background: linear-gradient(to bottom, rgba(255,255,255,0), rgba(255,255,255,0) 50%, rgba(0,0,0,0.1) 50%, rgba(0,0,0,0.1));
+    background-size: 100% 4px;
+    z-index: 998; pointer-events: none; opacity: 0.5;
+}
+
+.screen {
+    height: 100vh; width: 100vw; display: flex;
+    justify-content: center; align-items: center;
+    background-color: var(--bg-yellow);
+}
+
+.content-box {
+    background: #fff; padding: 3rem; border: var(--border-thick);
+    box-shadow: var(--shadow-hard); text-align: center;
+    max-width: 800px;
+}
+
+.content-box h1 { font-size: 4rem; font-weight: 900; margin-bottom: 1rem; text-transform: uppercase; }
+.content-box p { font-size: 1.5rem; font-weight: 700; margin-bottom: 2rem; }
+
+#start-btn {
+    font-size: 1.5rem; font-family: inherit; font-weight: 900;
+    background: var(--bg-pink); color: #000; padding: 1rem 2rem;
+    border: var(--border-thick); box-shadow: var(--shadow-btn);
+    cursor: pointer; transition: all 0.1s; text-transform: uppercase;
+}
+#start-btn:active { box-shadow: 0px 0px 0px #000; transform: translate(6px, 6px); }
+
+.hidden { display: none !important; }
+
+#video-container { width: 100vw; height: 100vh; position: relative; }
+
+.scene {
+    position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+    display: flex; justify-content: center; align-items: center;
+    opacity: 0; visibility: hidden; transition: opacity 0.5s ease;
+    z-index: 1; border: var(--border-thick);
+}
+.scene.active { opacity: 1; visibility: visible; z-index: 10; }
+
+.bg-yellow { background-color: var(--bg-yellow); }
+.bg-blue { background-color: var(--bg-blue); }
+.bg-pink { background-color: var(--bg-pink); }
+.bg-green { background-color: var(--bg-green); }
+.bg-black { background-color: var(--bg-black); color: #fff; }
+.text-white { color: #fff; }
+
+/* Neobrutalist Cards */
+.card {
+    background: #fff; padding: 3rem; border: var(--border-thick);
+    box-shadow: var(--shadow-hard); max-width: 900px;
+    text-align: left; color: #000; opacity: 0; position: relative;
+    transition: all 0.8s cubic-bezier(0.25, 1, 0.5, 1);
+}
+.card-header {
+    background: #000; color: #fff; display: inline-block;
+    padding: 0.5rem 1rem; font-size: 2rem; font-weight: 900;
+    border: var(--border-thick); position: absolute;
+    top: -35px; left: -6px; transform: rotate(-2deg);
+}
+
+.card h1 { font-size: 5rem; font-weight: 900; text-transform: uppercase; margin-bottom: 1rem; margin-top: 1rem; letter-spacing: -2px; }
+.bg-yellow .card h1 { text-shadow: 4px 4px 0px var(--bg-pink); }
+.bg-blue .card h1 { text-shadow: 4px 4px 0px var(--bg-yellow); }
+.bg-pink .card h1 { text-shadow: 4px 4px 0px var(--bg-blue); }
+.bg-green .card h1 { text-shadow: 4px 4px 0px var(--bg-pink); }
+
+.card p { font-size: 2rem; font-weight: 400; line-height: 1.2; }
+.card p strong { font-weight: 900; background: rgba(0,0,0,0.1); padding: 0 5px;}
+
+/* Slide entry animations */
+.reveal-left { transform: translateX(-100px); }
+.reveal-right { transform: translateX(100px); }
+.reveal-bottom { transform: translateY(100px); }
+.reveal-zoom { transform: scale(0.8); }
+
+.scene.active .card { transform: translate(0) scale(1); opacity: 1; }
+
+/* Icons & small animations */
+.icon { font-size: 6rem; position: absolute; right: 2rem; bottom: 2rem; }
+.spin-slow { animation: spin 4s linear infinite; }
+.flash { animation: flash 0.8s steps(2, start) infinite; }
+.bounce { animation: bounce 1s cubic-bezier(0.28, 0.84, 0.42, 1) infinite alternate; }
+.pulse-fast { animation: pulse 0.5s ease-in-out infinite alternate; }
+
+@keyframes spin { 100% { transform: rotate(360deg); } }
+@keyframes flash { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
+@keyframes bounce { 0% { transform: translateY(0); } 100% { transform: translateY(-30px); } }
+@keyframes pulse { 0% { transform: scale(1); } 100% { transform: scale(1.2); } }
+
+/* Glitch Title */
+.giant-text { font-size: 8rem; font-weight: 900; text-align: center; margin: 0 2rem; letter-spacing: -4px;}
+.glitch { position: relative; color: white; }
+.glitch::before, .glitch::after {
+    content: attr(data-text); position: absolute; top: 0; left: 0;
+    width: 100%; height: 100%; background: var(--bg-black);
+}
+.glitch::before {
+    left: 4px; text-shadow: -2px 0 #ff00c1; clip: rect(24px, 1500px, 90px, 0);
+    animation: glitch-anim 2s infinite linear alternate-reverse;
+}
+.glitch::after {
+    left: -4px; text-shadow: -2px 0 #00fff9; clip: rect(85px, 1500px, 140px, 0);
+    animation: glitch-anim 1.5s infinite linear alternate-reverse;
+}
+@keyframes glitch-anim {
+    0% { clip: rect(10px, 1500px, 20px, 0); }
+    20% { clip: rect(80px, 1500px, 110px, 0); }
+    40% { clip: rect(30px, 1500px, 40px, 0); }
+    60% { clip: rect(120px, 1500px, 140px, 0); }
+    80% { clip: rect(50px, 1500px, 60px, 0); }
+    100% { clip: rect(90px, 1500px, 100px, 0); }
+}

@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Videoclip: Las 4 Revoluciones Industriales</title>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;700;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            /* Paleta Neobrutalista */
+            --bg-color: #f0f0f0;
+            --c-cyan: #00F0FF;
+            --c-magenta: #FF00E5;
+            --c-yellow: #FAFF00;
+            --c-lime: #00FF38;
+            --c-black: #000000;
+            --c-white: #FFFFFF;
+            
+            --border-thick: 8px solid var(--c-black);
+            --shadow-solid: 12px 12px 0px var(--c-black);
+            --shadow-solid-sm: 6px 6px 0px var(--c-black);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Space Grotesk', sans-serif;
+            background-color: var(--c-black);
+            color: var(--c-black);
+            overflow: hidden; /* Comportamiento de video, sin scroll */
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* Contenedor principal estilo pantalla */
+        #video-screen {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            max-width: 1280px;
+            max-height: 720px;
+            background-color: var(--bg-color);
+            border: var(--border-thick);
+            box-shadow: 0 0 0 100vmax var(--c-black); /* Rellena los bordes en pantallas ultra anchas */
+            overflow: hidden;
+        }
+
+        .scene {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            padding: 40px;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.5s ease;
+            z-index: 10;
+        }
+
+        .scene.active {
+            opacity: 1;
+            visibility: visible;
+            z-index: 20;
+        }
+
+        /* Fondos dinámicos de las escenas */
+        #scene-intro { background-color: var(--c-magenta); justify-content: center; align-items: center; text-align: center; }
+        #scene-rev1 { background-color: var(--c-yellow); }
+        #scene-rev2 { background-color: var(--c-cyan); }
+        #scene-rev3 { background-color: var(--c-lime); }
+        #scene-rev4 { background-color: var(--c-magenta); }
+        #scene-outro { background-color: var(--c-white); justify-content: center; align-items: center; text-align: center; }
+
+        /* Elementos Neobrutalistas Comunes */
+        .brutal-box {
+            background-color: var(--c-white);
+            border: var(--border-thick);
+            box-shadow: var(--shadow-solid);
+            padding: 30px;
+        }
+        
+        .brutal-badge {
+            display: inline-block;
+            background-color: var(--c-black);
+            color: var(--c-white);
+            padding: 10px 20px;
+            font-size: 1.5rem;
+            font-weight: 900;
+            border: 4px solid var(--c-white);
+            box-shadow: 6px 6px 0px var(--c-black);
+            margin-bottom: 20px;
+        }
+
+        h1 { font-size: 5rem; font-weight: 900; line-height: 1.1; text-transform: uppercase; }
+        h2 { font-size: 4.5rem; font-weight: 900; line-height: 1.1; margin-bottom: 20px; }
+        ul { list-style: none; font-size: 2rem; font-weight: 700; }
+        li { margin-bottom: 15px; display: flex; align-items: center; gap: 15px;}
+        li::before {
+            content: '';
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            background-color: var(--c-black);
+        }
+
+        /* Disposición de contenido por defecto (Izquierda texto, Derecha gráfico) */
+        .content-col {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            z-index: 2;
+        }
+        .graphic-col {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1;
+        }
+
+        /* Animaciones de entrada coreografiadas por JS */
+        .anim-slide-up { transform: translateY(100px); opacity: 0; transition: all 0.8s cubic-bezier(0.2, 0.8, 0.2, 1); }
+        .anim-slide-left { transform: translateX(100px); opacity: 0; transition: all 0.8s cubic-bezier(0.2, 0.8, 0.2, 1); }
+        .anim-pop { transform: scale(0.5); opacity: 0; transition: all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
+        
+        .active .anim-slide-up, .active .anim-slide-left { transform: translate(0,0); opacity: 1; }
+        .active .anim-pop { transform: scale(1) rotate(-2deg); opacity: 1; }
+
+        /* Retrasos de animación */
+        .delay-1 { transition-delay: 0.3s; }
+        .delay-2 { transition-delay: 0.6s; }
+        .delay-3 { transition-delay: 0.9s; }
+
+        /* Animaciones de los gráficos SVG */
+        @keyframes spin { 100% { transform: rotate(360deg); } }
+        @keyframes spin-reverse { 100% { transform: rotate(-360deg); } }
+        .gear-1 { animation: spin 4s linear infinite; transform-origin: center; }
+        .gear-2 { animation: spin-reverse 3s linear infinite; transform-origin: center; }
+
+        @keyframes conveyor { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+        .conveyor-belt { display: flex; width: 200%; animation: conveyor 2s linear infinite; }
+        
+        @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
+        .cursor-blink { animation: blink 1s step-end infinite; }
+        
+        @keyframes pulse-node { 0%, 100% { r: 15; fill: var(--c-yellow); } 50% { r: 25; fill: var(--c-lime); } }
+        .node-pulse { animation: pulse-node 2s infinite ease-in-out; }
+        
+        @keyframes draw-line { 0% { stroke-dashoffset: 1000; } 100% { stroke-dashoffset: 0; } }
+        .line-draw { stroke-dasharray: 1000; animation: draw-line 3s forwards; }
+
+        /* Pantalla de inicio (Start Button) */
+        #start-screen {
+            position: absolute;
+            inset: 0;
+            background-color: var(--c-cyan);
+            z-index: 100;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: transform 0.8s cubic-bezier(0.8, 0, 0.2, 1);
+        }
+        #start-btn {
+            font-family: inherit;
+            font-size: 3rem;
+            font-weight: 900;
+            background-color: var(--c-yellow);
+            color: var(--c-black);
+            padding: 20px 40px;
+            border: var(--border-thick);
+            box-shadow: var(--shadow-solid);
+            cursor: pointer;
+            transition: all 0.1s;
+        }
+        #start-btn:active {
+            transform: translate(6px, 6px);
+            box-shadow: var(--shadow-solid-sm);
+        }
+
+        /* Barra de progreso */
+        #progress-bar {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            height: 12px;
+            background-color: var(--c-black);
+            width: 0%;
+            z-index: 90;
+            transition: width 0.1s linear;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="video-screen">
+        
+        <div id="start-screen">
+            <button id="start-btn" class="brutal-box">INICIAR VIDEOCLIP</button>
+        </div>
+
+        <div id="progress-bar"></div>
+
+        <!-- Escena 0: Intro -->
+        <div id="scene-intro" class="scene">
+            <div class="brutal-box anim-pop">
+                <div class="brutal-badge anim-slide-up delay-1">CRONOLOGÍA HISTÓRICA</div>
+                <h1 class="anim-slide-up delay-2">Las 4<br>Revoluciones<br>Industriales</h1>
+            </div>
+        </div>
+
+        <!-- Escena 1: Primera Revolución -->
+        <div id="scene-rev1" class="scene">
+            <div class="content-col">
+                <div class="brutal-badge anim-slide-left">1760 - 1840</div>
+                <h2 class="anim-slide-up delay-1">Primera<br>revolución</h2>
+                <div class="brutal-box anim-slide-up delay-2" style="background-color: var(--c-white);">
+                    <ul>
+                        <li>Máquina de vapor</li>
+                        <li>Uso del carbón</li>
+                        <li>Mecanización textil</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="graphic-col">
+                <div class="brutal-box anim-pop delay-3" style="width: 350px; height: 350px; border-radius: 50%; display: flex; justify-content: center; align-items: center; position: relative; overflow: hidden;">
+                    <!-- Gráfico: Engranajes -->
+                    <svg viewBox="0 0 200 200" style="width: 100%; height: 100%;">
+                        <g class="gear-1" transform="translate(100,100)">
+                            <path d="M-40,-10 L-50,-15 L-50,-35 L-25,-35 L-20,-50 L20,-50 L25,-35 L50,-35 L50,-15 L40,-10 L50,15 L50,35 L25,35 L20,50 L-20,50 L-25,35 L-50,35 L-50,15 Z" fill="var(--c-cyan)" stroke="var(--c-black)" stroke-width="8" stroke-linejoin="round"/>
+                            <circle cx="0" cy="0" r="15" fill="var(--c-white)" stroke="var(--c-black)" stroke-width="8"/>
+                        </g>
+                        <g class="gear-2" transform="translate(40,40) scale(0.6)">
+                            <path d="M-40,-10 L-50,-15 L-50,-35 L-25,-35 L-20,-50 L20,-50 L25,-35 L50,-35 L50,-15 L40,-10 L50,15 L50,35 L25,35 L20,50 L-20,50 L-25,35 L-50,35 L-50,15 Z" fill="var(--c-magenta)" stroke="var(--c-black)" stroke-width="8" stroke-linejoin="round"/>
+                            <circle cx="0" cy="0" r="15" fill="var(--c-white)" stroke="var(--c-black)" stroke-width="8"/>
+                        </g>
+                    </svg>
+                </div>
+            </div>
+        </div>
+
+        <!-- Escena 2: Segunda Revolución -->
+        <div id="scene-rev2" class="scene" style="flex-direction: row-reverse;">
+            <div class="content-col" style="align-items: flex-end; text-align: right;">
+                <div class="brutal-badge anim-slide-left">1870 - 1914</div>
+                <h2 class="anim-slide-up delay-1">Segunda<br>revolución</h2>
+                <div class="brutal-box anim-slide-up delay-2" style="background-color: var(--c-yellow); text-align: left;">
+                    <ul>
+                        <li>Electricidad</li>
+                        <li>Producción en masa</li>
+                        <li>Motor de combustión</li>
+                        <li>Acero</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="graphic-col">
+                <div class="brutal-box anim-pop delay-3" style="width: 400px; height: 350px; background-color: var(--c-white); position: relative; padding:0; overflow: hidden;">
+                    <!-- Gráfico: Cadena de montaje y rayo -->
+                    <svg viewBox="0 0 100 100" style="position:absolute; top: 10px; left: 50%; transform: translateX(-50%); width: 100px; height: 100px; z-index: 5;">
+                        <path d="M50,0 L10,60 L45,60 L40,100 L90,35 L50,35 Z" fill="var(--c-yellow)" stroke="var(--c-black)" stroke-width="6" stroke-linejoin="round"/>
+                    </svg>
+                    <div style="position: absolute; bottom: 40px; width: 100%; height: 80px; background: var(--c-black); border-top: var(--border-thick); border-bottom: var(--border-thick); overflow: hidden;">
+                        <div class="conveyor-belt">
+                            <!-- Cajas de la fábrica -->
+                            <div style="width: 60px; height: 60px; background: var(--c-cyan); border: 6px solid white; margin: 10px 20px;"></div>
+                            <div style="width: 60px; height: 60px; background: var(--c-magenta); border: 6px solid white; margin: 10px 20px;"></div>
+                            <div style="width: 60px; height: 60px; background: var(--c-lime); border: 6px solid white; margin: 10px 20px;"></div>
+                            <div style="width: 60px; height: 60px; background: var(--c-cyan); border: 6px solid white; margin: 10px 20px;"></div>
+                            <div style="width: 60px; height: 60px; background: var(--c-magenta); border: 6px solid white; margin: 10px 20px;"></div>
+                            <div style="width: 60px; height: 60px; background: var(--c-lime); border: 6px solid white; margin: 10px 20px;"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Escena 3: Tercera Revolución -->
+        <div id="scene-rev3" class="scene">
+            <div class="content-col">
+                <div class="brutal-badge anim-slide-left">1960 - 2000</div>
+                <h2 class="anim-slide-up delay-1">Tercera<br>revolución</h2>
+                <div class="brutal-box anim-slide-up delay-2" style="background-color: var(--c-cyan);">
+                    <ul>
+                        <li>Informática y PC</li>
+                        <li>Automatización</li>
+                        <li>Telecomunicaciones</li>
+                        <li>Internet temprano</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="graphic-col">
+                <div class="brutal-box anim-pop delay-3" style="width: 380px; background-color: var(--c-white); padding: 20px;">
+                    <!-- Gráfico: Ordenador retro -->
+                    <div style="border: var(--border-thick); background-color: var(--c-black); padding: 20px; height: 250px; font-family: monospace; font-size: 1.5rem; color: var(--c-lime); position: relative; overflow: hidden;">
+                        <p>> INICIANDO SISTEMA...</p>
+                        <p>> CARGANDO DATOS<span class="cursor-blink">_</span></p>
+                        <div id="binary-rain" style="position: absolute; top: 100px; left: 20px; opacity: 0.5; font-size: 1.2rem; line-height: 1;"></div>
+                    </div>
+                    <div style="height: 30px; width: 100px; background: var(--c-black); margin: 0 auto;"></div>
+                    <div style="height: 20px; width: 200px; background: var(--c-white); border: var(--border-thick); margin: 0 auto;"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Escena 4: Cuarta Revolución -->
+        <div id="scene-rev4" class="scene" style="flex-direction: row-reverse;">
+            <div class="content-col" style="align-items: flex-end; text-align: right; color: var(--c-white);">
+                <div class="brutal-badge anim-slide-left" style="background-color: var(--c-white); color: var(--c-black);">2010 - PRESENTE</div>
+                <h2 class="anim-slide-up delay-1">Cuarta<br>revolución</h2>
+                <div class="brutal-box anim-slide-up delay-2" style="background-color: var(--c-black); border-color: var(--c-white); box-shadow: 12px 12px 0px var(--c-cyan);">
+                    <ul style="color: var(--c-white); text-align: left;">
+                        <li style="--c-black: var(--c-cyan);">Inteligencia Artificial</li>
+                        <li style="--c-black: var(--c-yellow);">Internet de las cosas (IoT)</li>
+                        <li style="--c-black: var(--c-lime);">Sistemas Ciberfísicos</li>
+                        <li style="--c-black: var(--c-white);">Hiperconectividad</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="graphic-col">
+                <div class="brutal-box anim-pop delay-3" style="width: 400px; height: 400px; background-color: var(--c-black); border-color: var(--c-white); padding: 0;">
+                    <!-- Gráfico: Red de Nodos (Sistemas Ciberfísicos) -->
+                    <svg viewBox="0 0 200 200" style="width: 100%; height: 100%;">
+                        <line x1="100" y1="100" x2="40" y2="40" stroke="var(--c-cyan)" stroke-width="4" class="line-draw" />
+                        <line x1="100" y1="100" x2="160" y2="50" stroke="var(--c-magenta)" stroke-width="4" class="line-draw" style="animation-delay: 0.5s;" />
+                        <line x1="100" y1="100" x2="50" y2="150" stroke="var(--c-yellow)" stroke-width="4" class="line-draw" style="animation-delay: 1s;" />
+                        <line x1="100" y1="100" x2="150" y2="160" stroke="var(--c-lime)" stroke-width="4" class="line-draw" style="animation-delay: 1.5s;" />
+                        
+                        <circle cx="40" cy="40" r="12" fill="var(--c-cyan)" stroke="var(--c-white)" stroke-width="4"/>
+                        <circle cx="160" cy="50" r="12" fill="var(--c-magenta)" stroke="var(--c-white)" stroke-width="4"/>
+                        <circle cx="50" cy="150" r="12" fill="var(--c-yellow)" stroke="var(--c-white)" stroke-width="4"/>
+                        <circle cx="150" cy="160" r="12" fill="var(--c-lime)" stroke="var(--c-white)" stroke-width="4"/>
+                        
+                        <circle cx="100" cy="100" class="node-pulse" stroke="var(--c-white)" stroke-width="6"/>
+                    </svg>
+                </div>
+            </div>
+        </div>
+
+        <!-- Escena 5: Outro -->
+        <div id="scene-outro" class="scene">
+            <div class="brutal-box anim-pop">
+                <h1>EL FUTURO<br>YA ESTÁ AQUÍ</h1>
+                <p style="font-size: 2rem; font-weight: 700; margin-top: 20px;">La evolución tecnológica continúa.</p>
+                <button onclick="location.reload()" class="brutal-badge" style="margin-top: 40px; cursor: pointer;">REINICIAR</button>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        // Efecto lluvia binaria para Escena 3
+        const binContainer = document.getElementById('binary-rain');
+        setInterval(() => {
+            let row = '';
+            for(let i=0; i<15; i++) row += Math.random() > 0.5 ? '1 ' : '0 ';
+            binContainer.innerHTML = row + '<br>' + binContainer.innerHTML.substring(0, 50);
+        }, 150);
+
+        // Variables Globales
+        let audioCtx;
+        let isPlaying = false;
+        let startTime = 0;
+        const totalDuration = 45; // 45 segundos de videoclip
+        
+        // Elementos UI
+        const progressBar = document.getElementById('progress-bar');
+        const startScreen = document.getElementById('start-screen');
+        const scenes = [
+            document.getElementById('scene-intro'), // 0s - 5s
+            document.getElementById('scene-rev1'),  // 5s - 13s
+            document.getElementById('scene-rev2'),  // 13s - 21s
+            document.getElementById('scene-rev3'),  // 21s - 29s
+            document.getElementById('scene-rev4'),  // 29s - 38s
+            document.getElementById('scene-outro')  // 38s - final
+        ];
+
+        // Tiempos en segundos donde entra cada escena
+        const sceneTimings = [0, 5, 13, 21, 29, 38];
+
+        document.getElementById('start-btn').addEventListener('click', startVideoclip);
+
+        function startVideoclip() {
+            if(isPlaying) return;
+            isPlaying = true;
+            
+            // Ocultar pantalla de inicio
+            startScreen.style.transform = 'translateY(-100%)';
+
+            // Iniciar Audio Context
+            const AudioContext = window.AudioContext || window.webkitAudioContext;
+            audioCtx = new AudioContext();
+            startTime = audioCtx.currentTime;
+
+            // Generar música procedural
+            generateProceduralSoundtrack();
+
+            // Iniciar bucle de sincronización visual
+            requestAnimationFrame(videoLoop);
+        }
+
+        // MOTOR AUDIO PROCEDURAL (Synthwave estructurado)
+        function generateProceduralSoundtrack() {
+            const bpm = 110;
+            const beat = 60 / bpm; // Tiempo de 1 beat
+            
+            // Acordes base para dar ambiente épico (La m, Fa, Do, Sol)
+            const chords = [
+                [220.00, 261.63, 329.63, 440.00], // Am
+                [174.61, 220.00, 261.63, 349.23], // F
+                [261.63, 329.63, 392.00, 523.25], // C
+                [196.00, 246.94, 293.66, 392.00]  // G
+            ];
+
+            // Programar notas para toda la duración (45 segundos)
+            for (let t = 0; t < totalDuration; t += beat / 2) {
+                let absTime = startTime + t;
+                
+                // Bombo en cada beat (4x4)
+                if (Math.abs(t % beat) < 0.01) {
+                    playDrum(absTime, 150, 0.01, 0.5, 0.8); // Kick
+                }
+                
+                // Caja (Snare) en los contratiempos (cada 2 beats)
+                if (Math.abs((t + beat) % (beat * 2)) < 0.01) {
+                    playDrum(absTime, 300, 200, 0.2, 0.4, 'square'); // Snare noise sim
+                }
+
+                // Bajo octavado continuo
+                let chordIdx = Math.floor(t / (beat * 4)) % chords.length; 
+                let bassNote = chords[chordIdx][0] / 2;
+                playSynth(bassNote, absTime, beat/2, 'square', 0.3, 1000);
+
+                // Arpegios
+                if (t > 5) { // Empieza después de la intro
+                    let noteIdx = Math.floor(t / (beat / 2)) % 4;
+                    let arpNote = chords[chordIdx][noteIdx];
+                    // Subir una octava en la 4ta revolución (t > 29)
+                    if(t > 29) arpNote *= 2; 
+                    playSynth(arpNote, absTime, beat/2, 'sawtooth', 0.15, 3000);
+                }
+            }
+        }
+
+        function playDrum(time, startFreq, endFreq, duration, vol, type='sine') {
+            const osc = audioCtx.createOscillator();
+            const gain = audioCtx.createGain();
+            osc.type = type;
+            osc.frequency.setValueAtTime(startFreq, time);
+            osc.frequency.exponentialRampToValueAtTime(endFreq, time + duration);
+            
+            gain.gain.setValueAtTime(0, time);
+            gain.gain.linearRampToValueAtTime(vol, time + 0.02);
+            gain.gain.exponentialRampToValueAtTime(0.01, time + duration);
+            
+            osc.connect(gain);
+            gain.connect(audioCtx.destination);
+            osc.start(time);
+            osc.stop(time + duration);
+        }
+
+        function playSynth(freq, time, duration, type, vol, filterFreq) {
+            const osc = audioCtx.createOscillator();
+            const filter = audioCtx.createBiquadFilter();
+            const gain = audioCtx.createGain();
+            
+            osc.type = type;
+            osc.frequency.setValueAtTime(freq, time);
+            
+            filter.type = 'lowpass';
+            filter.frequency.setValueAtTime(filterFreq, time);
+            filter.frequency.exponentialRampToValueAtTime(300, time + duration);
+            
+            gain.gain.setValueAtTime(0, time);
+            gain.gain.linearRampToValueAtTime(vol, time + 0.05);
+            gain.gain.linearRampToValueAtTime(0, time + duration);
+            
+            osc.connect(filter);
+            filter.connect(gain);
+            gain.connect(audioCtx.destination);
+            
+            osc.start(time);
+            osc.stop(time + duration);
+        }
+
+        // MOTOR VISUAL (Sincronizado con AudioContext)
+        function videoLoop() {
+            if (!isPlaying || !audioCtx) return;
+
+            let elapsedTime = audioCtx.currentTime - startTime;
+            
+            // Actualizar barra de progreso
+            let progress = (elapsedTime / totalDuration) * 100;
+            progressBar.style.width = `${Math.min(progress, 100)}%`;
+
+            // Encontrar la escena actual basada en el tiempo
+            let currentSceneIdx = 0;
+            for (let i = sceneTimings.length - 1; i >= 0; i--) {
+                if (elapsedTime >= sceneTimings[i]) {
+                    currentSceneIdx = i;
+                    break;
+                }
+            }
+
+            // Aplicar clase active a la escena correcta
+            scenes.forEach((scene, index) => {
+                if (index === currentSceneIdx) {
+                    if(!scene.classList.contains('active')) scene.classList.add('active');
+                } else {
+                    scene.classList.remove('active');
+                }
+            });
+
+            // Continuar el bucle o detener si terminó
+            if (elapsedTime <= totalDuration) {
+                requestAnimationFrame(videoLoop);
+            }
+        }
+    </script>
+</body>
+</html>

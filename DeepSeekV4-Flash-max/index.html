@@ -1,0 +1,697 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>4REVOLUCIONES — película neobrutalista 100% código</title>
+<meta name="description" content="Documental animado sobre la cronología de las 4 revoluciones industriales. Sin imágenes, sin vídeos, sin audios: solo HTML, CSS y JavaScript.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' fill='%230d0d0d'/%3E%3Ctext x='10' y='82' font-size='72' font-family='Arial Black' fill='%23ffd100'%3E4R%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<div id="player">
+  <div id="stage-wrap">
+    <div id="stage">
+
+      <canvas id="fx"></canvas>
+
+      <div id="scenes">
+
+        <!-- ============ COLD OPEN ============ -->
+        <section class="scene" id="s0" data-fx="">
+          <div class="bg bg-yellow"></div>
+          <div class="bg bg-grid dim"></div>
+          <div class="coldword seq" style="--i:1">MÁQUINAS</div>
+          <div class="substamp seq" style="--i:2">1765 · INGLATERRA</div>
+        </section>
+
+        <section class="scene" id="s1" data-fx="">
+          <div class="bg bg-pink"></div>
+          <div class="bg bg-grid dim"></div>
+          <div class="coldword seq" style="--i:1">FÁBRICAS</div>
+          <div class="substamp seq" style="--i:2">CARBÓN · HUMO · ACERO</div>
+        </section>
+
+        <section class="scene" id="s2" data-fx="">
+          <div class="bg bg-cyan"></div>
+          <div class="bg bg-grid dim"></div>
+          <div class="coldword seq" style="--i:1">PÍXELES</div>
+          <div class="substamp seq" style="--i:2">HOY · EN TODAS PARTES</div>
+        </section>
+
+        <!-- ============ TÍTULO ============ -->
+        <section class="scene" id="s3" data-fx="confetti">
+          <div class="bg bg-ink"></div>
+          <div class="bg bg-grid-inv dim2"></div>
+          <div class="ghost ghost-w">4REV</div>
+          <div class="wrap">
+            <div class="logo-box seq slam" style="--i:1">
+              <span class="logo-4">4</span><span class="logo-rev">REV</span>
+              <div class="logo-iso">⛭ INDUSTRIALES ⛭</div>
+            </div>
+            <h1 class="title-sub seq blow" style="--i:2" data-type="DE LA MÁQUINA DE VAPOR A LA INTELIGENCIA ARTIFICIAL">DE LA MÁQUINA DE VAPOR A LA INTELIGENCIA ARTIFICIAL</h1>
+            <div class="stamp seq" style="--i:3">PRODUCCIÓN REALIZADA <b>100% CON CÓDIGO</b><br>HTML · CSS · JAVASCRIPT — 0 ASSETS</div>
+            <div class="confetti-zone" id="confettiZone"></div>
+          </div>
+        </section>
+
+        <!-- ============ CAP 1 · VAPOR ============ -->
+        <section class="scene" id="s4" data-fx="embers">
+          <div class="bg bg-ink"></div>
+          <div class="bg bg-stripes orange"></div>
+          <div class="ghost ghost-w">01</div>
+          <div class="wrap">
+            <div class="kicker seq" style="--i:1">CAPÍTULO 01</div>
+            <h2 class="chapter-title seq slam" style="--i:2">LA ERA DEL <span class="accent orange">VAPOR</span></h2>
+            <div class="sticker seq" style="--i:3">1765 — 1840</div>
+            <div class="steam-puffs seq" style="--i:4">
+              <span class="puff" style="--x:-60px;--d:0s"></span>
+              <span class="puff" style="--x:20px;--d:.7s"></span>
+              <span class="puff" style="--x:90px;--d:1.4s"></span>
+              <span class="puff" style="--x:150px;--d:.3s"></span>
+            </div>
+          </div>
+          <div class="mq"><div class="mq-track">
+            <span>MÁQUINA DE VAPOR ✳ CARBÓN ✳ TELARES ✳ LOCOMOTORA ✳ CIUDADES INDUSTRIALES ✳ PROLETARIADO ✳&nbsp;</span>
+            <span>MÁQUINA DE VAPOR ✳ CARBÓN ✳ TELARES ✳ LOCOMOTORA ✳ CIUDADES INDUSTRIALES ✳ PROLETARIADO ✳&nbsp;</span>
+          </div></div>
+        </section>
+
+        <section class="scene" id="s5" data-fx="embers">
+          <div class="bg bg-orange"></div>
+          <div class="bg bg-grid dim"></div>
+          <div class="ghost">01A</div>
+          <div class="wrap wide">
+            <header class="sc-head seq" style="--i:1"><span class="tag">01 · 1765–1840</span><h3>LA MECANIZACIÓN</h3></header>
+            <div class="cols">
+              <div class="art seq" style="--i:2">
+                <svg viewBox="0 0 260 190" role="img" aria-label="Telar mecánico animado">
+                  <rect x="8" y="20" width="244" height="150" fill="none" stroke="var(--ink)" stroke-width="5"/>
+                  <rect x="20" y="30" width="220" height="130" fill="var(--paper)" stroke="var(--ink)" stroke-width="4"/>
+                  <g stroke="var(--ink)" stroke-width="2" opacity=".55">
+                    <line x1="40" y1="35" x2="40" y2="157"/><line x1="70" y1="35" x2="70" y2="157"/>
+                    <line x1="100" y1="35" x2="100" y2="157"/><line x1="130" y1="35" x2="130" y2="157"/>
+                    <line x1="160" y1="35" x2="160" y2="157"/><line x1="190" y1="35" x2="190" y2="157"/>
+                    <line x1="220" y1="35" x2="220" y2="157"/>
+                  </g>
+                  <g fill="var(--ink)">
+                    <rect x="260" y="10" width="10" height="4" class="shuttle"/>
+                    <rect x="260" y="30" width="10" height="4" class="shuttle d2"/>
+                    <rect x="260" y="50" width="10" height="4" class="shuttle d3"/>
+                    <rect x="260" y="70" width="10" height="4" class="shuttle d4"/>
+                    <rect x="260" y="90" width="10" height="4" class="shuttle d5"/>
+                    <rect x="260" y="110" width="10" height="4" class="shuttle d6"/>
+                  </g>
+                  <g class="cloth" fill="var(--accent-sv)" opacity=".85">
+                    <rect x="40" y="140" width="180" height="10"/><rect x="40" y="124" width="170" height="10"/>
+                    <rect x="40" y="108" width="160" height="10"/><rect x="40" y="92" width="150" height="10"/>
+                  </g>
+                  <g fill="var(--ink)">
+                    <circle cx="30" cy="14" r="9"/><circle cx="66" cy="14" r="9"/>
+                    <circle cx="102" cy="14" r="9"/><circle cx="138" cy="14" r="9"/>
+                    <circle cx="174" cy="14" r="9"/><circle cx="210" cy="14" r="9"/><circle cx="246" cy="14" r="9"/>
+                  </g>
+                </svg>
+                <p class="art-cap">✳ TELAR MECÁNICO — HILOS QUE TEJEN SOLOS</p>
+              </div>
+              <div class="stack">
+                <div class="card seq" style="--i:3"><span class="yr">1785</span><p><b>E. CARTWRIGHT</b> patenta el telar mecánico: una máquina reemplaza a decenas de tejedoras.</p></div>
+                <div class="card seq" style="--i:4"><span class="yr">1769</span><p><b>R. ARKWRIGHT</b> crea la primera fábrica textil con máquinas movidas por agua.</p></div>
+                <div class="stat-box seq" style="--i:5">
+                  <span class="cnt" data-to="40" data-suffix="×">0×</span>
+                  <label>MÁS RÁPIDO QUE TEJER A MANO <i>(APROX.)</i></label>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="scene" id="s6" data-fx="embers">
+          <div class="bg bg-ink"></div>
+          <div class="bg bg-grid-inv dim2"></div>
+          <div class="ghost ghost-w">01B</div>
+          <div class="wrap wide">
+            <header class="sc-head light seq" style="--i:1"><span class="tag">01 · 1765–1840</span><h3>LA MÁQUINA DE VAPOR</h3></header>
+            <div class="cols">
+              <div class="art seq" style="--i:2">
+                <svg viewBox="0 0 280 170" role="img" aria-label="Máquina de vapor de Watt animada">
+                  <rect x="86" y="62" width="98" height="58" fill="var(--accent-sv)" stroke="var(--paper)" stroke-width="5"/>
+                  <rect x="96" y="72" width="78" height="14" fill="var(--paper)" stroke="var(--ink)" stroke-width="4" class="piston-rod"/>
+                  <rect x="64" y="52" width="14" height="76" fill="var(--paper)" stroke="var(--paper)" stroke-width="4"/>
+                  <g stroke="var(--paper)" stroke-width="5">
+                    <line x1="86" y1="120" x2="64" y2="120"/><line x1="78" y1="120" x2="78" y2="136"/>
+                    <line x1="184" y1="120" x2="208" y2="120"/><line x1="196" y1="120" x2="196" y2="136"/>
+                  </g>
+                  <g class="flywheel">
+                    <circle cx="230" cy="100" r="44" fill="none" stroke="var(--paper)" stroke-width="8"/>
+                    <g stroke="var(--paper)" stroke-width="6">
+                      <line x1="230" y1="60" x2="230" y2="140"/><line x1="190" y1="100" x2="270" y2="100"/>
+                      <line x1="200" y1="70" x2="260" y2="130"/><line x1="260" y1="70" x2="200" y2="130"/>
+                    </g>
+                    <circle cx="230" cy="100" r="8" fill="var(--yellow)"/>
+                  </g>
+                  <g class="steam" fill="var(--paper)" opacity=".9">
+                    <circle cx="180" cy="46" r="8"/><circle cx="172" cy="30" r="6"/><circle cx="196" cy="26" r="9"/><circle cx="186" cy="12" r="6"/>
+                  </g>
+                  <rect x="24" y="52" width="26" height="40" fill="var(--paper)" stroke="var(--paper)" stroke-width="3" class="valve"/>
+                </svg>
+                <p class="art-cap paper-cap">✳ WATT 1781 — EL VAPOR GIRA RUEDAS: NACE LA MÁQUINA MODERNA</p>
+              </div>
+              <div class="stack">
+                <div class="card seq" style="--i:3"><span class="yr">1769</span><p><b>J. WATT</b> patenta el condensador separado: el vapor deja de desperdiciar energía.</p></div>
+                <div class="card seq" style="--i:4"><span class="yr">1781</span><p>El movimiento rotativo lleva el vapor a <b>telares, minas y fábricas</b> de todo el mundo.</p></div>
+                <div class="stat-box ink seq" style="--i:5">
+                  <span class="cnt" data-to="80" data-suffix="%">0%</span>
+                  <label>DE LA INDUSTRIA BRITÁNICA PRONTO DEPENDERÁ DEL CARBÓN Y EL VAPOR</label>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="scene" id="s7" data-fx="embers">
+          <div class="bg bg-paper"></div>
+          <div class="bg bg-grid dim"></div>
+          <div class="ghost">01C</div>
+          <div class="wrap wide">
+            <header class="sc-head seq" style="--i:1"><span class="tag">01 · LO QUE CAMBIÓ</span><h3>EL MUNDO SE ENCOGE</h3></header>
+            <div class="cols">
+              <div class="art seq" style="--i:2">
+                <svg viewBox="0 0 280 170" role="img" aria-label="Locomotora de vapor animada">
+                  <rect x="30" y="78" width="130" height="52" fill="var(--accent-sv)" stroke="var(--ink)" stroke-width="5" rx="6"/>
+                  <rect x="168" y="92" width="70" height="38" fill="var(--ink)" stroke="var(--ink)" stroke-width="4"/>
+                  <rect x="152" y="78" width="14" height="52" fill="var(--ink)"/>
+                  <polygon points="196,42 216,78 260,78 260,110 196,110" fill="var(--paper)" stroke="var(--ink)" stroke-width="4"/>
+                  <rect x="36" y="66" width="24" height="12" fill="var(--paper)" stroke="var(--ink)" stroke-width="3"/>
+                  <g class="train-smoke" fill="var(--ink)" opacity=".8">
+                    <circle cx="206" cy="34" r="12"/><circle cx="196" cy="18" r="9"/><circle cx="222" cy="12" r="10"/>
+                  </g>
+                  <g class="wheel">
+                    <circle cx="70" cy="130" r="24" fill="var(--paper)" stroke="var(--ink)" stroke-width="6"/>
+                    <g stroke="var(--ink)" stroke-width="4">
+                      <line x1="70" y1="110" x2="70" y2="150"/><line x1="50" y1="130" x2="90" y2="130"/>
+                      <line x1="53" y1="113" x2="87" y2="147"/><line x1="87" y1="113" x2="53" y2="147"/>
+                    </g>
+                    <circle cx="70" cy="130" r="6" fill="var(--pink)"/>
+                  </g>
+                  <g class="wheel">
+                    <circle cx="120" cy="130" r="24" fill="var(--paper)" stroke="var(--ink)" stroke-width="6"/>
+                    <g stroke="var(--ink)" stroke-width="4">
+                      <line x1="120" y1="110" x2="120" y2="150"/><line x1="100" y1="130" x2="140" y2="130"/>
+                      <line x1="103" y1="113" x2="137" y2="147"/><line x1="137" y1="113" x2="103" y2="147"/>
+                    </g>
+                    <circle cx="120" cy="130" r="6" fill="var(--pink)"/>
+                  </g>
+                  <g class="wheel">
+                    <circle cx="205" cy="130" r="16" fill="var(--paper)" stroke="var(--ink)" stroke-width="5"/>
+                    <g stroke="var(--ink)" stroke-width="3">
+                      <line x1="205" y1="117" x2="205" y2="143"/><line x1="192" y1="130" x2="218" y2="130"/>
+                    </g>
+                  </g>
+                  <rect x="26" y="150" width="246" height="8" fill="var(--ink)"/>
+                  <rect x="26" y="140" width="246" height="4" fill="var(--ink)" opacity=".5"/>
+                </svg>
+                <p class="art-cap">✳ LOCOMOTORA — 1804 · R. TREVITHICK. EL FERROCARRIL UNE CIUDADES Y MERCADOS</p>
+              </div>
+              <div class="stack">
+                <div class="card seq" style="--i:3"><span class="yr">URBANIZACIÓN</span><p>Millones de campesinos emigran a las ciudades: <b>nace la ciudad industrial</b>.</p></div>
+                <div class="card seq" style="--i:4"><span class="yr">1825</span><p><b>STOCKTON–DARLINGTON</b>: el primer ferrocarril de pasajeros del mundo.</p></div>
+                <div class="card seq" style="--i:5"><span class="yr">SOCIEDAD</span><p>Aparece el <b>proletariado industrial</b>: nuevos trabajos, nuevas luchas, nuevas ideas.</p></div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ============ CAP 2 · ELECTRICIDAD ============ -->
+        <section class="scene" id="s8" data-fx="arcs">
+          <div class="bg bg-ink"></div>
+          <div class="bg bg-stripes cyan"></div>
+          <div class="ghost ghost-w">02</div>
+          <div class="wrap">
+            <div class="kicker cyan-k seq" style="--i:1">CAPÍTULO 02</div>
+            <h2 class="chapter-title seq slam" style="--i:2"><span class="accent cyan">LA ERA DE LA</span> <span class="accent cyan">ELECTRICIDAD</span></h2>
+            <div class="sticker cyan-s seq" style="--i:3">1870 — 1914</div>
+            <svg class="bulb-big seq" style="--i:4" viewBox="0 0 120 160" role="img" aria-label="Bombilla eléctrica parpadeando">
+              <g class="rays">
+                <line x1="60" y1="8" x2="60" y2="28"/><line x1="60" y1="92" x2="60" y2="112"/>
+                <line x1="20" y1="50" x2="40" y2="50"/><line x1="80" y1="50" x2="100" y2="50"/>
+                <line x1="32" y1="22" x2="46" y2="36"/><line x1="74" y1="36" x2="88" y2="22"/>
+                <line x1="32" y1="78" x2="46" y2="64"/><line x1="74" y1="64" x2="88" y2="78"/>
+              </g>
+              <circle cx="60" cy="52" r="26" fill="var(--yellow)" stroke="var(--paper)" stroke-width="5"/>
+              <path d="M42 66 q18 26 36 0" fill="none" stroke="var(--paper)" stroke-width="5"/>
+              <rect x="52" y="86" width="16" height="10" fill="var(--paper)"/>
+              <path d="M60 96 v34" stroke="var(--paper)" stroke-width="6"/>
+              <path d="M60 130 l-14 24 M60 130 l14 24" stroke="var(--paper)" stroke-width="6"/>
+            </svg>
+          </div>
+          <div class="mq"><div class="mq-track">
+            <span>ACERO ✳ LUZ ✳ MOTOR ✳ TELÉGRAFO ✳ CADENA DE MONTAJE ✳ CIUDAD ILUMINADA ✳&nbsp;</span>
+            <span>ACERO ✳ LUZ ✳ MOTOR ✳ TELÉGRAFO ✳ CADENA DE MONTAJE ✳ CIUDAD ILUMINADA ✳&nbsp;</span>
+          </div></div>
+        </section>
+
+        <section class="scene" id="s9" data-fx="arcs">
+          <div class="bg bg-cyan"></div>
+          <div class="bg bg-grid-strong dim"></div>
+          <div class="ghost">02A</div>
+          <div class="wrap wide">
+            <header class="sc-head seq" style="--i:1"><span class="tag">02 · 1870–1914</span><h3>LA CADENA DE MONTAJE</h3></header>
+            <div class="cols">
+              <div class="art seq" style="--i:2">
+                <svg viewBox="0 0 280 170" role="img" aria-label="Cadena de montaje del Ford T">
+                  <rect x="14" y="100" width="252" height="12" fill="var(--ink)" class="belt"/>
+                  <g class="car">
+                    <rect x="100" y="62" width="56" height="22" rx="6" fill="var(--pink)" stroke="var(--ink)" stroke-width="4"/>
+                    <rect x="74" y="84" width="18" height="16" fill="var(--ink)"/>
+                    <rect x="164" y="84" width="18" height="16" fill="var(--ink)"/>
+                    <circle cx="88" cy="104" r="9" fill="var(--paper)" stroke="var(--ink)" stroke-width="4"/>
+                    <circle cx="168" cy="104" r="9" fill="var(--paper)" stroke="var(--ink)" stroke-width="4"/>
+                    <rect x="112" y="70" width="32" height="4" fill="var(--yellow)"/>
+                  </g>
+                  <g class="arm" stroke="var(--ink)" stroke-width="6" fill="none">
+                    <line x1="32" y1="46" x2="32" y2="88"/>
+                    <line x1="32" y1="46" x2="64" y2="46"/><line x1="64" y1="46" x2="64" y2="80"/>
+                  </g>
+                  <g class="arm d2" stroke="var(--ink)" stroke-width="6" fill="none">
+                    <line x1="212" y1="46" x2="212" y2="88"/>
+                    <line x1="212" y1="46" x2="244" y2="46"/><line x1="244" y1="46" x2="244" y2="80"/>
+                  </g>
+                  <circle cx="32" cy="40" r="10" fill="var(--yellow)" stroke="var(--ink)" stroke-width="4"/>
+                  <circle cx="212" cy="40" r="10" fill="var(--yellow)" stroke="var(--ink)" stroke-width="4"/>
+                  <g stroke="var(--ink)" opacity=".5" stroke-width="3">
+                    <line x1="18" y1="24" x2="262" y2="24"/>
+                    <line x1="18" y1="140" x2="262" y2="140"/>
+                  </g>
+                </svg>
+                <p class="art-cap">✳ HIGHLAND PARK, 1913: EL MODELO T SE FABRICA EN MOVIMIENTO</p>
+              </div>
+              <div class="stack">
+                <div class="card seq" style="--i:3"><span class="yr">1908</span><p><b>MODELO T</b>: el coche que democratiza el automóvil. Más de 15 millones vendidos.</p></div>
+                <div class="card seq" style="--i:4"><span class="yr">1913</span><p><b>H. FORD</b> instala la primera cadena de montaje: la producción se divide en gestos simples.</p></div>
+                <div class="stat-box seq" style="--i:5">
+                  <span class="cnt" data-to="93" data-suffix=" MIN">0 MIN</span>
+                  <label>MONTAJE DE UN COCHE: DE 12 HORAS A 93 MINUTOS</label>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="scene" id="s10" data-fx="arcs">
+          <div class="bg bg-paper"></div>
+          <div class="bg bg-grid dim"></div>
+          <div class="ghost">02B</div>
+          <div class="wrap wide">
+            <header class="sc-head seq" style="--i:1"><span class="tag">02 · 1870–1914</span><h3>LA LUZ Y EL CABLE</h3></header>
+            <div class="cols">
+              <div class="art seq" style="--i:2">
+                <svg viewBox="0 0 260 170" role="img" aria-label="Telégrafo y código morse">
+                  <rect x="60" y="30" width="140" height="110" fill="var(--ink)" stroke="var(--ink)" stroke-width="5"/>
+                  <rect x="76" y="46 " width="108" height="34" fill="var(--paper)" stroke="var(--paper)" stroke-width="4"/>
+                  <rect x="76" y="92" width="108" height="34" fill="var(--paper)" stroke="var(--paper)" stroke-width="4" class="telegraph-key"/>
+                  <circle cx="20" cy="40" r="10" fill="var(--red)" class="morseblink"/>
+                  <circle cx="20" cy="70" r="10" fill="var(--red)" class="morseblink d2"/>
+                  <circle cx="20" cy="100" r="10" fill="var(--red)" class="morseblink d3"/>
+                  <circle cx="20" cy="130" r="10" fill="var(--red)" class="morseblink d4"/>
+                  <g class="dotsrow" fill="var(--ink)">
+                    <rect x="80" y="150" width="16" height="10"/><rect x="104" y="150" width="40" height="10"/>
+                    <rect x="152" y="150" width="16" height="10"/><rect x="176" y="150" width="40" height="10"/><rect x="224" y="150" width="16" height="10"/>
+                  </g>
+                </svg>
+                <p class="art-cap">✳ MORSE, 1844: “LO QUE DIOS HA UNIDO” — EL MUNDO CONECTADO COMIENZA AQUÍ</p>
+              </div>
+              <div class="stack">
+                <div class="card seq" style="--i:3"><span class="yr">1876</span><p><b>BELL</b> patenta el teléfono: la voz viaja por cable.</p></div>
+                <div class="card seq" style="--i:4"><span class="yr">1879</span><p><b>EDISON</b> enciende la bombilla práctica: <b>las fábricas ya no duermen</b>.</p></div>
+                <div class="card seq" style="--i:5"><span class="yr">1895</span><p><b>MARCONI</b> emite las primeras ondas de radio: el mundo se vuelve inalámbrico.</p></div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="scene" id="s11" data-fx="arcs">
+          <div class="bg bg-ink"></div>
+          <div class="bg bg-grid-inv dim2"></div>
+          <div class="ghost ghost-w">02C</div>
+          <div class="wrap wide">
+            <header class="sc-head light seq" style="--i:1"><span class="tag">02 · LO QUE CAMBIÓ</span><h3>PRODUCCIÓN SIN LÍMITES</h3></header>
+            <div class="grid3">
+              <div class="card seq" style="--i:2"><span class="yr">ACERO</span><p>El <b>proceso BESSEMER</b> (1856) abarata el acero: puentes, rascacielos y ferrocarriles.</p></div>
+              <div class="card seq" style="--i:3"><span class="yr">TAYLORISMO</span><p>El trabajo se <b>mide y cronometra</b>: eficiencia máxima, un gesto = un segundo.</p></div>
+              <div class="card seq" style="--i:4"><span class="yr">PETRÓLEO</span><p>Nuevas materias primas y <b>nuevo imperialismo</b>: las potencias se reparten el mundo.</p></div>
+            </div>
+            <div class="stat-line seq" style="--i:5">
+              <span class="cnt" data-to="1914" data-suffix="">0</span>
+              <label>— EL AÑO EN QUE EL ACERO, LA LUZ Y EL MOTOR SON YA INVISIBLES: ESTÁN EN TODAS PARTES</label>
+            </div>
+          </div>
+        </section>
+
+        <!-- ============ CAP 3 · DIGITAL ============ -->
+        <section class="scene" id="s12" data-fx="rain">
+          <div class="bg bg-ink"></div>
+          <div class="bg bg-stripes lime"></div>
+          <div class="ghost ghost-w">03</div>
+          <div class="wrap">
+            <div class="kicker lime-k seq" style="--i:1">CAPÍTULO 03</div>
+            <h2 class="chapter-title seq slam" style="--i:2"><span class="accent lime">LA ERA DE LO</span> <span class="accent lime">DIGITAL</span></h2>
+            <div class="sticker lime-s seq" style="--i:3">1969 — 2000</div>
+            <svg class="chip-big seq" style="--i:4" viewBox="0 0 120 120" role="img" aria-label="Microchip con pines parpadeando">
+              <rect x="28" y="28" width="64" height="64" fill="var(--lime)" stroke="var(--paper)" stroke-width="5"/>
+              <g stroke="var(--ink)" stroke-width="3">
+                <line x1="44" y1="28" x2="44" y2="14"/><line x1="60" y1="28" x2="60" y2="14"/><line x1="76" y1="28" x2="76" y2="14"/>
+                <line x1="44" y1="92" x2="44" y2="106"/><line x1="60" y1="92" x2="60" y2="106"/><line x1="76" y1="92" x2="76" y2="106"/>
+                <line x1="14" y1="44" x2="28" y2="44"/><line x1="14" y1="60" x2="28" y2="60"/><line x1="14" y1="76" x2="28" y2="76"/>
+                <line x1="92" y1="44" x2="106" y2="44"/><line x1="92" y1="60" x2="106" y2="60"/><line x1="92" y1="76" x2="106" y2="76"/>
+              </g>
+              <g fill="var(--ink)">
+                <rect x="36" y="36" width="10" height="10" class="pin blink-a"/><rect x="52" y="36" width="10" height="10" class="pin blink-b"/>
+                <rect x="68" y="36" width="10" height="10" class="pin blink-c"/><rect x="36" y="52" width="10" height="10" class="pin blink-c"/>
+                <rect x="52" y="52" width="10" height="10" class="pin blink-a"/><rect x="68" y="52" width="10" height="10" class="pin blink-b"/>
+                <rect x="36" y="68" width="10" height="10" class="pin blink-b"/><rect x="52" y="68" width="10" height="10" class="pin blink-c"/>
+                <rect x="68" y="68" width="10" height="10" class="pin blink-a"/>
+              </g>
+            </svg>
+          </div>
+          <div class="mq"><div class="mq-track">
+            <span>TRANSISTOR ✳ MAINFRAME ✳ INTERNET ✳ AUTOMATIZACIÓN ✳ SOFTWARE ✳ GLOBALIZACIÓN ✳&nbsp;</span>
+            <span>TRANSISTOR ✳ MAINFRAME ✳ INTERNET ✳ AUTOMATIZACIÓN ✳ SOFTWARE ✳ GLOBALIZACIÓN ✳&nbsp;</span>
+          </div></div>
+        </section>
+
+        <section class="scene" id="s13" data-fx="rain">
+          <div class="bg bg-lime"></div>
+          <div class="bg bg-grid-strong dim"></div>
+          <div class="ghost">03A</div>
+          <div class="wrap wide">
+            <header class="sc-head seq" style="--i:1"><span class="tag">03 · 1969–2000</span><h3>EL TRANSISTOR</h3></header>
+            <div class="cols">
+              <div class="art seq" style="--i:2">
+                <svg viewBox="0 0 260 160" role="img" aria-label="Ley de Moore: barras que crecen">
+                  <g class="bars">
+                    <rect x="32" y="118" width="22" height="20" fill="var(--ink)"/>
+                    <rect x="64" y="102" width="22" height="36" fill="var(--ink)"/>
+                    <rect x="96" y="84" width="22" height="54" fill="var(--ink)"/>
+                    <rect x="128" y="64" width="22" height="74" fill="var(--ink)"/>
+                    <rect x="160" y="40" width="22" height="98" fill="var(--ink)"/>
+                    <rect x="192" y="14" width="22" height="124" fill="var(--ink)"/>
+                  </g>
+                  <g stroke="var(--ink)" stroke-width="3">
+                    <line x1="20" y1="138" x2="240" y2="138"/>
+                    <line x1="20" y1="20" x2="20" y2="138"/>
+                  </g>
+                  <text x="30" y="152" font-family="var(--font-m)" font-size="11" fill="var(--ink)">1960</text>
+                  <text x="186" y="152" font-family="var(--font-m)" font-size="11" fill="var(--ink)">HOY</text>
+                  <text x="60" y="34" font-family="var(--font-m)" font-size="12" font-weight="700" fill="var(--ink)">TRANSISTORES ×2 CADA ≈2 AÑOS</text>
+                </svg>
+                <p class="art-cap">✳ LEY DE MOORE — LA POTENCIA SE DUPLICA SIN PARAR</p>
+              </div>
+              <div class="stack">
+                <div class="card seq" style="--i:3"><span class="yr">1947</span><p><b>BELL LABS</b>: nace el transistor, la llave que abrirá la era del silicio.</p></div>
+                <div class="card seq" style="--i:4"><span class="yr">1971</span><p>Microprocesador <b>INTEL 4004</b>: un ordenador entero en un solo chip.</p></div>
+                <div class="stat-box seq" style="--i:5">
+                  <span class="cnt" data-to="100" data-suffix="M+">0M+</span>
+                  <label>TRANSISTORES EN UN CHIP MODERNO <i>(APROX.)</i></label>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="scene" id="s14" data-fx="rain">
+          <div class="bg bg-ink"></div>
+          <div class="bg bg-grid-inv dim2"></div>
+          <div class="ghost ghost-w">03B</div>
+          <div class="wrap wide">
+            <header class="sc-head light seq" style="--i:1"><span class="tag">03 · 1969–2000</span><h3>INTERNET</h3></header>
+            <div class="cols">
+              <div class="art seq" style="--i:2">
+                <div class="terminal">
+                  <div class="term-bar"><span class="term-dot red-dot"></span><span class="term-dot"></span><span class="term-dot"></span> arpanet@ucla — 1969</div>
+                  <p class="term-line">$ LOGIN<br><span class="big-lo">LO</span><span class="caret">▊</span></p>
+                  <p class="term-note">— “LA SEÑAL SE CAYÓ EN LA LETRA G” —</p>
+                </div>
+              </div>
+              <div class="stack">
+                <div class="card seq" style="--i:3"><span class="yr">1969</span><p><b>ARPANET</b> conecta 4 universidades. Primer mensaje de la historia: “LO”.</p></div>
+                <div class="card seq" style="--i:4"><span class="yr">1989</span><p><b>TIM BERNERS-LEE</b> inventa la WWW: enlaces, navegadores, hipertexto.</p></div>
+                <div class="card seq" style="--i:5"><span class="yr">2000</span><p>La web se vuelve de todos: email, buscadores, e-commerce. <b>La fábrica se digitaliza</b>.</p></div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="scene" id="s15" data-fx="rain">
+          <div class="bg bg-paper"></div>
+          <div class="bg bg-grid dim"></div>
+          <div class="ghost">03C</div>
+          <div class="wrap wide">
+            <header class="sc-head seq" style="--i:1"><span class="tag">03 · 1969–2000</span><h3>AUTOMATIZACIÓN</h3></header>
+            <div class="cols">
+              <div class="art seq" style="--i:2">
+                <svg viewBox="0 0 260 160" role="img" aria-label="Brazo robótico recogiendo una pieza">
+                  <rect x="24" y="100" width="212" height="10" fill="var(--ink)"/>
+                  <rect x="40" y="72" width="50" height="28" fill="var(--paper)" stroke="var(--ink)" stroke-width="4"/>
+                  <g class="robot-base">
+                    <rect x="170" y="64" width="66" height="36" fill="var(--accent-sv)" stroke="var(--ink)" stroke-width="5"/>
+                    <circle cx="203" cy="120" r="16" fill="var(--ink)"/>
+                    <circle cx="203" cy="120" r="6" fill="var(--paper)"/>
+                  </g>
+                  <g class="robot-arm" stroke="var(--ink)" stroke-width="8" fill="none" stroke-linecap="square">
+                    <line x1="203" y1="64" x2="203" y2="40"/>
+                    <line x1="203" y1="40" x2="150" y2="40"/>
+                    <line x1="150" y1="40" x2="150" y2="84"/>
+                  </g>
+                  <rect x="134" y="84" width="32" height="14" fill="var(--pink)" stroke="var(--ink)" stroke-width="4" class="grip"/>
+                  <g class="parts">
+                    <rect x="240" y="60" width="16" height="16" fill="var(--lime)" stroke="var(--ink)" stroke-width="3"/>
+                    <rect x="240" y="86" width="16" height="16" fill="var(--lime)" stroke="var(--ink)" stroke-width="3"/>
+                  </g>
+                </svg>
+                <p class="art-cap">✳ EL SOFTWARE EMPIEZA A DIRIGIR LA PRODUCCIÓN</p>
+              </div>
+              <div class="stack">
+                <div class="card seq" style="--i:3"><span class="yr">1961</span><p><b>UNIMATE</b>: el primer robot industrial trabaja en una planta de General Motors.</p></div>
+                <div class="card seq" style="--i:4"><span class="yr">1970s–90s</span><p><b>JAPÓN</b> lidera la robótica: máquinas que sueldan, pintan y montan sin parar.</p></div>
+                <div class="stat-box seq" style="--i:5">
+                  <span class="cnt" data-to="24" data-suffix="/7">0/7</span>
+                  <label>HORAS AL DÍA: LAS FÁBRICAS YA NO CERRARON NUNCA MÁS</label>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ============ CAP 4 · IA ============ -->
+        <section class="scene" id="s16" data-fx="nodes">
+          <div class="bg bg-ink"></div>
+          <div class="bg bg-stripes pink"></div>
+          <div class="ghost ghost-w">04</div>
+          <div class="wrap">
+            <div class="kicker pink-k seq" style="--i:1">CAPÍTULO 04</div>
+            <h2 class="chapter-title seq slam" style="--i:2"><span class="accent pink">LA ERA DE LO</span> <span class="accent pink">INTELIGENTE</span></h2>
+            <div class="sticker pink-s seq" style="--i:3">2011 — HOY</div>
+            <svg class="brain-big seq" style="--i:4" viewBox="0 0 160 120" role="img" aria-label="Red neuronal pulsante">
+              <circle cx="80" cy="60" r="26" fill="none" stroke="var(--pink)" stroke-width="5" class="brain-pulse"/>
+              <circle cx="44" cy="30" r="7" fill="var(--pink)"/><circle cx="116" cy="34" r="7" fill="var(--pink)"/>
+              <circle cx="30" cy="78" r="7" fill="var(--pink)"/><circle cx="118" cy="92" r="7" fill="var(--pink)"/>
+              <circle cx="80" cy="14" r="7" fill="var(--pink)"/><circle cx="148" cy="62" r="7" fill="var(--pink)"/>
+              <g stroke="var(--pink)" stroke-width="2.5" class="syn">
+                <line x1="80" y1="40" x2="44" y2="30"/><line x1="80" y1="40" x2="116" y2="34"/>
+                <line x1="80" y1="80" x2="30" y2="78"/><line x1="80" y1="80" x2="118" y2="92"/>
+                <line x1="80" y1="40" x2="80" y2="14"/><line x1="80" y1="80" x2="148" y2="62"/>
+                <line x1="44" y1="30" x2="80" y2="14"/><line x1="116" y1="34" x2="148" y2="62"/>
+                <line x1="30" y1="78" x2="80" y2="80"/><line x1="118" y1="92" x2="148" y2="62"/>
+              </g>
+              <circle cx="80" cy="60" r="8" fill="var(--yellow)" stroke="var(--ink)" stroke-width="3"/>
+            </svg>
+          </div>
+          <div class="mq"><div class="mq-track">
+            <span>IA ✳ IOT ✳ BIG DATA ✳ ROBOTS COLABORATIVOS ✳ NUBE ✳ GEMELOS DIGITALES ✳&nbsp;</span>
+            <span>IA ✳ IOT ✳ BIG DATA ✳ ROBOTS COLABORATIVOS ✳ NUBE ✳ GEMELOS DIGITALES ✳&nbsp;</span>
+          </div></div>
+        </section>
+
+        <section class="scene" id="s17" data-fx="nodes">
+          <div class="bg bg-pink"></div>
+          <div class="bg bg-grid dim"></div>
+          <div class="ghost">04A</div>
+          <div class="wrap wide">
+            <header class="sc-head seq" style="--i:1"><span class="tag">04 · 2011 — HOY</span><h3>LA INTELIGENCIA ARTIFICIAL</h3></header>
+            <div class="cols">
+              <div class="art seq" style="--i:2">
+                <svg viewBox="0 0 260 170" role="img" aria-label="IA aprendiendo: nodos que se conectan">
+                  <circle cx="52" cy="60" r="12" fill="var(--yellow)" stroke="var(--ink)" stroke-width="4"/>
+                  <circle cx="130" cy="34" r="12" fill="var(--yellow)" stroke="var(--ink)" stroke-width="4"/>
+                  <circle cx="208" cy="60" r="12" fill="var(--yellow)" stroke="var(--ink)" stroke-width="4"/>
+                  <circle cx="52" cy="120" r="12" fill="var(--yellow)" stroke="var(--ink)" stroke-width="4"/>
+                  <circle cx="130" cy="146" r="12" fill="var(--yellow)" stroke="var(--ink)" stroke-width="4"/>
+                  <circle cx="208" cy="120" r="12" fill="var(--yellow)" stroke="var(--ink)" stroke-width="4"/>
+                  <g class="nnlines" stroke="var(--ink)" stroke-width="3">
+                    <line x1="52" y1="72" x2="130" y2="46"/><line x1="52" y1="72" x2="130" y2="134"/>
+                    <line x1="130" y1="46" x2="208" y2="72"/><line x1="130" y1="134" x2="208" y2="108"/>
+                    <line x1="52" y1="108" x2="130" y2="134"/><line x1="130" y1="46" x2="208" y2="108"/>
+                    <line x1="52" y1="72" x2="208" y2="72"/><line x1="52" y1="108" x2="208" y2="108"/>
+                  </g>
+                  <text x="30" y="20" font-family="var(--font-m)" font-size="12" font-weight="700" fill="var(--ink)">DATOS ➜ PATRONES ➜ DECISIONES</text>
+                </svg>
+                <p class="art-cap">✳ MÁQUINAS QUE APRENDEN — NO SOLO EJECUTAN</p>
+              </div>
+              <div class="stack">
+                <div class="card seq" style="--i:3"><span class="yr">2011</span><p>Nace el concepto <b>“INDUSTRIA 4.0”</b> en la feria de Hannover: la fábrica se vuelve ciber-física.</p></div>
+                <div class="card seq" style="--i:4"><span class="yr">2012</span><p><b>DEEP LEARNING</b> despega: las redes neuronales ganan a la visión humana en imágenes.</p></div>
+                <div class="card seq" style="--i:5"><span class="yr">2022+</span><p><b>IA GENERATIVA</b>: textos, imágenes, código y voces creadas por máquinas.</p></div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="scene" id="s18" data-fx="nodes">
+          <div class="bg bg-ink"></div>
+          <div class="bg bg-grid-inv dim2"></div>
+          <div class="ghost ghost-w">04B</div>
+          <div class="wrap wide">
+            <header class="sc-head light seq" style="--i:1"><span class="tag">04 · 2011 — HOY</span><h3>LA FÁBRICA INTELIGENTE</h3></header>
+            <div class="cols">
+              <div class="art seq" style="--i:2">
+                <svg viewBox="0 0 260 170" role="img" aria-label="Fábrica conectada por IoT">
+                  <rect x="30" y="70" width="70" height="60" fill="var(--accent-sv)" stroke="var(--paper)" stroke-width="5"/>
+                  <rect x="118" y="50" width="70" height="80" fill="var(--accent-sv)" stroke="var(--paper)" stroke-width="5"/>
+                  <rect x="206" y="64" width="28" height="66" fill="var(--accent-sv)" stroke="var(--paper)" stroke-width="5"/>
+                  <g fill="var(--paper)">
+                    <rect x="40" y="40" width="24" height="6"/><rect x="74" y="46" width="24" height="6"/>
+                    <rect x="128" y="24" width="24" height="6"/><rect x="162" y="34" width="24" height="6"/>
+                    <rect x="212" y="40" width="18" height="6"/>
+                  </g>
+                  <g class="iot" fill="var(--yellow)">
+                    <circle cx="40" cy="150" r="9"/><circle cx="92" cy="152" r="9"/><circle cx="150" cy="154" r="9"/><circle cx="212" cy="152" r="9"/>
+                    <circle cx="128" cy="20" r="9"/><circle cx="238" cy="110" r="9"/><circle cx="16" cy="44" r="9"/>
+                  </g>
+                  <g class="iotlines" stroke="var(--pink)" stroke-width="2.5" stroke-dasharray="6 6">
+                    <line x1="40" y1="140" x2="95" y2="70"/><line x1="92" y1="142" x2="140" y2="50"/>
+                    <line x1="150" y1="144" x2="176" y2="50"/><line x1="212" y1="142" x2="206" y2="64"/>
+                    <line x1="128" y1="30" x2="150" y2="50"/><line x1="40" y1="44" x2="50" y2="70"/>
+                  </g>
+                </svg>
+                <p class="art-cap paper-cap">✳ TODO CONECTADO: LA FÁBRICA SE ESCUCHA A SÍ MISMA</p>
+              </div>
+              <div class="stack">
+                <div class="card seq" style="--i:3"><span class="yr">IOT</span><p><b>Miles de sensores</b> miden cada máquina, pieza y pedido en tiempo real.</p></div>
+                <div class="card seq" style="--i:4"><span class="yr">GEMELO DIGITAL</span><p>La fábrica se <b>simula antes de producir</b>: se prueba en el mundo virtual.</p></div>
+                <div class="card seq" style="--i:5"><span class="yr">COBOTS</span><p>Robots que <b>trabajan junto a personas</b> + impresión 3D + personalización masiva.</p></div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="scene" id="s19" data-fx="nodes">
+          <div class="bg bg-paper"></div>
+          <div class="bg bg-grid dim"></div>
+          <div class="ghost">04C</div>
+          <div class="wrap wide">
+            <header class="sc-head seq" style="--i:1"><span class="tag">04 · PREGUNTAS ABIERTAS</span><h3>¿Y AHORA QUÉ?</h3></header>
+            <div class="grid3">
+              <div class="card seq" style="--i:2"><span class="yr">EMPLEO</span><p><b>¿Qué trabajos desaparecen</b> — y cuáles nacen? La recualificación es la nueva carrera.</p></div>
+              <div class="card seq" style="--i:3"><span class="yr">ÉTICA</span><p><b>¿Quién responde</b> cuando una decisión la toma una inteligencia artificial?</p></div>
+              <div class="card seq" style="--i:4"><span class="yr">RIQUEZA</span><p><b>¿Cómo repartimos</b> la riqueza que generan las máquinas que aprenden?</p></div>
+            </div>
+            <div class="stat-line seq" style="--i:5">
+              <span class="cnt" data-to="2026" data-suffix="">0</span>
+              <label>— HOY: LA QUINTA REVOLUCIÓN SE ESTÁ ESCRIBIENDO EN ESTE MOMENTO</label>
+            </div>
+          </div>
+        </section>
+
+        <!-- ============ RECAP ============ -->
+        <section class="scene" id="s20" data-fx="">
+          <div class="bg bg-ink"></div>
+          <div class="bg bg-grid-inv dim2"></div>
+          <div class="wrap">
+            <header class="sc-head light seq" style="--i:1"><span class="tag">LINEA DEL TIEMPO</span><h3>256 AÑOS EN CUATRO ERAS</h3></header>
+            <div class="timeline seq" style="--i:2">
+              <div class="tl-block orange-tl"><div class="tl-bar"></div><span class="tl-yr">1765–1840</span><b>VAPOR</b><i>mecanización</i></div>
+              <div class="tl-block cyan-tl"><div class="tl-bar"></div><span class="tl-yr">1870–1914</span><b>ELECTRICIDAD</b><i>producción en masa</i></div>
+              <div class="tl-block lime-tl"><div class="tl-bar"></div><span class="tl-yr">1969–2000</span><b>DIGITAL</b><i>computación y red</i></div>
+              <div class="tl-block pink-tl"><div class="tl-bar"></div><span class="tl-yr">2011—HOY</span><b>INTELIGENTE</b><i>IA y datos</i></div>
+            </div>
+            <div class="timeline-arrow seq" style="--i:3">1765 ➜ 2026 ➜ ¿2050?</div>
+          </div>
+        </section>
+
+        <!-- ============ FIN ============ -->
+        <section class="scene" id="s21" data-fx="">
+          <div class="bg bg-yellow"></div>
+          <div class="bg bg-grid dim"></div>
+          <div class="wrap">
+            <h2 class="the-end seq slam" style="--i:1">FIN<span class="glitch">FIN</span></h2>
+            <div class="credits seq" style="--i:2">
+              <p><b>DIRECCIÓN Y GUION</b> — HTML</p>
+              <p><b>FOTOGRAFÍA Y CÁMARA</b> — CSS</p>
+              <p><b>INTERPRETACIÓN Y MONTAJE</b> — JAVASCRIPT</p>
+              <p><b>MÚSICA Y SONIDO</b> — WEB AUDIO API</p>
+            </div>
+            <div class="stamp seq" style="--i:3">SIN IMÁGENES · SIN VÍDEOS · SIN AUDIOS EXTERNOS<br>0 ASSETS — 100% CÓDIGO</div>
+            <div class="endnote seq" style="--i:4">REPRODUCE · COMPARTE · APRENDE ✳</div>
+          </div>
+        </section>
+
+      </div>
+
+      <div id="wipe"></div>
+      <div id="hud-top">
+        <span class="rec"><i></i>REC</span>
+        <span class="branding">4REV ⸙ NEOBRUTALISTA PRODUCTION</span>
+        <span id="tc" class="timecode">00:00:00:00</span>
+      </div>
+      <div id="noise"></div>
+      <div id="scan"></div>
+      <div id="vignette"></div>
+
+    </div>
+  </div>
+
+  <div id="controls">
+    <div class="ctl-btns">
+      <button id="btnPlay" class="ctl-btn primary" title="Reproducir / Pausa (Espacio)">▶ REPRODUCIR</button>
+      <button id="btnRestart" class="ctl-btn" title="Volver al inicio (R)">⟳</button>
+      <button id="btnMute" class="ctl-btn" title="Silenciar (M)">SND</button>
+      <button id="btnFull" class="ctl-btn" title="Pantalla completa (F)">⛶</button>
+    </div>
+    <div class="ctl-progress">
+      <div id="progress" class="progress">
+        <div id="eraChunk1" class="era-chunk era-o"></div>
+        <div id="eraChunk2" class="era-chunk era-c"></div>
+        <div id="eraChunk3" class="era-chunk era-l"></div>
+        <div id="eraChunk4" class="era-chunk era-p"></div>
+        <div id="knob" class="knob"></div>
+      </div>
+      <div class="chips">
+        <button class="chip chip-o" data-go="12.7">01</button>
+        <button class="chip chip-c" data-go="46.7">02</button>
+        <button class="chip chip-l" data-go="80.7">03</button>
+        <button class="chip chip-p" data-go="114.7">04</button>
+      </div>
+    </div>
+    <span class="ctl-note">ESPACIO: PLAY · ←/→: ±5s · 1–4: CAPÍTULOS · F: PANTALLA COMPLETA</span>
+  </div>
+</div>
+
+<div id="gate">
+  <div class="gate-inner">
+    <div class="gate-logo">4REV</div>
+    <h2 class="gate-title">LAS CUATRO REVOLUCIONES INDUSTRIALES</h2>
+    <p class="gate-sub">PELÍCULA NEOBRUTALISTA — <b>100% HTML + CSS + JS</b></p>
+    <p class="gate-audio">🎧 ÚSALA CON AUDIO (sintetizado en vivo con Web Audio API)</p>
+    <button id="btnStart" class="btn-start">PULSA PARA REPRODUCIR ➤</button>
+    <p class="gate-hint">APROX. 2:55 · 22 ESCENAS · 0 ASSETS EXTERNOS · 4 BANDAS SONORAS SINTETIZADAS</p>
+  </div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>

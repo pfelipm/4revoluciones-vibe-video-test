@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Las 4 Revoluciones Industriales</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;700;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --color-1: #FAFF00; /* Yellow */
+            --color-2: #00F0FF; /* Cyan */
+            --color-3: #FF00E5; /* Pink */
+            --color-4: #00FF38; /* Green */
+            --bg-color: #F4F4F0;
+        }
+        
+        body {
+            font-family: 'Space Grotesk', sans-serif;
+            background-color: var(--bg-color);
+            margin: 0;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            width: 100vw;
+        }
+
+        /* Contenedor principal estilo video 16:9 */
+        .video-container {
+            position: relative;
+            width: 100%;
+            max-width: 1280px;
+            aspect-ratio: 16 / 9;
+            background: #fff;
+            border: 8px solid #000;
+            box-shadow: 16px 16px 0px #000;
+            overflow: hidden;
+        }
+
+        .slide {
+            position: absolute;
+            inset: 0;
+            opacity: 0;
+            transition: opacity 0.8s ease-in-out;
+            pointer-events: none;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 2rem;
+            z-index: 0;
+        }
+
+        .slide.active {
+            opacity: 1;
+            z-index: 10;
+            pointer-events: auto;
+        }
+
+        /* Efectos Brutalistas */
+        .brutal-box {
+            border: 4px solid #000;
+            box-shadow: 8px 8px 0px #000;
+            background: #fff;
+        }
+
+        /* Barra de progreso inferior */
+        #progress-bar-container {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 12px;
+            background-color: #fff;
+            border-top: 4px solid #000;
+            z-index: 50;
+            display: none;
+        }
+
+        #progress-bar {
+            height: 100%;
+            background-color: #FF00E5;
+            width: 0%;
+            transition: width 0.1s linear;
+        }
+
+        .anim-target { opacity: 0; }
+        
+        /* Se activa cuando el slide padre tiene la clase active */
+        .active .pop-in { animation: popIn 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards; }
+        .active .slide-up-fade { animation: slideUpFade 0.8s ease-out forwards; }
+        .active .slide-right-fade { animation: slideRightFade 0.8s ease-out forwards; }
+
+        /* Retrasos escalonados */
+        .delay-1 { animation-delay: 0.3s; }
+        .delay-2 { animation-delay: 0.6s; }
+        .delay-3 { animation-delay: 0.9s; }
+        .delay-4 { animation-delay: 1.2s; }
+
+        @keyframes popIn {
+            0% { transform: scale(0.5) rotate(-10deg); opacity: 0; }
+            100% { transform: scale(1) rotate(0deg); opacity: 1; }
+        }
+
+        @keyframes slideUpFade {
+            0% { transform: translateY(50px); opacity: 0; }
+            100% { transform: translateY(0); opacity: 1; }
+        }
+
+        @keyframes slideRightFade {
+            0% { transform: translateX(-50px); opacity: 0; }
+            100% { transform: translateX(0); opacity: 1; }
+        }
+
+        /* Rotaciones excéntricas para el estilo Neobrutalista */
+        .rotate-slight-right { transform: rotate(3deg); }
+        .rotate-slight-left { transform: rotate(-3deg); }
+
+        /* Floating Animation para los gráficos vectoriales */
+        @keyframes float {
+            0% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-15px) rotate(2deg); }
+            100% { transform: translateY(0px) rotate(0deg); }
+        }
+        .active .floating-svg {
+            animation: float 4s ease-in-out infinite;
+        }
+
+        /* Ocultar scrollbars en móviles */
+        ::-webkit-scrollbar { display: none; }
+    </style>
+</head>
+<body>
+
+    <!-- Elemento de Audio (Música de fondo elegida por el usuario) -->
+    <audio id="bgm" preload="auto">
+        <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3" type="audio/mpeg">
+    </audio>
+
+    <div class="video-container" id="screen">
+        
+        <!-- PANTALLA DE INICIO (Botón de Play) -->
+        <div id="intro-slide" class="slide active bg-yellow-300 flex-col gap-8 z-50">
+            <h1 class="text-6xl md:text-8xl font-black text-center brutal-box p-6 bg-white rotate-slight-left">
+                LAS 4 REVOLUCIONES <br> INDUSTRIALES
+            </h1>
+            <p class="text-2xl font-bold bg-black text-white p-4 uppercase tracking-widest shadow-[6px_6px_0px_#FF00E5] border-2 border-black">
+                Cronología Educativa
+            </p>
+            <button id="play-btn" onclick="startVideo()" class="mt-8 px-12 py-6 text-4xl font-black bg-[#00FF38] brutal-box transition-transform hover:translate-x-[4px] hover:translate-y-[4px] hover:shadow-[4px_4px_0px_#000] cursor-pointer">
+                ▶ INICIAR VIDEO
+            </button>
+        </div>
+
+        <!-- SLIDE 1: 1760 - 1840 -->
+        <div id="slide-1" class="slide bg-[#FF4500]">
+            <div class="w-full h-full flex flex-col md:flex-row items-center justify-between p-8 relative">
+                
+                <div class="w-full md:w-1/2 flex flex-col items-start gap-6 z-20">
+                    <div class="anim-target slide-right-fade delay-1 brutal-box bg-white px-6 py-2 text-3xl font-black">
+                        1760 - 1840
+                    </div>
+                    <h2 class="anim-target slide-up-fade delay-2 text-5xl md:text-7xl font-black text-white text-shadow border-black">
+                        PRIMERA<br>REVOLUCIÓN
+                    </h2>
+                    <div class="anim-target slide-up-fade delay-3 brutal-box bg-yellow-300 p-6 rotate-slight-right mt-4">
+                        <ul class="text-2xl md:text-3xl font-bold leading-relaxed">
+                            <li>⚙️ Máquina de vapor</li>
+                            <li>⛏️ Uso intensivo de carbón</li>
+                            <li>🧵 Industria textil mecanizada</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="w-full md:w-1/2 flex justify-center items-center mt-10 md:mt-0">
+                    <!-- Gráfico Neobrutalista: Engranaje/Máquina -->
+                    <div class="anim-target pop-in delay-2 floating-svg brutal-box bg-white p-8 rounded-full border-[8px]">
+                        <svg width="200" height="200" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M50 20C33.4315 20 20 33.4315 20 50C20 66.5685 33.4315 80 50 80C66.5685 80 80 66.5685 80 50C80 33.4315 66.5685 20 50 20ZM50 65C41.7157 65 35 58.2843 35 50C35 41.7157 41.7157 35 50 35C58.2843 35 65 41.7157 65 50C65 58.2843 58.2843 65 50 65Z" fill="black"/>
+                            <rect x="42" y="5" width="16" height="20" fill="black"/>
+                            <rect x="42" y="75" width="16" height="20" fill="black"/>
+                            <rect x="5" y="42" width="20" height="16" fill="black"/>
+                            <rect x="75" y="42" width="20" height="16" fill="black"/>
+                            <rect x="19" y="19" width="16" height="16" transform="rotate(45 19 19)" fill="black"/>
+                            <rect x="69" y="69" width="16" height="16" transform="rotate(45 69 69)" fill="black"/>
+                            <rect x="19" y="80.3" width="16" height="16" transform="rotate(-45 19 80.3)" fill="black"/>
+                            <rect x="69" y="30.3" width="16" height="16" transform="rotate(-45 69 30.3)" fill="black"/>
+                        </svg>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 2: 1870 - 1914 -->
+        <div id="slide-2" class="slide bg-[var(--color-2)]">
+            <div class="w-full h-full flex flex-col md:flex-row-reverse items-center justify-between p-8 relative">
+                
+                <div class="w-full md:w-1/2 flex flex-col items-end text-right gap-6 z-20">
+                    <div class="anim-target slide-right-fade delay-1 brutal-box bg-[#FF00E5] text-white px-6 py-2 text-3xl font-black rotate-slight-right">
+                        1870 - 1914
+                    </div>
+                    <h2 class="anim-target slide-up-fade delay-2 text-5xl md:text-7xl font-black text-black">
+                        SEGUNDA<br>REVOLUCIÓN
+                    </h2>
+                    <div class="anim-target slide-up-fade delay-3 brutal-box bg-white p-6 rotate-slight-left mt-4 text-left">
+                        <ul class="text-2xl md:text-3xl font-bold leading-relaxed">
+                            <li>⚡ Electricidad masiva</li>
+                            <li>🚗 Motor de combustión</li>
+                            <li>🏭 Producción en masa (Líneas)</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="w-full md:w-1/2 flex justify-center items-center mt-10 md:mt-0">
+                    <!-- Gráfico Neobrutalista: Rayo y Fábrica -->
+                    <div class="anim-target pop-in delay-2 floating-svg brutal-box bg-yellow-300 p-8 border-[6px]">
+                        <svg width="200" height="200" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <!-- Fabrica -->
+                            <path d="M10 90V50L30 30V50L50 30V50L70 30V90H10Z" fill="black"/>
+                            <rect x="20" y="70" width="10" height="20" fill="white"/>
+                            <!-- Rayo superpuesto -->
+                            <path d="M75 10L45 50H65L55 90L95 40H70L75 10Z" fill="#00F0FF" stroke="black" stroke-width="4"/>
+                        </svg>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 3: 1960 - 2000 -->
+        <div id="slide-3" class="slide bg-[var(--color-3)]">
+            <div class="w-full h-full flex flex-col md:flex-row items-center justify-between p-8 relative">
+                
+                <div class="w-full md:w-1/2 flex flex-col items-start gap-6 z-20">
+                    <div class="anim-target slide-right-fade delay-1 brutal-box bg-[#00FF38] px-6 py-2 text-3xl font-black rotate-slight-left">
+                        1960 - 2000
+                    </div>
+                    <h2 class="anim-target slide-up-fade delay-2 text-5xl md:text-7xl font-black text-white">
+                        TERCERA<br>REVOLUCIÓN
+                    </h2>
+                    <div class="anim-target slide-up-fade delay-3 brutal-box bg-white p-6 rotate-slight-right mt-4 text-black">
+                        <ul class="text-2xl md:text-3xl font-bold leading-relaxed">
+                            <li>💻 Computadoras personales</li>
+                            <li>🌐 Nacimiento de Internet</li>
+                            <li>🤖 Automatización industrial</li>
+                            <li>🖩 Semiconductores</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="w-full md:w-1/2 flex justify-center items-center mt-10 md:mt-0">
+                    <!-- Gráfico Neobrutalista: Computadora Clásica -->
+                    <div class="anim-target pop-in delay-2 floating-svg brutal-box bg-blue-500 p-8 border-[6px]">
+                        <svg width="200" height="200" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <!-- Monitor -->
+                            <rect x="10" y="10" width="80" height="60" rx="5" fill="white" stroke="black" stroke-width="4"/>
+                            <rect x="20" y="20" width="60" height="40" fill="black"/>
+                            <!-- Stand -->
+                            <path d="M40 70H60V85H40V70Z" fill="white" stroke="black" stroke-width="4"/>
+                            <rect x="20" y="85" width="60" height="10" fill="white" stroke="black" stroke-width="4"/>
+                            <!-- Codigo en pantalla -->
+                            <rect x="25" y="25" width="40" height="4" fill="#00FF38"/>
+                            <rect x="25" y="35" width="25" height="4" fill="#00FF38"/>
+                            <rect x="25" y="45" width="35" height="4" fill="#00FF38"/>
+                        </svg>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 4: 2010 - PRESENTE -->
+        <div id="slide-4" class="slide bg-[var(--color-4)]">
+            <div class="w-full h-full flex flex-col md:flex-row-reverse items-center justify-between p-8 relative">
+                
+                <div class="w-full md:w-1/2 flex flex-col items-end text-right gap-6 z-20">
+                    <div class="anim-target slide-right-fade delay-1 brutal-box bg-[var(--color-1)] px-6 py-2 text-3xl font-black rotate-slight-right">
+                        2010 - PRESENTE
+                    </div>
+                    <h2 class="anim-target slide-up-fade delay-2 text-5xl md:text-7xl font-black text-black">
+                        CUARTA<br>REVOLUCIÓN
+                    </h2>
+                    <div class="anim-target slide-up-fade delay-3 brutal-box bg-white p-6 rotate-slight-left mt-4 text-left">
+                        <ul class="text-2xl md:text-3xl font-bold leading-relaxed">
+                            <li>🧠 Inteligencia Artificial (IA)</li>
+                            <li>📡 Internet de las Cosas (IoT)</li>
+                            <li>📊 Big Data y Analítica</li>
+                            <li>🔗 Sistemas Ciberfísicos</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="w-full md:w-1/2 flex justify-center items-center mt-10 md:mt-0">
+                    <!-- Gráfico Neobrutalista: Nube IoT/IA -->
+                    <div class="anim-target pop-in delay-2 floating-svg brutal-box bg-[#FF00E5] p-8 border-[6px]">
+                        <svg width="200" height="200" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <!-- Nube de datos -->
+                            <path d="M75 40C75 28.9543 66.0457 20 55 20C47.6433 20 41.2132 23.9717 37.6042 30C35.9189 28.75 33.8055 28 31.5 28C26.2533 28 22 32.2533 22 37.5C22 38.3188 22.1035 39.1132 22.2965 39.8732C15.5348 41.8797 10.5 48.156 10.5 55.5C10.5 64.6127 17.8873 72 27 72H75C83.2843 72 90 65.2843 90 57C90 48.7157 83.2843 42 75 42V40Z" fill="white" stroke="black" stroke-width="4"/>
+                            <!-- Conexiones / Nodos -->
+                            <circle cx="35" cy="45" r="5" fill="black"/>
+                            <circle cx="55" cy="35" r="5" fill="black"/>
+                            <circle cx="65" cy="55" r="5" fill="black"/>
+                            <circle cx="45" cy="60" r="5" fill="black"/>
+                            <line x1="35" y1="45" x2="55" y2="35" stroke="black" stroke-width="3"/>
+                            <line x1="55" y1="35" x2="65" y2="55" stroke="black" stroke-width="3"/>
+                            <line x1="65" y1="55" x2="45" y2="60" stroke="black" stroke-width="3"/>
+                            <line x1="45" y1="60" x2="35" y2="45" stroke="black" stroke-width="3"/>
+                        </svg>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 5: OUTRO -->
+        <div id="slide-5" class="slide bg-black">
+            <div class="flex flex-col items-center justify-center text-center gap-8 z-20">
+                <h2 class="anim-target pop-in delay-1 text-5xl md:text-7xl font-black text-white brutal-box bg-blue-600 p-8 rotate-slight-right">
+                    EL FUTURO ES AHORA
+                </h2>
+                <button onclick="resetVideo()" class="anim-target slide-up-fade delay-3 px-10 py-5 text-3xl font-black bg-yellow-300 brutal-box transition-transform hover:translate-x-[4px] hover:translate-y-[4px] hover:shadow-[4px_4px_0px_#000] cursor-pointer">
+                    🔄 REPETIR VIDEO
+                </button>
+            </div>
+        </div>
+
+        <!-- Progress Bar -->
+        <div id="progress-bar-container">
+            <div id="progress-bar"></div>
+        </div>
+
+    </div>
+
+    <script>
+        const audio = document.getElementById('bgm');
+        const slides = document.querySelectorAll('.slide');
+        const introSlide = document.getElementById('intro-slide');
+        const progressBarContainer = document.getElementById('progress-bar-container');
+        const progressBar = document.getElementById('progress-bar');
+        
+        let isPlaying = false;
+        let animationFrameId = null;
+
+        // Tiempos de inicio de cada escena (en segundos)
+        const timeline = {
+            slide1: 0,    // 0s - 7s
+            slide2: 7,    // 7s - 14s
+            slide3: 14,   // 14s - 21s
+            slide4: 21,   // 21s - 29s
+            slide5: 29    // 29s - final
+        };
+        const totalDuration = 32; // Duración total aproximada de la presentación visual
+
+        function showSlide(slideId) {
+            slides.forEach(s => {
+                if (s.id === slideId) {
+                    if (!s.classList.contains('active')) {
+                        s.classList.add('active');
+                        // Reiniciar animaciones CSS reflow
+                        const anims = s.querySelectorAll('.anim-target');
+                        anims.forEach(el => {
+                            el.style.animation = 'none';
+                            el.offsetHeight; // trigger reflow
+                            el.style.animation = null; 
+                        });
+                    }
+                } else {
+                    // Mantener el intro-slide inactivo una vez que empezamos
+                    if (s.id !== 'intro-slide') {
+                        s.classList.remove('active');
+                    }
+                }
+            });
+        }
+
+        function startVideo() {
+            if(isPlaying) return;
+            
+            // Ocultar pantalla inicio y mostrar barra
+            introSlide.classList.remove('active');
+            progressBarContainer.style.display = 'block';
+            
+            audio.currentTime = 0;
+            audio.play().then(() => {
+                isPlaying = true;
+                syncLoop();
+            }).catch(e => console.log("Interacción requerida por el navegador para reproducir audio."));
+        }
+
+        function syncLoop() {
+            if (!isPlaying) return;
+
+            // El reloj maestro es el tiempo real del reproductor de audio
+            const currentTime = audio.currentTime;
+
+            // Lógica para decidir qué escena mostrar basándonos en los segundos exactos
+            if (currentTime >= timeline.slide5) {
+                showSlide('slide-5');
+            } else if (currentTime >= timeline.slide4) {
+                showSlide('slide-4');
+            } else if (currentTime >= timeline.slide3) {
+                showSlide('slide-3');
+            } else if (currentTime >= timeline.slide2) {
+                showSlide('slide-2');
+            } else if (currentTime >= timeline.slide1) {
+                showSlide('slide-1');
+            }
+
+            // Actualizar barra de progreso
+            const progress = Math.min((currentTime / totalDuration) * 100, 100);
+            progressBar.style.width = `${progress}%`;
+
+            // Continuar el bucle
+            animationFrameId = requestAnimationFrame(syncLoop);
+            
+            // Pausar sincronización al llegar al final del videoclip (Outro)
+            if(currentTime > totalDuration + 2) {
+                cancelAnimationFrame(animationFrameId);
+                isPlaying = false;
+            }
+        }
+
+        function resetVideo() {
+            isPlaying = false;
+            cancelAnimationFrame(animationFrameId);
+            
+            audio.pause();
+            audio.currentTime = 0;
+            
+            progressBar.style.width = '0%';
+            progressBarContainer.style.display = 'none';
+
+            // Ocultar todas las slides y volver al inicio
+            slides.forEach(s => s.classList.remove('active'));
+            introSlide.classList.add('active');
+        }
+
+        // Si el audio termina por si solo
+        audio.addEventListener('ended', () => {
+            isPlaying = false;
+            cancelAnimationFrame(animationFrameId);
+        });
+    </script>
+</body>
+</html>

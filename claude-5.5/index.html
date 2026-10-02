@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Las 4 Revoluciones Industriales · Cronología</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Space+Grotesk:wght@500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div id="viewport"><div id="stage"></div></div>
+
+  <div id="ui">
+    <div id="splash">
+      <div class="sp-card">
+        <div class="sp-k">Vídeo · solo HTML + CSS + JS</div>
+        <h1>Las 4 Revoluciones Industriales</h1>
+        <p class="sp-d">Una cronología animada de 1760 a hoy, con banda sonora sincronizada.</p>
+        <button id="bigplay" disabled>▶ Reproducir</button>
+        <div id="status">Componiendo banda sonora…</div>
+        <div class="sp-hint">Espacio: play/pausa · ← →: ±5 s · 0–5: saltar a capítulo · F: pantalla completa · M: silencio</div>
+      </div>
+    </div>
+
+    <div id="bar">
+      <button id="pp" title="Reproducir / pausa (Espacio)">▶</button>
+      <span id="time">0:00 / 0:00</span>
+      <div id="scrub"><div id="sfill"></div><div id="marks"></div><div id="shead"></div></div>
+      <button id="mute" title="Silencio (M)">🔊</button>
+      <button id="fs" title="Pantalla completa (F)">⛶</button>
+    </div>
+  </div>
+
+  <script src="audio.js"></script>
+  <script src="video.js"></script>
+  <script src="player.js"></script>
+</body>
+</html>

@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cronología: 4 Revoluciones Industriales</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;700;900&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div id="noise-overlay"></div>
+    <div id="scanlines"></div>
+
+    <div id="start-screen" class="screen">
+        <div class="content-box">
+            <h1>LAS 4 REVOLUCIONES INDUSTRIALES</h1>
+            <p>Una experiencia audiovisual</p>
+            <button id="start-btn">INICIAR LÍNEA TEMPORAL</button>
+        </div>
+    </div>
+
+    <div id="video-container" class="hidden">
+        
+        <!-- Scene Intro -->
+        <div id="scene-intro" class="scene bg-black text-white">
+            <h1 class="glitch giant-text" data-text="CRONOLOGÍA">CRONOLOGÍA</h1>
+        </div>
+
+        <!-- Scene 1: 1784 -->
+        <div id="scene-rev1" class="scene bg-yellow">
+            <div class="card reveal-left">
+                <div class="card-header">1784</div>
+                <h1>1ª REVOLUCIÓN</h1>
+                <p>El nacimiento de la <strong>Mecanización</strong>.<br>La energía hidráulica y la máquina de vapor transforman el trabajo manual en industrial.</p>
+                <div class="icon spin-slow">⚙️</div>
+            </div>
+        </div>
+
+        <!-- Scene 2: 1870 -->
+        <div id="scene-rev2" class="scene bg-blue">
+            <div class="card reveal-bottom">
+                <div class="card-header">1870</div>
+                <h1>2ª REVOLUCIÓN</h1>
+                <p>La era de la <strong>Producción en Masa</strong>.<br>Las cadenas de montaje impulsadas por electricidad aceleran la manufactura global.</p>
+                <div class="icon flash">⚡</div>
+            </div>
+        </div>
+
+        <!-- Scene 3: 1969 -->
+        <div id="scene-rev3" class="scene bg-pink">
+            <div class="card reveal-right">
+                <div class="card-header">1969</div>
+                <h1>3ª REVOLUCIÓN</h1>
+                <p>El auge de la <strong>Informática y Automatización</strong>.<br>Controladores lógicos programables, robótica temprana y la digitalización de la industria.</p>
+                <div class="icon bounce">💻</div>
+            </div>
+        </div>
+
+        <!-- Scene 4: Hoy -->
+        <div id="scene-rev4" class="scene bg-green">
+            <div class="card reveal-zoom">
+                <div class="card-header">PRESENTE</div>
+                <h1>4ª REVOLUCIÓN</h1>
+                <p><strong>Sistemas Ciberfísicos & IA</strong>.<br>El Internet de las Cosas, Big Data, redes descentralizadas y automatización inteligente.</p>
+                <div class="icon pulse-fast">🌐</div>
+            </div>
+        </div>
+
+        <!-- Scene Outro -->
+        <div id="scene-outro" class="scene bg-black text-white">
+            <h1 class="glitch giant-text" data-text="EL FUTURO ES AHORA">EL FUTURO ES AHORA</h1>
+        </div>
+
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>

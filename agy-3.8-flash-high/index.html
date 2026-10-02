@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cronología de las 4 Revoluciones Industriales // Video Educativo Neobrutalista</title>
+  
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' fill='%23FFE600'/><text y='.9em' font-size='90'>⚙️</text></svg>">
+  
+  <!-- Tipografía Google Fonts de alto impacto -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@700;800;900&family=Space+Grotesk:wght@600;700;800;900&display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+  <!-- MARQUESINA RETRO TICKER TAPE -->
+  <aside class="top-ticker-banner" aria-label="Información de transmisión">
+    <div class="ticker-content">
+      ● TRANSMISIÓN EDUCATIVA HISTÓRICA // 1ª REV: VAPOR & CARBÓN (1760) // 2ª REV: ELECTRICIDAD & ACERO (1870) // 3ª REV: SILICIO & INTERNET (1969) // 4ª REV: INTELIGENCIA ARTIFICIAL & CIBERFÍSICA (2016) // AUDIO GENERATIVO SINCRONIZADO // MODO NEOBRUTALISTA ACTIVO //
+    </div>
+  </aside>
+
+  <!-- CONTENEDOR GENERAL -->
+  <main class="main-wrapper">
+    
+    <!-- CABECERA -->
+    <header class="header-section">
+      <div class="header-title-box">
+        <h1>Cronología: 4 Revoluciones Industriales</h1>
+        <div class="header-subtitle-tag">EDICIÓN EDUCATIVA NEOBRUTALISTA // DOCU-VIDEO V4.0</div>
+      </div>
+      <div class="header-actions">
+        <button id="btnMatrixToggle" class="neo-btn neo-btn-primary" title="Abrir matriz comparativa">
+          📊 MATRIZ COMPARATIVA
+        </button>
+      </div>
+    </header>
+
+    <!-- MARCO CINEMATOGRÁFICO DEL REPRODUCTOR DE VIDEO -->
+    <section class="video-player-frame" id="videoPlayerFrame" aria-label="Reproductor de video educativo">
+      
+      <!-- ESCENARIO / VIEWPORT DE LA ANIMACIÓN -->
+      <div class="video-viewport" id="videoViewport">
+        
+        <!-- CANVAS PROCEDURAL CON ANIMACIONES GRÁFICAS -->
+        <canvas id="canvasVisuals" class="canvas-visuals"></canvas>
+
+        <!-- HUD SUPERIOR (IDENTIFICACIÓN DEL ACTO & TELEMETRÍA) -->
+        <div class="video-hud-top">
+          <div class="hud-left">
+            <div class="badge-cluster">
+              <span id="actBadge" class="act-badge">ACTO 00</span>
+              <span id="actEpoch" class="act-epoch">ANTES DE 1760</span>
+              <span id="activeTagBadge" class="active-tag-badge">// ERA PREINDUSTRIAL</span>
+            </div>
+            <div class="act-title-box">
+              <h2 id="actTitle">PROLEGÓMENO</h2>
+            </div>
+          </div>
+
+          <div class="hud-right">
+            <div class="rec-indicator">
+              <span class="rec-dot"></span>
+              <span>LIVE HISTORICAL FEED</span>
+            </div>
+            <div class="visualizer-box">
+              <span class="visualizer-label">AUDIO SPECTRUM</span>
+              <canvas id="canvasVisualizer" class="canvas-visualizer" width="130" height="26"></canvas>
+            </div>
+          </div>
+        </div>
+
+        <!-- HUD INFERIOR (LOWER THIRDS & SUBTÍTULOS TELEPROMPTER) -->
+        <div class="video-hud-bottom">
+          <!-- TARJETA INFORMATIVA PRINCIPAL -->
+          <div class="scene-info-card" id="sceneInfoCard">
+            <div class="scene-info-left">
+              <h3 id="sceneHeadline" class="scene-headline">EL MUNDO MUSCULAR</h3>
+              <p id="sceneSubheadline" class="scene-subheadline">99% de la fuerza provenía de músculos humanos y animales</p>
+              <ul id="keyPointsList" class="key-points-list">
+                <!-- Se inyectan dinámicamente -->
+              </ul>
+            </div>
+            <!-- DESTACADO ESTADÍSTICO -->
+            <div class="stat-container" id="statContainer">
+              <span id="statValue" class="stat-value">3 km/h</span>
+              <span id="statLabel" class="stat-label">Velocidad media de transporte</span>
+            </div>
+          </div>
+
+          <!-- SUBTÍTULOS CINEMATOGRÁFICOS -->
+          <div class="subtitles-box" id="subtitlesBox">
+            <p id="subtitlesText" class="subtitles-text">"Cargando narración histórica sincronizada..."</p>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- BARRA DE CONTROLES DEL REPRODUCTOR -->
+      <footer class="video-control-bar">
+        
+        <!-- LÍNEA DE TIEMPO INTERACTIVA / SCRUBBER -->
+        <div class="timeline-scrubber-row">
+          <div class="progress-track-wrapper" id="progressTrackWrapper" title="Haz clic o arrastra para desplazarte">
+            <div class="progress-track" id="progressTrack">
+              <div class="progress-fill" id="progressFill"></div>
+              <div class="scrub-handle" id="scrubHandle"></div>
+              <div class="chapter-marks-container" id="chapterMarksContainer">
+                <!-- Marcas de capítulos inyectadas -->
+              </div>
+            </div>
+          </div>
+          <div class="time-display" id="timeDisplay">00:00 / 04:20</div>
+        </div>
+
+        <!-- FILA DE BOTONES DE ACCIÓN -->
+        <div class="control-buttons-row">
+          <!-- IZQUIERDA: REPRODUCCIÓN Y SONIDO -->
+          <div class="controls-left">
+            <button id="btnPlayPause" class="neo-btn btn-play-pause" title="Reproducir / Pausar (Espacio)">
+              <span id="iconPlay">▶ PLAY</span>
+              <span id="iconPause" style="display: none;">❚❚ PAUSA</span>
+            </button>
+            <button id="btnRewind" class="neo-btn" title="Retroceder 5 segundos">◀◀ -5s</button>
+            <button id="btnForward" class="neo-btn" title="Avanzar 5 segundos">+5s ▶▶</button>
+            
+            <div class="volume-control-group">
+              <button id="btnMute" class="neo-btn" style="padding: 4px 8px; border:none; box-shadow:none;">🔊 AUDIO ON</button>
+              <input type="range" id="volumeSlider" class="volume-slider" min="0" max="1" step="0.05" value="0.8" title="Volumen maestro">
+            </div>
+
+            <button id="btnTTS" class="neo-btn btn-active" title="Activar/Desactivar Voz en Off (Narrador en español)">
+              🎙️ VOZ ON
+            </button>
+          </div>
+
+          <!-- DERECHA: AJUSTES Y PANTALLA -->
+          <div class="controls-right">
+            <label for="speedSelector" style="font-family: var(--font-mono); font-size: 0.8rem; font-weight: 800;">VELOCIDAD:</label>
+            <select id="speedSelector" class="speed-select" title="Velocidad de reproducción">
+              <option value="0.5">0.5x</option>
+              <option value="1.0" selected>1.0x (Normal)</option>
+              <option value="1.5">1.5x</option>
+              <option value="2.0">2.0x</option>
+            </select>
+
+            <button id="btnFullscreen" class="neo-btn" title="Pantalla completa (F)">
+              ⛶ PANTALLA COMPLETA
+            </button>
+          </div>
+        </div>
+
+      </footer>
+
+    </section>
+
+    <!-- NAVEGACIÓN RÁPIDA POR ACTOS / CAPÍTULOS -->
+    <nav class="acts-quick-nav-bar" aria-label="Navegación de capítulos">
+      <button class="act-nav-btn active-act-btn" data-act="0">
+        <span class="nav-act-num">ACTO 00</span>
+        <span class="nav-act-name">Preindustrial (Antes 1760)</span>
+      </button>
+      <button class="act-nav-btn" data-act="1">
+        <span class="nav-act-num">ACTO 01</span>
+        <span class="nav-act-name">1ª Rev: Vapor & Carbón</span>
+      </button>
+      <button class="act-nav-btn" data-act="2">
+        <span class="nav-act-num">ACTO 02</span>
+        <span class="nav-act-name">2ª Rev: Electricidad & Acero</span>
+      </button>
+      <button class="act-nav-btn" data-act="3">
+        <span class="nav-act-num">ACTO 03</span>
+        <span class="nav-act-name">3ª Rev: Silicio & Internet</span>
+      </button>
+      <button class="act-nav-btn" data-act="4">
+        <span class="nav-act-num">ACTO 04</span>
+        <span class="nav-act-name">4ª Rev: IA & Ciberfísica</span>
+      </button>
+      <button class="act-nav-btn" data-act="5">
+        <span class="nav-act-num">ACTO 05</span>
+        <span class="nav-act-name">Epílogo: Síntesis Global</span>
+      </button>
+    </nav>
+
+    <!-- GRILLA INFERIOR DE GUÍA Y ATAJOS -->
+    <section class="footer-info-grid">
+      <article class="info-card">
+        <h3>⚡ Banda Sonora Sincronizada</h3>
+        <p>Banda sonora procedural sintetizada íntegramente en tiempo real mediante la <strong>Web Audio API</strong>, adaptando el tempo, percusión y armonía al carácter tecnológico de cada era.</p>
+      </article>
+
+      <article class="info-card">
+        <h3>⌨️ Atajos de Teclado</h3>
+        <ul>
+          <li><span class="kbd-badge">Espacio</span> : Reproducir / Pausar</li>
+          <li><span class="kbd-badge">←</span> / <span class="kbd-badge">→</span> : Retroceder / Avanzar 5s</li>
+          <li><span class="kbd-badge">0</span> – <span class="kbd-badge">5</span> : Saltar directamente al Acto</li>
+          <li><span class="kbd-badge">M</span> : Silenciar o activar audio</li>
+          <li><span class="kbd-badge">F</span> : Alternar Pantalla Completa</li>
+        </ul>
+      </article>
+
+      <article class="info-card">
+        <h3>📐 Estética Neobrutalista</h3>
+        <p>Diseño basado en contornos gruesos de alto contraste (4px), paleta saturada, sombras duras sin desenfoque, tipografía técnica monoespaciada y diagramas esquemáticos de ingeniería histórica.</p>
+      </article>
+    </section>
+
+  </main>
+
+  <!-- MODAL DE LA MATRIZ COMPARATIVA HISTÓRICA -->
+  <div class="matrix-modal-overlay" id="matrixModal" role="dialog" aria-modal="true" aria-labelledby="matrixTitle">
+    <div class="matrix-modal-card">
+      <div class="matrix-header">
+        <h2 id="matrixTitle">📊 MATRIZ COMPARATIVA DE LAS 4 REVOLUCIONES INDUSTRIALES</h2>
+        <button id="btnCloseMatrix" class="neo-btn" style="background:#FF5252; color:#FFF;">✕ CERRAR</button>
+      </div>
+      <div class="matrix-content-scroll">
+        <div class="table-responsive">
+          <table class="matrix-table">
+            <thead>
+              <tr>
+                <th>Revolución & Periodo</th>
+                <th>Energía Principal</th>
+                <th>Invento Insignia</th>
+                <th>Transporte</th>
+                <th>Comunicación</th>
+                <th>Impacto Social & Económico</th>
+              </tr>
+            </thead>
+            <tbody id="matrixTableBody">
+              <!-- Se rellena automáticamente con content.js -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SCRIPTS MODULARES -->
+  <script src="js/content.js"></script>
+  <script src="js/audio.js"></script>
+  <script src="js/visuals.js"></script>
+  <script src="js/player.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>

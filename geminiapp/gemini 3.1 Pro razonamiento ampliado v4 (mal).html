@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cronología de las 4 Revoluciones Industriales</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;700;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --c-cyan: #00F0FF;
+            --c-magenta: #FF00E5;
+            --c-yellow: #FAFF00;
+            --c-lime: #00FF38;
+            --c-white: #FFFFFF;
+            --c-black: #000000;
+            --brutal-shadow: 12px 12px 0px var(--c-black);
+            --brutal-shadow-sm: 6px 6px 0px var(--c-black);
+            --brutal-border: 6px solid var(--c-black);
+        }
+
+        body {
+            font-family: 'Space Grotesk', sans-serif;
+            margin: 0;
+            overflow: hidden;
+            background-color: var(--c-black);
+            color: var(--c-black);
+        }
+
+        .brutal-box {
+            background-color: var(--c-white);
+            border: var(--brutal-border);
+            box-shadow: var(--brutal-shadow);
+        }
+
+        .brutal-text-shadow {
+            text-shadow: 4px 4px 0px var(--c-black);
+        }
+
+        #video-container {
+            position: relative;
+            width: 100vw;
+            height: 100vh;
+            background-color: var(--c-white);
+            overflow: hidden;
+            border: 12px solid var(--c-black);
+            box-sizing: border-box;
+        }
+
+        .slide {
+            position: absolute;
+            inset: 0;
+            opacity: 0;
+            transform: scale(1.1);
+            transition: opacity 0.8s ease, transform 1s cubic-bezier(0.2, 0.8, 0.2, 1);
+            pointer-events: none;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 2rem;
+            z-index: 0;
+        }
+
+        .slide.active {
+            opacity: 1;
+            transform: scale(1);
+            z-index: 10;
+        }
+
+        .anim-element {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .active .anim-element {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .delay-1 { transition-delay: 0.3s; }
+        .delay-2 { transition-delay: 0.6s; }
+        .delay-3 { transition-delay: 0.9s; }
+        
+        .rotate-slight-right { transform: rotate(3deg); }
+        .rotate-slight-left { transform: rotate(-3deg); }
+        
+        .active .anim-element.rotate-slight-right { transform: translateY(0) rotate(3deg); }
+        .active .anim-element.rotate-slight-left { transform: translateY(0) rotate(-3deg); }
+
+        @keyframes spin { 100% { transform: rotate(360deg); } }
+        @keyframes spin-reverse { 100% { transform: rotate(-360deg); } }
+        
+        .gear-1 { animation: spin 4s linear infinite; }
+        .gear-2 { animation: spin-reverse 3s linear infinite; }
+
+        @keyframes conveyor {
+            0% { transform: translateX(100%); }
+            100% { transform: translateX(-100%); }
+        }
+        .box-moving {
+            animation: conveyor 3s linear infinite;
+        }
+
+        @keyframes fall {
+            0% { transform: translateY(-10vh); opacity: 1; }
+            100% { transform: translateY(40vh); opacity: 0; }
+        }
+        .binary-drop {
+            position: absolute;
+            color: var(--c-lime);
+            font-family: monospace;
+            font-size: 1.5rem;
+            font-weight: bold;
+            text-shadow: 2px 2px 0px #000;
+            animation: fall linear infinite;
+        }
+
+        @keyframes drawLine {
+            0% { stroke-dashoffset: 100; }
+            100% { stroke-dashoffset: 0; }
+        }
+        .node-line {
+            stroke-dasharray: 100;
+            stroke-dashoffset: 100;
+            animation: drawLine 2s ease-out forwards;
+        }
+
+        @keyframes pulseNode {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.3); }
+        }
+        .node-circle {
+            animation: pulseNode 2s infinite ease-in-out;
+        }
+
+        #progress-bar {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            height: 20px;
+            background-color: var(--c-black);
+            width: 0%;
+            z-index: 50;
+            transition: width 0.1s linear;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="video-container">
+        
+        <!-- Barra de progreso superior -->
+        <div id="progress-bar"></div>
+
+        <div id="slide-0" class="slide active bg-[var(--c-magenta)]">
+            <div class="brutal-box p-8 max-w-3xl text-center rotate-slight-left">
+                <!-- Se respeta la capitalización estricta mediante texto directo sin text-transform -->
+                <h1 class="text-6xl md:text-8xl font-black mb-6">Las 4 revoluciones industriales</h1>
+                <p class="text-2xl font-bold bg-black text-white p-4 uppercase tracking-widest border-4 border-black inline-block">
+                    Experiencia Audiovisual Procedural
+                </p>
+                <div class="mt-12">
+                    <button id="start-btn" class="text-4xl font-black bg-[var(--c-lime)] border-[6px] border-black px-12 py-6 shadow-[8px_8px_0px_#000] hover:translate-x-1 hover:translate-y-1 hover:shadow-[4px_4px_0px_#000] transition-all cursor-pointer">
+                        INICIAR PRESENTACIÓN
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div id="slide-1" class="slide bg-[var(--c-yellow)]">
+            <div class="w-full h-full flex flex-col md:flex-row items-center justify-between p-4 md:p-12">
+                <div class="w-full md:w-1/2 flex flex-col gap-6 z-20">
+                    <div class="anim-element bg-white border-4 border-black px-4 py-2 text-3xl font-black w-max shadow-[6px_6px_0px_#000] rotate-slight-right">
+                        1760 - 1840
+                    </div>
+                    <!-- Capitalización estricta -->
+                    <h2 class="anim-element delay-1 text-6xl md:text-8xl font-black text-white brutal-text-shadow leading-none">
+                        Primera revolución industrial
+                    </h2>
+                    <div class="anim-element delay-2 brutal-box p-6 rotate-slight-left mt-6 max-w-lg bg-[var(--c-cyan)]">
+                        <ul class="text-3xl font-bold space-y-4">
+                            <li class="flex items-center gap-4"><div class="w-6 h-6 bg-black"></div> Máquina de vapor</li>
+                            <li class="flex items-center gap-4"><div class="w-6 h-6 bg-black rounded-full"></div> Uso del carbón</li>
+                            <li class="flex items-center gap-4"><div class="w-6 h-6 bg-black transform rotate-45"></div> Telar mecánico</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="w-full md:w-1/2 flex justify-center items-center mt-10 md:mt-0 anim-element delay-3">
+                    <div class="brutal-box bg-white p-8 w-80 h-80 relative flex justify-center items-center rounded-full overflow-hidden">
+                        <!-- SVGs de Engranajes CSS -->
+                        <svg class="gear-1 absolute w-48 h-48 text-black" viewBox="0 0 100 100" fill="currentColor">
+                            <path d="M50,15 A35,35 0 1,0 85,50 A35,35 0 0,0 50,15 Z M50,70 A20,20 0 1,1 70,50 A20,20 0 0,1 50,70 Z"/>
+                            <rect x="42" y="0" width="16" height="20"/><rect x="42" y="80" width="16" height="20"/>
+                            <rect x="0" y="42" width="20" height="16"/><rect x="80" y="42" width="20" height="16"/>
+                            <rect x="15" y="15" width="16" height="16" transform="rotate(45 23 23)"/><rect x="70" y="70" width="16" height="16" transform="rotate(45 78 78)"/>
+                            <rect x="15" y="70" width="16" height="16" transform="rotate(-45 23 78)"/><rect x="70" y="15" width="16" height="16" transform="rotate(-45 78 23)"/>
+                        </svg>
+                        <svg class="gear-2 absolute w-32 h-32 text-[var(--c-magenta)] translate-x-20 translate-y-20" viewBox="0 0 100 100" fill="currentColor">
+                            <path d="M50,20 A30,30 0 1,0 80,50 A30,30 0 0,0 50,20 Z M50,65 A15,15 0 1,1 65,50 A15,15 0 0,1 50,65 Z"/>
+                            <rect x="42" y="5" width="16" height="20"/><rect x="42" y="75" width="16" height="20"/>
+                            <rect x="5" y="42" width="20" height="16"/><rect x="75" y="42" width="20" height="16"/>
+                        </svg>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="slide-2" class="slide bg-[var(--c-cyan)]">
+            <div class="w-full h-full flex flex-col md:flex-row-reverse items-center justify-between p-4 md:p-12">
+                <div class="w-full md:w-1/2 flex flex-col items-end text-right gap-6 z-20">
+                    <div class="anim-element bg-white border-4 border-black px-4 py-2 text-3xl font-black w-max shadow-[6px_6px_0px_#000] rotate-slight-left">
+                        1870 - 1914
+                    </div>
+                    <h2 class="anim-element delay-1 text-6xl md:text-8xl font-black text-black brutal-text-shadow leading-none">
+                        Segunda revolución industrial
+                    </h2>
+                    <div class="anim-element delay-2 brutal-box p-6 rotate-slight-right mt-6 max-w-lg bg-[var(--c-magenta)] text-white">
+                        <ul class="text-3xl font-bold space-y-4 text-left">
+                            <li class="flex items-center gap-4"><div class="w-6 h-6 border-4 border-white bg-transparent"></div> Electricidad</li>
+                            <li class="flex items-center gap-4"><div class="w-6 h-6 bg-white rounded-full"></div> Cadena de montaje</li>
+                            <li class="flex items-center gap-4"><div class="w-6 h-6 bg-white transform rotate-45"></div> Acero</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="w-full md:w-1/2 flex justify-center items-center mt-10 md:mt-0 anim-element delay-3 relative">
+                    <div class="brutal-box bg-[var(--c-yellow)] p-8 w-[350px] h-[350px] relative overflow-hidden flex flex-col justify-end border-8">
+                        <!-- Rayo -->
+                        <svg class="absolute top-4 left-1/2 -translate-x-1/2 w-32 h-32 animate-pulse text-black" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M13 2L3 14H12L11 22L21 10H12L13 2Z" stroke="white" stroke-width="2"/>
+                        </svg>
+                        <!-- Cadena de montaje (cajas) -->
+                        <div class="w-full h-8 bg-black mb-4 flex items-center relative border-y-4 border-white">
+                            <div class="absolute left-0 w-[200%] h-12 flex items-end box-moving">
+                                <div class="w-12 h-12 bg-[var(--c-cyan)] border-4 border-black mr-12 shadow-[4px_4px_0px_#fff]"></div>
+                                <div class="w-12 h-12 bg-[var(--c-magenta)] border-4 border-black mr-12 shadow-[4px_4px_0px_#fff]"></div>
+                                <div class="w-12 h-12 bg-[var(--c-lime)] border-4 border-black mr-12 shadow-[4px_4px_0px_#fff]"></div>
+                                <div class="w-12 h-12 bg-[var(--c-cyan)] border-4 border-black mr-12 shadow-[4px_4px_0px_#fff]"></div>
+                                <div class="w-12 h-12 bg-[var(--c-magenta)] border-4 border-black mr-12 shadow-[4px_4px_0px_#fff]"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="slide-3" class="slide bg-[var(--c-magenta)]">
+            <div class="w-full h-full flex flex-col md:flex-row items-center justify-between p-4 md:p-12">
+                <div class="w-full md:w-1/2 flex flex-col gap-6 z-20">
+                    <div class="anim-element bg-white border-4 border-black px-4 py-2 text-3xl font-black w-max shadow-[6px_6px_0px_#000] rotate-slight-right">
+                        1960 - 2000
+                    </div>
+                    <h2 class="anim-element delay-1 text-6xl md:text-8xl font-black text-white brutal-text-shadow leading-none">
+                        Tercera revolución industrial
+                    </h2>
+                    <div class="anim-element delay-2 brutal-box p-6 rotate-slight-left mt-6 max-w-lg bg-[var(--c-lime)]">
+                        <ul class="text-3xl font-bold space-y-4">
+                            <li class="flex items-center gap-4"><div class="w-6 h-6 bg-black"></div> Informática</li>
+                            <li class="flex items-center gap-4"><div class="w-6 h-6 bg-black rounded-full"></div> Automatización</li>
+                            <li class="flex items-center gap-4"><div class="w-6 h-6 bg-black transform rotate-45"></div> Internet</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="w-full md:w-1/2 flex justify-center items-center mt-10 md:mt-0 anim-element delay-3">
+                    <div class="brutal-box bg-black p-4 w-[350px] h-[300px] border-8 relative flex flex-col">
+                        <!-- Pantalla -->
+                        <div class="flex-1 bg-[var(--c-black)] border-4 border-[var(--c-cyan)] relative overflow-hidden" id="binary-container">
+                            <!-- JS inyectará el binario aquí -->
+                        </div>
+                        <div class="h-6 mt-4 bg-[var(--c-white)] border-2 border-black flex justify-between px-2 items-center">
+                            <div class="w-2 h-2 bg-red-500 rounded-full"></div>
+                            <div class="w-16 h-2 bg-gray-300"></div>
+                        </div>
+                        <div class="absolute -bottom-8 left-1/2 -translate-x-1/2 w-24 h-8 bg-white border-x-8 border-black"></div>
+                        <div class="absolute -bottom-12 left-1/2 -translate-x-1/2 w-48 h-4 bg-white border-8 border-black"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="slide-4" class="slide bg-[var(--c-lime)]">
+            <div class="w-full h-full flex flex-col md:flex-row-reverse items-center justify-between p-4 md:p-12">
+                <div class="w-full md:w-1/2 flex flex-col items-end text-right gap-6 z-20">
+                    <div class="anim-element bg-white border-4 border-black px-4 py-2 text-3xl font-black w-max shadow-[6px_6px_0px_#000] rotate-slight-left">
+                        2010 - Presente
+                    </div>
+                    <h2 class="anim-element delay-1 text-6xl md:text-8xl font-black text-black brutal-text-shadow leading-none">
+                        Cuarta revolución industrial
+                    </h2>
+                    <div class="anim-element delay-2 brutal-box p-6 rotate-slight-right mt-6 max-w-lg bg-black text-white">
+                        <ul class="text-3xl font-bold space-y-4 text-left">
+                            <li class="flex items-center gap-4"><div class="w-6 h-6 border-4 border-[var(--c-cyan)] bg-transparent"></div> Inteligencia artificial</li>
+                            <li class="flex items-center gap-4"><div class="w-6 h-6 bg-[var(--c-magenta)] rounded-full"></div> IoT</li>
+                            <li class="flex items-center gap-4"><div class="w-6 h-6 bg-[var(--c-yellow)] transform rotate-45"></div> Sistemas ciberfísicos</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="w-full md:w-1/2 flex justify-center items-center mt-10 md:mt-0 anim-element delay-3">
+                    <div class="brutal-box bg-white p-8 w-[350px] h-[350px] relative border-8">
+                        <svg class="absolute inset-0 w-full h-full p-4" viewBox="0 0 100 100">
+                            <!-- Conexiones dibujándose -->
+                            <line x1="20" y1="20" x2="50" y2="50" stroke="black" stroke-width="4" class="node-line" style="animation-delay: 0s;"/>
+                            <line x1="80" y1="30" x2="50" y2="50" stroke="black" stroke-width="4" class="node-line" style="animation-delay: 0.5s;"/>
+                            <line x1="30" y1="80" x2="50" y2="50" stroke="black" stroke-width="4" class="node-line" style="animation-delay: 1s;"/>
+                            <line x1="70" y1="80" x2="50" y2="50" stroke="black" stroke-width="4" class="node-line" style="animation-delay: 1.5s;"/>
+                            
+                            <!-- Nodos -->
+                            <circle cx="50" cy="50" r="10" fill="var(--c-magenta)" stroke="black" stroke-width="3" class="node-circle"/>
+                            <circle cx="20" cy="20" r="6" fill="var(--c-cyan)" stroke="black" stroke-width="3" class="node-circle" style="animation-delay: 0.2s;"/>
+                            <circle cx="80" cy="30" r="8" fill="var(--c-yellow)" stroke="black" stroke-width="3" class="node-circle" style="animation-delay: 0.4s;"/>
+                            <circle cx="30" cy="80" r="7" fill="black" stroke="white" stroke-width="3" class="node-circle" style="animation-delay: 0.6s;"/>
+                            <circle cx="70" cy="80" r="6" fill="var(--c-lime)" stroke="black" stroke-width="3" class="node-circle" style="animation-delay: 0.8s;"/>
+                        </svg>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="slide-5" class="slide bg-white">
+            <div class="brutal-box p-8 border-[12px] max-w-2xl text-center">
+                <h1 class="text-6xl font-black mb-4">El futuro ya está aquí.</h1>
+                <p class="text-2xl font-bold">La evolución tecnológica continúa.</p>
+                <button onclick="location.reload()" class="mt-8 text-2xl font-black bg-[var(--c-cyan)] border-4 border-black px-8 py-4 shadow-[6px_6px_0px_#000] cursor-pointer hover:translate-x-1 hover:translate-y-1 hover:shadow-[2px_2px_0px_#000]">
+                    REPETIR EXPERIENCIA
+                </button>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        // Variables globales
+        const slides = [
+            document.getElementById('slide-0'),
+            document.getElementById('slide-1'),
+            document.getElementById('slide-2'),
+            document.getElementById('slide-3'),
+            document.getElementById('slide-4'),
+            document.getElementById('slide-5')
+        ];
+        const progressBar = document.getElementById('progress-bar');
+        
+        let audioCtx;
+        let isPlaying = false;
+        let startTime = 0;
+        
+        // Tiempos exactos para cambiar de diapositiva (en segundos)
+        const sceneTimings = [0, 8, 16, 24, 32, 40]; // slide0: intro, slide1-4: 8 seg c/u, slide5: final
+        const totalDuration = 40;
+
+        // Generar efecto binario
+        const binaryContainer = document.getElementById('binary-container');
+        for(let i=0; i<15; i++) {
+            let span = document.createElement('span');
+            span.className = 'binary-drop';
+            span.style.left = `${Math.random() * 90}%`;
+            span.style.animationDuration = `${1 + Math.random() * 2}s`;
+            span.style.animationDelay = `${Math.random() * 2}s`;
+            span.innerText = Math.random() > 0.5 ? '1' : '0';
+            // Cambiar número aleatoriamente
+            setInterval(() => { span.innerText = Math.random() > 0.5 ? '1' : '0'; }, 200 + Math.random()*300);
+            binaryContainer.appendChild(span);
+        }
+
+        document.getElementById('start-btn').addEventListener('click', () => {
+            initPresentation();
+        });
+
+        function initPresentation() {
+            if(isPlaying) return;
+            isPlaying = true;
+            
+            // Inicializar Web Audio API
+            const AudioContext = window.AudioContext || window.webkitAudioContext;
+            audioCtx = new AudioContext();
+            startTime = audioCtx.currentTime;
+
+            // Generar la banda sonora procedural (Synthwave / Post-rock)
+            scheduleAudio();
+
+            // Iniciar bucle visual
+            requestAnimationFrame(syncLoop);
+        }
+
+        // Sintetizador básico de sonido
+        function playTone(freq, time, duration, type='sawtooth', vol=0.3) {
+            if (!audioCtx) return;
+            const osc = audioCtx.createOscillator();
+            const gain = audioCtx.createGain();
+            const filter = audioCtx.createBiquadFilter();
+
+            osc.type = type;
+            osc.frequency.setValueAtTime(freq, time);
+
+            // Envelope (ataque y decaimiento)
+            gain.gain.setValueAtTime(0, time);
+            gain.gain.linearRampToValueAtTime(vol, time + 0.05);
+            gain.gain.exponentialRampToValueAtTime(0.01, time + duration);
+
+            // Filtro Lowpass típico del synthwave
+            filter.type = 'lowpass';
+            filter.frequency.setValueAtTime(2000, time);
+            filter.frequency.exponentialRampToValueAtTime(300, time + duration);
+
+            osc.connect(filter);
+            filter.connect(gain);
+            gain.connect(audioCtx.destination);
+
+            osc.start(time);
+            osc.stop(time + duration);
+        }
+
+        // Sintetizador de bombo (Kick)
+        function playKick(time) {
+            if (!audioCtx) return;
+            const osc = audioCtx.createOscillator();
+            const gain = audioCtx.createGain();
+
+            osc.type = 'sine';
+            // Caída de tono rápida para el golpe
+            osc.frequency.setValueAtTime(150, time);
+            osc.frequency.exponentialRampToValueAtTime(0.01, time + 0.5);
+
+            gain.gain.setValueAtTime(0, time);
+            gain.gain.linearRampToValueAtTime(0.8, time + 0.01);
+            gain.gain.exponentialRampToValueAtTime(0.01, time + 0.5);
+
+            osc.connect(gain);
+            gain.connect(audioCtx.destination);
+
+            osc.start(time);
+            osc.stop(time + 0.5);
+        }
+
+        function scheduleAudio() {
+            const bpm = 120;
+            const beatLen = 60 / bpm; // 0.5 segundos por beat
+            
+            // Progresión de acordes básica (La menor, Fa mayor, Do mayor, Sol mayor)
+            // Frecuencias base aproximadas
+            const chords = [
+                [220.00, 261.63, 329.63, 440.00], // Am
+                [174.61, 220.00, 261.63, 349.23], // F
+                [261.63, 329.63, 392.00, 523.25], // C
+                [196.00, 246.94, 293.66, 392.00]  // G
+            ];
+
+            // Planificamos el audio para los 40 segundos
+            for (let t = 0; t < totalDuration; t += beatLen / 2) {
+                let absTime = startTime + t;
+                
+                // Bombo (4x4)
+                if (t % beatLen === 0) {
+                    playKick(absTime);
+                }
+                
+                // Bajo continuo en corcheas
+                let chordIndex = Math.floor(t / 4) % chords.length; 
+                let bassNote = chords[chordIndex][0] / 2; // Octava abajo
+                playTone(bassNote, absTime, beatLen, 'square', 0.4);
+
+                // Arpegio (Synthwave)
+                let noteIndex = Math.floor(t / (beatLen / 2)) % 4;
+                let arpNote = chords[chordIndex][noteIndex];
+                playTone(arpNote, absTime, beatLen, 'sawtooth', 0.2);
+            }
+        }
+
+        function showSlide(index) {
+            slides.forEach((s, i) => {
+                if (i === index) {
+                    s.classList.add('active');
+                } else {
+                    s.classList.remove('active');
+                }
+            });
+        }
+
+        function syncLoop() {
+            if (!isPlaying || !audioCtx) return;
+
+            let elapsedTime = audioCtx.currentTime - startTime;
+            
+            // Actualizar barra de progreso
+            let progress = (elapsedTime / totalDuration) * 100;
+            progressBar.style.width = `${Math.min(progress, 100)}%`;
+
+            // Determinar qué diapositiva mostrar según el tiempo transcurrido
+            let currentSlideIndex = 0;
+            for (let i = sceneTimings.length - 1; i >= 0; i--) {
+                if (elapsedTime >= sceneTimings[i]) {
+                    currentSlideIndex = i;
+                    break;
+                }
+            }
+
+            showSlide(currentSlideIndex);
+
+            // Detener el bucle visual al terminar
+            if (elapsedTime < totalDuration + 1) {
+                requestAnimationFrame(syncLoop);
+            }
+        }
+    </script>
+</body>
+</html>

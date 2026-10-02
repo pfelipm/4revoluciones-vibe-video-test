@@ -1,0 +1,229 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>4 revoluciones, 7 IA y un viernes de lluvia</title>
+<meta name="description" content="Prueba informal: el mismo prompt para crear un «vídeo» educativo solo con HTML, CSS y JS en Claude Code, OpenCode, Antigravity CLI y la app de Gemini.">
+<meta property="og:title" content="4 revoluciones, 7 IA y un viernes de lluvia">
+<meta property="og:description" content="Mismo prompt, siete combinaciones de modelo y arnés: vídeos educativos hechos solo con código. Una prueba rápida e informal.">
+<meta property="og:image" content="https://pfelipm.github.io/4revoluciones-vibe-video-test/videos/claude-opus-5.5.jpg">
+<meta name="author" content="Pablo Felip Monferrer">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Space+Grotesk:wght@500;700&family=Space+Mono:wght@700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="sitio/sitio.css">
+</head>
+<body>
+<div class="wrap">
+
+<header class="top">
+  <span class="tag dark">Prueba informal · 2 oct 2026</span>
+  <nav>
+    <a href="#prompt">Prompt</a><a href="#tabla">Comparativa</a><a href="#resultados">Resultados</a>
+    <a href="#saga">Saga Gemini</a><a href="#hallazgos">Hallazgos</a><a href="#english">English</a>
+  </nav>
+</header>
+
+<section class="hero">
+  <span class="tag">HTML · CSS · JS · y nada más</span>
+  <h1>4 revoluciones,<br>7 IA y un <span class="hl">viernes de lluvia</span></h1>
+  <p class="lead">Desde que Anthropic lanzó Opus 5.5, medio mundo está creando «vídeos» hechos solo con código. Yo quería probarlo, pero comparándolo con las herramientas que ya uso a diario: <b>OpenCode 2</b>, <b>Antigravity CLI</b> y la <b>app de Gemini</b>. Así que me suscribí al plan Pro de Claude y le di a todos el mismo prompt.</p>
+  <a class="byline" href="https://pablofelip.online"><img src="sitio/pablo.jpg" alt="Pablo Felip Monferrer" width="56" height="56"><span><b>Pablo Felip Monferrer</b><small>Castellón · 2 de octubre de 2026</small></span></a>
+  <div class="warn box">
+    <span class="ico">☔</span>
+    <p><b>Esto no es un benchmark.</b> Es una prueba rápida, informal y nada rigurosa, hecha un viernes de alerta meteorológica por fuertes lluvias en Castellón para obligarme a salir de mi zona de confort (Gemini y OpenCode) y probar Claude Code. Una sola ejecución por combinación, sin repeticiones, con mi criterio subjetivo y con tiempos y consumos anotados a ojo.</p>
+  </div>
+</section>
+
+<section id="prompt">
+  <h2>El prompt</h2>
+  <p style="margin-bottom:16px">Idéntico para todos, en español, sin más contexto:</p>
+  <div class="prompt">Genera un video sobre la cronología de las 4 revoluciones industriales usando solo código (html, css, js). Estilo neobrutalista, incluye animaciones, transiciones, fundidos y todo tipo de efectos visuales propios de una producción educativa con una realización profesional. Añade una banda sonora de fondo sincronizada con las imágenes.</div>
+</section>
+
+<section id="tabla">
+  <h2>Los participantes</h2>
+  <div class="tblwrap">
+    <table>
+      <thead><tr><th>Modelo</th><th>Arnés</th><th>Tipo</th><th>Prompts</th><th>Tiempo</th><th>Consumo</th><th>¿Se autoverificó en el navegador?</th><th>Duración del vídeo</th></tr></thead>
+      <tbody>
+        <tr><td>Claude Opus 5.5</td><td>Claude Code</td><td>Agéntico</td><td>1</td><td>22 min</td><td>15 % límite 5 h · 2 % semanal (Pro)</td><td class="y">Sí, a fondo (capturas, consola, fps, análisis del audio)</td><td>1:54</td></tr>
+        <tr><td>DeepSeek V4 Flash (max)</td><td>OpenCode 2</td><td>Agéntico</td><td>1</td><td>&lt; 10 min (estimado)</td><td>0,08 € (API)</td><td class="y">Sí, con muchas autoiteraciones</td><td>2:55</td></tr>
+        <tr><td>Gemini 3.8 Flash (high)</td><td>Antigravity CLI</td><td>Agéntico</td><td>1</td><td>10 min</td><td>11 % límite 5 h · 5 % semanal</td><td class="y">Sí, con bastante detalle</td><td>4:20</td></tr>
+        <tr><td>Gemini 3.1 Pro (high)</td><td>Antigravity CLI</td><td>Agéntico</td><td>1</td><td>5 min</td><td>3 % límite 5 h · 1 % semanal</td><td class="m">Mínima: comprobó que cargaba y avanzaba</td><td>0:31</td></tr>
+        <tr><td>Gemini 3.8 Flash</td><td>App de Gemini</td><td>Chat</td><td>1</td><td>—</td><td>—</td><td class="n">No (no puede)</td><td>1:20</td></tr>
+        <tr><td>Gemini 3.8 Flash (razonamiento ampliado)</td><td>App de Gemini</td><td>Chat</td><td>1</td><td>—</td><td>—</td><td class="n">No (no puede)</td><td>1:15</td></tr>
+        <tr><td>Gemini 3.1 Pro (razonamiento ampliado)</td><td>App de Gemini</td><td>Chat</td><td>9</td><td>—</td><td>—</td><td class="n">No (no puede)</td><td>0:45 (v9)</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="note">Los consumos no son comparables entre sí: euros de API frente a porcentajes de límites de planes distintos. Antigravity tuvo problemas de <i>timeout</i> con el MCP de Chrome, sobre todo con 3.1 Pro (quizá por mi sistema). La app de Gemini no es un arnés agéntico: no puede ejecutar ni revisar lo que genera, así que iteré con 3.1 Pro hasta tener una versión completa para que la comparación tuviera sentido.</p>
+</section>
+
+<section id="resultados">
+  <h2>Los resultados</h2>
+  <p style="margin-bottom:22px">Cada ficha incluye la grabación y un enlace a la versión ejecutable original, sin tocar. Las grabaciones son capturas en tiempo real de la pestaña de Chrome a 1280×720 (más detalles en <a href="#metodo">cómo se grabaron</a>).</p>
+  <div class="cards">
+    <article class="card box" style="--c:var(--c4)">
+      <div class="hd"><h3>Claude Opus 5.5</h3><small>Claude Code</small></div>
+      <video controls preload="none" poster="videos/claude-opus-5.5.jpg" src="videos/claude-opus-5.5.mp4"></video>
+      <div class="bd">
+        <div class="facts"><span>1:54</span><span>1 prompt</span><span>22 min</span><span>5 archivos · ~1.200 líneas</span><span>0 errores JS</span></div>
+        <ul><li>Animación con SVG, DOM y Web Animations API, controlada por el reloj del audio: se puede pausar y saltar sin perder la sincronía.</li><li>Banda sonora sintetizada con Web Audio a 120 BPM; los cortes de escena caen en tiempos fuertes y los efectos (golpes, barridos, «pops») salen de la misma línea de tiempo que las animaciones.</li><li>Se probó en Chrome por su cuenta: detectó que generar el audio tardaba 78 s y lo bajó a 4,5 s, y corrigió tres fallos de maquetación.</li></ul>
+        <div class="act"><a class="btn" href="claude-5.5/index.html">▶ Abrir versión ejecutable</a><a class="btn alt" href="videos/claude-opus-5.5.mp4">Descargar MP4</a></div>
+      </div>
+    </article>
+    <article class="card box" style="--c:var(--c3)">
+      <div class="hd"><h3>DeepSeek V4 Flash (max)</h3><small>OpenCode 2</small></div>
+      <video controls preload="none" poster="videos/deepseek-v4-flash.jpg" src="videos/deepseek-v4-flash.mp4"></video>
+      <div class="bd">
+        <div class="facts"><span>2:55</span><span>1 prompt</span><span>< 10 min</span><span>0,08 €</span><span>0 errores JS</span></div>
+        <ul><li>Capítulos con portadilla de color, fichas de hitos, cifras destacadas, rótulo «REC» con código de tiempo, titulares en movimiento y créditos finales.</li><li>Animaciones con CSS (35 <code>@keyframes</code>) y canvas; audio con Web Audio. Incluye un README.</li><li>El coste más bajo con diferencia y una autoverificación en el navegador muy activa.</li></ul>
+        <div class="act"><a class="btn" href="DeepSeekV4-Flash-max/index.html">▶ Abrir versión ejecutable</a><a class="btn alt" href="videos/deepseek-v4-flash.mp4">Descargar MP4</a></div>
+      </div>
+    </article>
+    <article class="card box" style="--c:var(--c2)">
+      <div class="hd"><h3>Gemini 3.8 Flash (high)</h3><small>Antigravity CLI</small></div>
+      <video controls preload="none" poster="videos/agy-gemini-3.8-flash.jpg" src="videos/agy-gemini-3.8-flash.mp4"></video>
+      <div class="bd">
+        <div class="facts"><span>4:20</span><span>1 prompt</span><span>10 min</span><span>6 módulos JS · ~3.600 líneas</span><span>Narración con voz</span></div>
+        <ul><li>El más ambicioso: seis actos (incluidos un prólogo preindustrial y un epílogo), motor gráfico en canvas, banda sonora procedural y una matriz comparativa.</li><li>Única versión con <b>narración en off</b>: usa la voz del sistema operativo (<code>speechSynthesis</code>), activable con un botón.</li><li>Más que un vídeo es una página: reproductor arriba y fichas informativas debajo. La grabación muestra solo el lienzo del vídeo, con el audio de todo el sistema para incluir la voz.</li></ul>
+        <div class="act"><a class="btn" href="agy-3.8-flash-high/index.html">▶ Abrir versión ejecutable</a><a class="btn alt" href="videos/agy-gemini-3.8-flash.mp4">Descargar MP4</a></div>
+      </div>
+    </article>
+    <article class="card box" style="--c:#5CF28F">
+      <div class="hd"><h3>Gemini 3.1 Pro (high)</h3><small>Antigravity CLI</small></div>
+      <video controls preload="none" poster="videos/agy-gemini-3.1-pro.jpg" src="videos/agy-gemini-3.1-pro.mp4"></video>
+      <div class="bd">
+        <div class="facts"><span>0:31</span><span>1 prompt</span><span>5 min</span><span>3 archivos · ~365 líneas</span><span>4 errores JS</span></div>
+        <ul><li>El más breve y sencillo: una tarjeta por revolución sobre fondos de color, con iconos emoji y rótulo final.</li><li>Lanza errores en la consola al programar curvas de volumen que se solapan (<code>setValueCurveAtTime</code>). En la cuarta tarjeta el texto se monta sobre el icono.</li><li>Solo comprobó que la página cargaba, arrancaba y avanzaba; Antigravity tuvo problemas de <i>timeout</i> con el MCP de Chrome.</li></ul>
+        <div class="act"><a class="btn" href="agy-3.1-pro-high/index.html">▶ Abrir versión ejecutable</a><a class="btn alt" href="videos/agy-gemini-3.1-pro.mp4">Descargar MP4</a></div>
+      </div>
+    </article>
+    <article class="card box" style="--c:#B9A3FF">
+      <div class="hd"><h3>Gemini 3.8 Flash</h3><small>App de Gemini</small></div>
+      <video controls preload="none" poster="videos/app-gemini-3.8-flash.jpg" src="videos/app-gemini-3.8-flash.mp4"></video>
+      <div class="bd">
+        <div class="facts"><span>1:20</span><span>1 prompt</span><span>Sin autoverificación</span><span>0 errores JS</span></div>
+        <ul><li>Estética oscura y técnica, menos neobrutalista que el resto, con ilustraciones esquemáticas en canvas y titulares en movimiento.</li><li>Tailwind por CDN y audio con Web Audio («dual-osc stereo engine»). Reproductor con capítulos dentro de una página más larga.</li></ul>
+        <div class="act"><a class="btn" href="geminiapp/gemini%203.8%20Flash.html">▶ Abrir versión ejecutable</a><a class="btn alt" href="videos/app-gemini-3.8-flash.mp4">Descargar MP4</a></div>
+      </div>
+    </article>
+    <article class="card box" style="--c:var(--lime)">
+      <div class="hd"><h3>Gemini 3.8 Flash (razonamiento ampliado)</h3><small>App de Gemini</small></div>
+      <video controls preload="none" poster="videos/app-gemini-3.8-flash-razonamiento.jpg" src="videos/app-gemini-3.8-flash-razonamiento.mp4"></video>
+      <div class="bd">
+        <div class="facts"><span>1:15</span><span>1 prompt</span><span>Sin autoverificación</span><span>0 errores JS</span></div>
+        <ul><li>Muy neobrutalista: un color por fase, fichas de tecnología, energía y sociedad, subtítulos de «narrador» y una matriz comparativa final.</li><li>Usa la librería Tone.js (por CDN) para la música, y Tailwind para los estilos.</li></ul>
+        <div class="act"><a class="btn" href="geminiapp/gemini%203.8%20Flash%20razonamiento%20ampliado.html">▶ Abrir versión ejecutable</a><a class="btn alt" href="videos/app-gemini-3.8-flash-razonamiento.mp4">Descargar MP4</a></div>
+      </div>
+    </article>
+    <article class="card box" style="--c:var(--c1)">
+      <div class="hd"><h3>Gemini 3.1 Pro (razonamiento ampliado) · v9</h3><small>App de Gemini</small></div>
+      <video controls preload="none" poster="videos/app-gemini-3.1-pro-v9.jpg" src="videos/app-gemini-3.1-pro-v9.mp4"></video>
+      <div class="bd">
+        <div class="facts"><span>0:45</span><span>9 prompts</span><span>Sin autoverificación</span><span>0 errores JS</span></div>
+        <ul><li>Versión final tras ocho iteraciones: tarjetas por revolución con iconos animados y pantalla final. Aunque, visto después, la mejor de la serie era la <a href="#saga">v4</a>, que no arrancaba.</li><li>La música es un MP3 externo (<code>SoundHelix-Song-2.mp3</code>, de soundhelix.com) que suena en bucle: no está generada por código ni sincronizada con las imágenes. Ver <a href="#saga">la saga</a>.</li></ul>
+        <div class="act"><a class="btn" href="geminiapp/gemini%203.1%20Pro%20razonamiento%20ampliado%20v9.html">▶ Abrir versión ejecutable</a><a class="btn alt" href="videos/app-gemini-3.1-pro-v9.mp4">Descargar MP4</a></div>
+      </div>
+    </article>
+  </div>
+</section>
+
+<section id="saga">
+  <h2>La saga de Gemini 3.1 Pro en la app: 9 versiones</h2>
+  <p style="margin-bottom:22px">Como la app de Gemini no puede probar lo que genera, cada versión es el resultado de un nuevo prompt mío describiendo lo que fallaba. Las publico todas, también las que no funcionan, porque la evolución (y sus regresiones) es parte del resultado.</p>
+  <div class="saga">
+    <div class="step box">
+      <video controls preload="none" poster="videos/app-gemini-3.1-pro-v1.jpg" src="videos/app-gemini-3.1-pro-v1.mp4"></video>
+      <div class="bd"><span class="v">v1</span><span class="state bad">Sin texto ni animaciones</span><p>Solo se ven fondos de color que cambian. La música, que me pareció excelente, es el MP3 externo de SoundHelix.</p>
+        <div><a class="btn alt" href="geminiapp/gemini%203.1%20Pro%20razonamiento%20ampliado%20v1%20%28mal%29.html">▶ Abrir v1</a></div></div>
+    </div>
+    <div class="step box">
+      <video controls preload="none" poster="videos/app-gemini-3.1-pro-v2.jpg" src="videos/app-gemini-3.1-pro-v2.mp4"></video>
+      <div class="bd"><span class="v">v2</span><span class="state bad">Sin texto ni animaciones</span><p>Mismo síntoma que la v1.</p>
+        <div><a class="btn alt" href="geminiapp/gemini%203.1%20Pro%20razonamiento%20ampliado%20v2%20%28mal%29.html">▶ Abrir v2</a></div></div>
+    </div>
+    <div class="step box">
+      <video controls preload="none" poster="videos/app-gemini-3.1-pro-v3.jpg" src="videos/app-gemini-3.1-pro-v3.mp4"></video>
+      <div class="bd"><span class="v">v3</span><span class="state bad">Sin texto ni animaciones</span><p>Aparecen botones de pausa y avance, pero el contenido sigue sin verse.</p>
+        <div><a class="btn alt" href="geminiapp/gemini%203.1%20Pro%20razonamiento%20ampliado%20v3%20%28mal%29.html">▶ Abrir v3</a></div></div>
+    </div>
+    <div class="step box">
+      <video controls preload="none" poster="videos/app-gemini-3.1-pro-v4.jpg" src="videos/app-gemini-3.1-pro-v4.mp4"></video>
+      <div class="bd"><span class="v">v4</span><span class="state ok">La mejor de la serie… pero no arranca</span><p>Para mí, paradójicamente, la mejor de las nueve: las pequeñas animaciones junto al texto explicativo de cada escena son las más logradas, y genera su propia música con Web Audio. Pero el botón de inicio queda tapado por otro elemento y no responde al clic, así que la di por mala. Para grabarla hubo que arrancarla por código, «haciendo un puente».</p>
+        <div><a class="btn alt" href="geminiapp/gemini%203.1%20Pro%20razonamiento%20ampliado%20v4%20%28mal%29.html">▶ Abrir v4</a></div></div>
+    </div>
+    <div class="step box">
+      <video controls preload="none" poster="videos/app-gemini-3.1-pro-v5.jpg" src="videos/app-gemini-3.1-pro-v5.mp4"></video>
+      <div class="bd"><span class="v">v5</span><span class="state mid">Usable, peor audio</span><p>Por fin se ve todo, pero sustituye el MP3 por música sintetizada con Web Audio, mucho más pobre a mi oído.</p>
+        <div><a class="btn alt" href="geminiapp/gemini%203.1%20Pro%20razonamiento%20ampliado%20v5%20%28peor%20audio%29.html">▶ Abrir v5</a></div></div>
+    </div>
+    <div class="step box">
+      <video controls preload="none" poster="videos/app-gemini-3.1-pro-v6.jpg" src="videos/app-gemini-3.1-pro-v6.mp4"></video>
+      <div class="bd"><span class="v">v6</span><span class="state mid">Intento de arreglar el audio</span><p>Apenas cambia: mejora un poco la secuencia de inicio.</p>
+        <div><a class="btn alt" href="geminiapp/gemini%203.1%20Pro%20razonamiento%20ampliado%20v6.html">▶ Abrir v6</a></div></div>
+    </div>
+    <div class="step box">
+      <video controls preload="none" poster="videos/app-gemini-3.1-pro-v7.jpg" src="videos/app-gemini-3.1-pro-v7.mp4"></video>
+      <div class="bd"><span class="v">v7</span><span class="state mid">Vuelve el buen audio, se van las animaciones</span><p>Recupera el MP3 de SoundHelix con un diseño distinto, pero pierde las pequeñas animaciones de cada secuencia.</p>
+        <div><a class="btn alt" href="geminiapp/gemini%203.1%20Pro%20razonamiento%20ampliado%20v7%20%28audio%20ok%2C%20sin%20%20animaciones%29.html">▶ Abrir v7</a></div></div>
+    </div>
+    <div class="step box">
+      <video controls preload="none" poster="videos/app-gemini-3.1-pro-v8.jpg" src="videos/app-gemini-3.1-pro-v8.mp4"></video>
+      <div class="bd"><span class="v">v8</span><span class="state mid">Sin cambios</span><p>Nuevo prompt para recuperar las animaciones; el resultado es prácticamente idéntico a la v7.</p>
+        <div><a class="btn alt" href="geminiapp/gemini%203.1%20Pro%20razonamiento%20ampliado%20v8.html">▶ Abrir v8</a></div></div>
+    </div>
+    <div class="step box">
+      <video controls preload="none" poster="videos/app-gemini-3.1-pro-v9.jpg" src="videos/app-gemini-3.1-pro-v9.mp4"></video>
+      <div class="bd"><span class="v">v9</span><span class="state ok">Versión final</span><p>Combina lo visual de la v5/v6 con el MP3 de SoundHelix. Es la que uso para la comparativa.</p>
+        <div><a class="btn alt" href="geminiapp/gemini%203.1%20Pro%20razonamiento%20ampliado%20v9.html">▶ Abrir v9</a></div></div>
+    </div>
+  </div>
+</section>
+
+<section id="hallazgos">
+  <h2>Lo que he visto</h2>
+  <div class="finds">
+    <div class="find box"><h3>Verse a sí mismo importa</h3><p>Los arneses agénticos pudieron abrir el navegador y revisar su trabajo. Las versiones que más se revisaron son también las más completas y sin errores; la que apenas se revisó (3.1 Pro en Antigravity) llegó con errores visibles en la consola.</p></div>
+    <div class="find box"><h3>«Solo código»… salvo la música</h3><p>Seis de las nueve versiones de 3.1 Pro en la app tiran de un MP3 externo de soundhelix.com. Justo las que sonaban mejor. Las que generaban el audio con código (v4–v6) eran las que sonaban peor.</p></div>
+    <div class="find box"><h3>Sincronizar no es sonar a la vez</h3><p>El prompt pedía una banda sonora sincronizada con las imágenes. Un MP3 en bucle no puede estarlo. Generar el audio con código permite atar los cortes a la música, pero no todas las versiones lo aprovechan igual.</p></div>
+    <div class="find box"><h3>La mejor versión estaba escondida</h3><p>La v4 de Gemini 3.1 Pro en la app, que di por mala, resultó ser la mejor de la serie. Solo fallaba una cosa: un elemento tapaba el botón de inicio. Cualquier prueba en un navegador lo habría detectado en segundos; sin esa prueba, seguí iterando cinco versiones más.</p></div>
+    <div class="find box"><h3>Iterar a ciegas tiene regresiones</h3><p>Sin poder probar el resultado, cada versión de la app reescribía el archivo entero: arreglar el audio rompía las animaciones y viceversa (v5, v7). Hicieron falta 9 prompts.</p></div>
+    <div class="find box"><h3>¿Qué es un «vídeo»?</h3><p>Unos entendieron un reproductor a pantalla completa; otros, una página con el reproductor arriba y fichas debajo. Gemini 3.8 Flash en Antigravity fue el único que añadió narración con voz.</p></div>
+    <div class="find box"><h3>Coste y tiempo</h3><p>DeepSeek V4 Flash lo hizo por 0,08 €. Claude tardó más (22 min) porque se dedicó a probar, medir y corregir. Las cifras no son comparables entre sí, pero el contraste es llamativo.</p></div>
+  </div>
+</section>
+
+<section id="metodo">
+  <h2>Cómo se grabaron los vídeos</h2>
+  <div class="box" style="padding:20px">
+    <p>Cada versión se abrió en Google Chrome 154 con una ventana de 1280×720, se pulsó su botón de inicio y se grabó la propia pestaña (imagen y sonido) con la API de captura de pestaña y <code>MediaRecorder</code>, a unos 26–30 fps. Después se convirtió a MP4 con ffmpeg. Al ser una captura en tiempo real, la fluidez de cada vídeo refleja también su rendimiento en el navegador.</p>
+    <p>Limitación: la narración en off de la versión de Gemini 3.8 Flash en Antigravity usa la voz del sistema (<code>speechSynthesis</code>), que no pasa por el audio de la pestaña y no aparece en la grabación. Ábrela en tu navegador para oírla.</p>
+    <p>Transparencia: las grabaciones, este sitio y su análisis técnico los ha preparado Claude Code (Opus 5.5) a petición mía, es decir, uno de los participantes. Los hechos técnicos (librerías usadas, origen del audio, duración) son comprobables en el código de cada versión; las valoraciones son mías.</p>
+  </div>
+</section>
+
+<section id="english">
+  <div class="en">
+    <h2>In English, briefly</h2>
+    <p>Since Anthropic released Opus 5.5, everyone seems to be making "videos" with nothing but code. On a rainy Friday (a heavy-rain weather alert in Castellón, Spain) I subscribed to Claude Pro and ran a quick, <b>informal and non-rigorous</b> test: the very same Spanish prompt — a timeline of the four industrial revolutions, neo-brutalist style, professional-looking transitions and effects, and a soundtrack synchronized with the images, using only HTML, CSS and JS — in seven model/harness combinations: Claude Opus 5.5 in Claude Code, DeepSeek V4 Flash in OpenCode 2, Gemini 3.8 Flash and 3.1 Pro in Antigravity CLI, and three Gemini models in the Gemini web app.</p>
+    <p>One run each, no repetitions, subjective judgement. Agentic harnesses could open a browser and check their own work; the Gemini app could not, so I iterated nine times with 3.1 Pro to get a working version. Every result is published here, untouched and runnable, with a screen recording.</p>
+    <p><b>What I saw:</b> the agentic harnesses that checked their own output in a browser produced the most complete results; the one that barely checked (Gemini 3.1 Pro in Antigravity) shipped with console errors. DeepSeek V4 Flash did it for €0.08. Gemini 3.8 Flash in Antigravity was the only one to add a voice-over. And in the Gemini app, the "excellent soundtrack" of six of the nine Gemini 3.1 Pro versions turned out to be an external MP3 from soundhelix.com — neither code-generated nor synchronized — while the versions that synthesized audio in code sounded worse. Ironically, the best of the nine (v4) looked broken only because an overlapping element blocked its start button — something any browser check would have caught in seconds.</p>
+  </div>
+</section>
+
+<footer class="box">
+  <div class="fby"><img src="sitio/pablo.jpg" alt="" width="64" height="64"><div><b>Pablo Felip Monferrer</b><br>Castellón, octubre de 2026</div></div>
+  <div class="links">
+    <a class="btn alt" href="https://pablofelip.online">pablofelip.online</a>
+    <a class="btn alt" href="https://github.com/pfelipm">GitHub</a>
+    <a class="btn alt" href="https://www.linkedin.com/in/pfelipm/">LinkedIn</a>
+    <a class="btn alt" href="https://x.com/pfelipm">X</a>
+  </div>
+</footer>
+</div>
+</body>
+</html>

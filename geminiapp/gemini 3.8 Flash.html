@@ -1,0 +1,1208 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cronología: Las 4 Revoluciones Industriales</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cabinet+Grotesk:wght@700;800;900&family=JetBrains+Mono:wght@400;700;800&family=Public+Sans:wght@400;600;800&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            'nb-yellow': '#FFE600',
+            'nb-pink': '#FF52A0',
+            'nb-cyan': '#00F0FF',
+            'nb-green': '#00FF66',
+            'nb-orange': '#FF6B00',
+            'nb-purple': '#A05CFF',
+            'nb-dark': '#0D0D11',
+            'nb-light': '#F8F9FA'
+          },
+          fontFamily: {
+            display: ['"Cabinet Grotesk"', 'sans-serif'],
+            mono: ['"JetBrains Mono"', 'monospace'],
+            sans: ['"Public Sans"', 'sans-serif']
+          },
+          boxShadow: {
+            'brutal': '5px 5px 0px #000000',
+            'brutal-lg': '8px 8px 0px #000000',
+            'brutal-sm': '3px 3px 0px #000000'
+          }
+        }
+      }
+    };
+  </script>
+
+  <style>
+    /* Neobrutalist hard strokes and resets */
+    * {
+      box-sizing: border-box;
+      user-select: none;
+    }
+    body {
+      background-color: #0D0D11;
+      color: #111;
+      font-family: 'Public Sans', sans-serif;
+      overflow-x: hidden;
+    }
+
+    /* Screen noise texture */
+    .film-grain {
+      background-image: radial-gradient(rgba(0, 0, 0, 0.15) 15%, transparent 16%),
+                        radial-gradient(rgba(255, 255, 255, 0.1) 15%, transparent 16%);
+      background-size: 4px 4px;
+    }
+
+    /* CRT scanlines */
+    .scanlines {
+      background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%);
+      background-size: 100% 4px;
+      pointer-events: none;
+    }
+
+    /* Marquee ticker */
+    @keyframes marquee {
+      0% { transform: translateX(0%); }
+      100% { transform: translateX(-50%); }
+    }
+    .animate-marquee {
+      display: inline-flex;
+      white-space: nowrap;
+      animation: marquee 16s linear infinite;
+    }
+
+    /* Glitch animation */
+    @keyframes glitch-skew {
+      0% { transform: skew(0deg); }
+      10% { transform: skew(-2deg); }
+      20% { transform: skew(3deg); }
+      30% { transform: skew(0deg); }
+      100% { transform: skew(0deg); }
+    }
+    .glitch-active {
+      animation: glitch-skew 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+    }
+
+    /* Range slider custom styling */
+    input[type=range] {
+      -webkit-appearance: none;
+      background: #000;
+      height: 12px;
+      border: 2px solid #000;
+    }
+    input[type=range]::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      width: 24px;
+      height: 24px;
+      background: #FFE600;
+      border: 3px solid #000;
+      cursor: pointer;
+      box-shadow: 2px 2px 0px #000;
+    }
+
+    /* Custom video viewport aspect ratio 16:9 */
+    .aspect-16-9 {
+      aspect-ratio: 16 / 9;
+    }
+
+    /* Floating badges effect */
+    @keyframes float-subtle {
+      0%, 100% { transform: translateY(0px) rotate(var(--rot, 0deg)); }
+      50% { transform: translateY(-5px) rotate(var(--rot, 0deg)); }
+    }
+    .brutal-tag {
+      animation: float-subtle 3s ease-in-out infinite;
+    }
+  </style>
+</head>
+<body class="min-h-screen p-3 md:p-6 flex flex-col items-center justify-center">
+
+  <main class="w-full max-w-6xl flex flex-col gap-4">
+
+    <!-- Top broadcast studio bar -->
+    <header class="w-full bg-nb-yellow border-4 border-black p-3 md:p-4 shadow-brutal flex flex-wrap items-center justify-between gap-3">
+      <div class="flex items-center gap-3">
+        <div class="w-5 h-5 bg-red-600 border-2 border-black rounded-full animate-ping"></div>
+        <span class="font-mono text-xs md:text-sm font-black uppercase tracking-wider bg-black text-white px-2 py-1">REC • DIRECTO</span>
+        <h1 class="font-display text-lg md:text-2xl font-black uppercase tracking-tight text-black">
+          LAS 4 REVOLUCIONES INDUSTRIALES // ARCHIVO AUDIOVISUAL
+        </h1>
+      </div>
+      <div class="flex items-center gap-2">
+        <span id="fpsCounter" class="font-mono text-xs font-bold bg-white border-2 border-black px-2 py-0.5 shadow-brutal-sm">60 FPS</span>
+        <span class="font-mono text-xs font-bold bg-nb-cyan border-2 border-black px-2 py-0.5 shadow-brutal-sm">MASTER STEREO</span>
+      </div>
+    </header>
+
+    <div class="relative w-full aspect-16-9 bg-black border-4 border-black shadow-brutal-lg overflow-hidden flex flex-col justify-between">
+      
+      <!-- Graphic canvas visualizer layer -->
+      <canvas id="motionCanvas" class="absolute inset-0 w-full h-full object-cover z-0"></canvas>
+
+      <!-- Atmospheric overlays (scanlines & film grain) -->
+      <div class="absolute inset-0 film-grain opacity-40 pointer-events-none z-10"></div>
+      <div class="absolute inset-0 scanlines opacity-30 pointer-events-none z-10"></div>
+
+      <div class="relative z-20 p-4 md:p-6 flex justify-between items-start pointer-events-none">
+        <!-- Top left: Era badge & Timecode -->
+        <div class="flex flex-col gap-2">
+          <div class="flex items-center gap-2">
+            <span id="hudBadge" class="bg-nb-yellow border-2 border-black px-3 py-1 font-mono font-black text-xs md:text-sm text-black shadow-brutal-sm uppercase">
+              INTRODUCCIÓN
+            </span>
+            <span id="hudPeriod" class="bg-black text-nb-cyan border-2 border-white px-2 py-1 font-mono font-bold text-xs">
+              00:00 - 01:20
+            </span>
+          </div>
+          <div id="hudSubtag" class="text-white font-mono text-xs font-semibold bg-black/80 px-2 py-0.5 w-max border border-neutral-700">
+            AUDIO SYNTH: DUAL-OSC STEREO ENGINE
+          </div>
+        </div>
+
+        <!-- Top right: Audio spectrum mini visualizer & Watermark -->
+        <div class="flex flex-col items-end gap-1">
+          <canvas id="miniAudioCanvas" width="90" height="32" class="border-2 border-black bg-black shadow-brutal-sm"></canvas>
+          <span class="font-mono text-[10px] text-white/70 uppercase">HISTORIA ECONÓMICA</span>
+        </div>
+      </div>
+
+      <div class="relative z-20 px-4 md:px-12 py-2 flex flex-col items-center text-center pointer-events-none">
+        <div id="captionCard" class="bg-white/95 text-black border-4 border-black p-3 md:p-5 max-w-3xl shadow-brutal transition-all duration-300 transform scale-100">
+          <p id="captionTitle" class="font-display font-black text-sm md:text-base uppercase tracking-wider text-nb-orange mb-1">
+            ORIGEN DEL CAMBIO DE PARADIGMA
+          </p>
+          <p id="captionBody" class="font-sans font-bold text-sm md:text-lg leading-tight md:leading-snug">
+            De la fuerza muscular a la singularidad algorítmica: cómo la humanidad transformó radicalmente la producción, el empleo y la civilización.
+          </p>
+        </div>
+      </div>
+
+      <div class="relative z-20 w-full bg-black border-t-4 border-black p-2 flex items-center overflow-hidden">
+        <div class="bg-nb-pink text-black font-mono font-black text-xs px-2 py-0.5 border-2 border-black mr-2 z-10 shrink-0">
+          TITULARES
+        </div>
+        <div class="overflow-hidden w-full">
+          <div id="newsTicker" class="animate-marquee font-mono text-xs md:text-sm text-nb-yellow font-bold uppercase tracking-wider">
+            1ª REV (1760): VAPOR, CARBÓN Y MECANIZACIÓN TEXTIL • 2ª REV (1870): ACERO BESSEMER, ELECTRICIDAD Y FORD T • 3ª REV (1960): SILICIO, PLCS E INTERNET • 4ª REV (2010+): SISTEMAS CIBERFÍSICOS, IOT E INTELIGENCIA ARTIFICIAL •
+          </div>
+        </div>
+      </div>
+
+      <div id="startOverlay" class="absolute inset-0 bg-nb-yellow/95 backdrop-blur-sm z-30 flex flex-col items-center justify-center p-6 text-center">
+        <div class="border-4 border-black bg-white p-6 md:p-8 max-w-xl shadow-brutal-lg flex flex-col items-center gap-4">
+          <div class="w-16 h-16 bg-nb-orange border-4 border-black flex items-center justify-center shadow-brutal-sm">
+            <svg class="w-8 h-8 fill-black" viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+          </div>
+          <h2 class="font-display text-2xl md:text-4xl font-black uppercase text-black leading-none">
+            REVOLUCIÓN INDUSTRIAL:<br>EL GRAN VIAJE TÉCNICO
+          </h2>
+          <p class="font-mono text-xs md:text-sm font-semibold text-neutral-800">
+            Producción audiovisual generada 100% en código. Incluye sintetizador musical adaptativo, render cinemático en Canvas y sincronización educativa cronológica.
+          </p>
+          <button id="btnStart" class="bg-nb-green hover:bg-emerald-400 text-black font-display font-black text-base md:text-xl uppercase px-8 py-3 border-4 border-black shadow-brutal active:translate-x-1 active:translate-y-1 transition-all">
+            INICIAR EXPERIENCIA AUDIOVISUAL
+          </button>
+          <span class="font-mono text-[11px] text-neutral-600 uppercase font-bold">Pulsa para activar el audio sintetizado WebAudio</span>
+        </div>
+      </div>
+
+    </div>
+
+    <section class="w-full bg-white border-4 border-black p-4 shadow-brutal flex flex-col gap-3">
+      
+      <!-- Progress Bar & Scrubber -->
+      <div class="flex items-center gap-3">
+        <span id="timeCurrent" class="font-mono font-bold text-xs md:text-sm bg-nb-yellow border-2 border-black px-2 py-0.5">00:00</span>
+        <div class="relative flex-1 flex items-center">
+          <input id="timelineScrubber" type="range" min="0" max="80" step="0.1" value="0" class="w-full cursor-pointer accent-nb-yellow">
+        </div>
+        <span id="timeDuration" class="font-mono font-bold text-xs md:text-sm bg-black text-white px-2 py-0.5">01:20</span>
+      </div>
+
+      <!-- Controls row: Play, Era Jump buttons, Sound controls -->
+      <div class="flex flex-wrap items-center justify-between gap-2 pt-2 border-t-2 border-neutral-200">
+        
+        <!-- Play / Pause / Reset -->
+        <div class="flex items-center gap-2">
+          <button id="btnPlayPause" class="bg-nb-yellow hover:bg-yellow-300 text-black border-2 border-black px-4 py-2 font-display font-black text-sm uppercase shadow-brutal-sm active:translate-x-0.5 active:translate-y-0.5">
+            PLAY / PAUSA
+          </button>
+          <button id="btnRestart" class="bg-neutral-100 hover:bg-neutral-200 text-black border-2 border-black px-3 py-2 font-mono font-bold text-xs uppercase shadow-brutal-sm">
+            REINICIAR
+          </button>
+        </div>
+
+        <!-- Quick Scene / Era Jumpers -->
+        <div class="flex flex-wrap items-center gap-1.5 md:gap-2">
+          <span class="font-mono text-xs font-black mr-1 hidden sm:inline">CAPÍTULOS:</span>
+          <button data-seek="0" class="chapter-btn bg-neutral-200 border-2 border-black px-2 md:px-3 py-1 font-mono font-extrabold text-xs shadow-brutal-sm hover:bg-nb-yellow">
+            INTRO
+          </button>
+          <button data-seek="12" class="chapter-btn bg-neutral-200 border-2 border-black px-2 md:px-3 py-1 font-mono font-extrabold text-xs shadow-brutal-sm hover:bg-nb-orange">
+            1ª REV (1760)
+          </button>
+          <button data-seek="28" class="chapter-btn bg-neutral-200 border-2 border-black px-2 md:px-3 py-1 font-mono font-extrabold text-xs shadow-brutal-sm hover:bg-nb-yellow">
+            2ª REV (1870)
+          </button>
+          <button data-seek="44" class="chapter-btn bg-neutral-200 border-2 border-black px-2 md:px-3 py-1 font-mono font-extrabold text-xs shadow-brutal-sm hover:bg-nb-cyan">
+            3ª REV (1960)
+          </button>
+          <button data-seek="60" class="chapter-btn bg-neutral-200 border-2 border-black px-2 md:px-3 py-1 font-mono font-extrabold text-xs shadow-brutal-sm hover:bg-nb-green">
+            4ª REV (4.0)
+          </button>
+        </div>
+
+        <!-- Audio toggle & master volume -->
+        <div class="flex items-center gap-2">
+          <button id="btnMute" class="bg-nb-purple text-white border-2 border-black px-3 py-1 font-mono font-bold text-xs uppercase shadow-brutal-sm">
+            AUDIO: ON
+          </button>
+          <input id="volumeSlider" type="range" min="0" max="1" step="0.05" value="0.75" class="w-16 md:w-24 accent-nb-purple" title="Volumen banda sonora">
+        </div>
+      </div>
+    </section>
+
+    <footer class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 text-black">
+      
+      <!-- Era 1 Mini Card -->
+      <div class="bg-[#FFF4D4] border-3 border-black p-3 shadow-brutal flex flex-col justify-between">
+        <div>
+          <div class="flex justify-between items-center mb-1">
+            <span class="font-mono text-xs font-black bg-black text-white px-1.5 py-0.5">1ª FASE</span>
+            <span class="font-mono text-xs font-bold text-neutral-700">1760 - 1840</span>
+          </div>
+          <h3 class="font-display font-black text-sm uppercase">Mecanización & Vapor</h3>
+          <p class="font-sans text-xs mt-1 text-neutral-800">
+            Máquina de James Watt (1769), telar de Cartwright, ferrocarril de Stephenson y carbón mineral.
+          </p>
+        </div>
+        <div class="mt-2 text-[10px] font-mono font-bold text-neutral-600 bg-white border border-black p-1">
+          IMPACTO: Nacimiento de la fábrica moderna y proletariado.
+        </div>
+      </div>
+
+      <!-- Era 2 Mini Card -->
+      <div class="bg-[#FFE8E8] border-3 border-black p-3 shadow-brutal flex flex-col justify-between">
+        <div>
+          <div class="flex justify-between items-center mb-1">
+            <span class="font-mono text-xs font-black bg-black text-white px-1.5 py-0.5">2ª FASE</span>
+            <span class="font-mono text-xs font-bold text-neutral-700">1870 - 1914</span>
+          </div>
+          <h3 class="font-display font-black text-sm uppercase">Acero & Masa</h3>
+          <p class="font-sans text-xs mt-1 text-neutral-800">
+            Convertidor Bessemer (1856), electrificación, motor Otto/Daimler y cadena de montaje Ford (1913).
+          </p>
+        </div>
+        <div class="mt-2 text-[10px] font-mono font-bold text-neutral-600 bg-white border border-black p-1">
+          IMPACTO: Taylorismo, corporaciones transnacionales.
+        </div>
+      </div>
+
+      <!-- Era 3 Mini Card -->
+      <div class="bg-[#E4F8FF] border-3 border-black p-3 shadow-brutal flex flex-col justify-between">
+        <div>
+          <div class="flex justify-between items-center mb-1">
+            <span class="font-mono text-xs font-black bg-black text-white px-1.5 py-0.5">3ª FASE</span>
+            <span class="font-mono text-xs font-bold text-neutral-700">1960 - 2000</span>
+          </div>
+          <h3 class="font-display font-black text-sm uppercase">Informática & Red</h3>
+          <p class="font-sans text-xs mt-1 text-neutral-800">
+            Transistores (1947), chips de silicio, automatización con PLCs, fibra óptica e Internet (ARPANET).
+          </p>
+        </div>
+        <div class="mt-2 text-[10px] font-mono font-bold text-neutral-600 bg-white border border-black p-1">
+          IMPACTO: Economía del conocimiento y globalización.
+        </div>
+      </div>
+
+      <!-- Era 4 Mini Card -->
+      <div class="bg-[#DCFFEB] border-3 border-black p-3 shadow-brutal flex flex-col justify-between">
+        <div>
+          <div class="flex justify-between items-center mb-1">
+            <span class="font-mono text-xs font-black bg-black text-white px-1.5 py-0.5">4ª FASE</span>
+            <span class="font-mono text-xs font-bold text-neutral-700">2010 - HOY</span>
+          </div>
+          <h3 class="font-display font-black text-sm uppercase">Ciberfísica & IA</h3>
+          <p class="font-sans text-xs mt-1 text-neutral-800">
+            Sistemas Ciberfísicos (CPS), IoT, Big Data, Gemelos Digitales, Robótica colaborativa y Machine Learning.
+          </p>
+        </div>
+        <div class="mt-2 text-[10px] font-mono font-bold text-neutral-600 bg-white border border-black p-1">
+          IMPACTO: Convergencia de lo físico, digital y biológico.
+        </div>
+      </div>
+
+    </footer>
+  </main>
+
+  <script>
+    /* ==========================================================
+       SYNTHESIZED SOUNDTRACK ENGINE (WEB AUDIO API)
+       Synchronized dynamic audio with different eras:
+       - Era 1: Mechanical steam pumps, heavy low percussion
+       - Era 2: Upbeat electrical synth pulses & metallic clock
+       - Era 3: 8-bit digital arpeggio & sequenced synthesizer
+       - Era 4: Modern deep cyber bass, atmospheric pad & sweeps
+       ========================================================== */
+
+    class IndustrialAudioEngine {
+      constructor() {
+        this.ctx = null;
+        this.masterGain = null;
+        this.isMuted = false;
+        this.currentVolume = 0.75;
+        this.stepTimer = null;
+        this.tempo = 110; // BPM
+        this.step = 0;
+        this.currentEra = 'intro';
+        this.analyser = null;
+      }
+
+      init() {
+        if (this.ctx) return;
+        const AudioContext = window.AudioContext || window.webkitAudioContext;
+        this.ctx = new AudioContext();
+
+        this.masterGain = this.ctx.createGain();
+        this.masterGain.gain.setValueAtTime(this.currentVolume, this.ctx.currentTime);
+
+        this.analyser = this.ctx.createAnalyser();
+        this.analyser.fftSize = 64;
+
+        this.masterGain.connect(this.analyser);
+        this.analyser.connect(this.ctx.destination);
+
+        this.startSequenceLoop();
+      }
+
+      setVolume(val) {
+        this.currentVolume = val;
+        if (this.masterGain && !this.isMuted) {
+          this.masterGain.gain.setTargetAtTime(val, this.ctx.currentTime, 0.05);
+        }
+      }
+
+      toggleMute() {
+        this.isMuted = !this.isMuted;
+        if (this.masterGain) {
+          this.masterGain.gain.setTargetAtTime(this.isMuted ? 0 : this.currentVolume, this.ctx.currentTime, 0.05);
+        }
+        return this.isMuted;
+      }
+
+      setEra(era) {
+        this.currentEra = era;
+      }
+
+      playNoiseHiss(duration = 0.25, gainVal = 0.2) {
+        if (!this.ctx || this.isMuted) return;
+        const bufferSize = this.ctx.sampleRate * duration;
+        const buffer = this.ctx.createBuffer(1, bufferSize, this.ctx.sampleRate);
+        const data = buffer.getChannelData(0);
+        for (let i = 0; i < bufferSize; i++) {
+          data[i] = (Math.random() * 2 - 1) * Math.exp(-i / (bufferSize * 0.4));
+        }
+        const noise = this.ctx.createBufferSource();
+        noise.buffer = buffer;
+
+        const filter = this.ctx.createBiquadFilter();
+        filter.type = 'bandpass';
+        filter.frequency.value = 1200;
+
+        const gain = this.ctx.createGain();
+        gain.gain.setValueAtTime(gainVal, this.ctx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.001, this.ctx.currentTime + duration);
+
+        noise.connect(filter);
+        filter.connect(gain);
+        gain.connect(this.masterGain);
+        noise.start();
+      }
+
+      playTone(freq, type = 'sine', duration = 0.2, gainPeak = 0.3) {
+        if (!this.ctx || this.isMuted) return;
+        const osc = this.ctx.createOscillator();
+        const gain = this.ctx.createGain();
+
+        osc.type = type;
+        osc.frequency.setValueAtTime(freq, this.ctx.currentTime);
+
+        gain.gain.setValueAtTime(0.001, this.ctx.currentTime);
+        gain.gain.linearRampToValueAtTime(gainPeak, this.ctx.currentTime + 0.02);
+        gain.gain.exponentialRampToValueAtTime(0.001, this.ctx.currentTime + duration);
+
+        osc.connect(gain);
+        gain.connect(this.masterGain);
+
+        osc.start();
+        osc.stop(this.ctx.currentTime + duration);
+      }
+
+      playKick(pitch = 110) {
+        if (!this.ctx || this.isMuted) return;
+        const osc = this.ctx.createOscillator();
+        const gain = this.ctx.createGain();
+        osc.frequency.setValueAtTime(pitch, this.ctx.currentTime);
+        osc.frequency.exponentialRampToValueAtTime(0.01, this.ctx.currentTime + 0.35);
+
+        gain.gain.setValueAtTime(0.5, this.ctx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.001, this.ctx.currentTime + 0.35);
+
+        osc.connect(gain);
+        gain.connect(this.masterGain);
+        osc.start();
+        osc.stop(this.ctx.currentTime + 0.35);
+      }
+
+      startSequenceLoop() {
+        const stepInterval = (60 / this.tempo / 4) * 1000; // 16th note
+        this.stepTimer = setInterval(() => {
+          if (!this.ctx || this.ctx.state !== 'running') return;
+          this.executeStep(this.step % 16);
+          this.step++;
+        }, stepInterval);
+      }
+
+      executeStep(s) {
+        switch (this.currentEra) {
+          case 'intro':
+            // Mysterious steady pulse
+            if (s % 4 === 0) this.playKick(75);
+            if (s % 2 === 0) this.playTone(220, 'triangle', 0.15, 0.12);
+            if (s === 12) this.playNoiseHiss(0.15, 0.08);
+            break;
+
+          case 'era1': // 1ª Revolución: Vapor y martillos mecánicos
+            if (s === 0 || s === 8) this.playKick(60); // Piston hit
+            if (s === 4 || s === 12) this.playNoiseHiss(0.3, 0.2); // Steam exhaust
+            if (s % 4 === 2) this.playTone(130, 'square', 0.15, 0.1); // Anvil metallic clang
+            break;
+
+          case 'era2': // 2ª Revolución: Dinastía industrial, acero & electricidad
+            if (s % 4 === 0) this.playKick(90);
+            if (s === 4 || s === 12) this.playNoiseHiss(0.12, 0.18);
+            // Continuous electrical arpeggio
+            const scale2 = [146.8, 174.6, 220.0, 261.6, 293.6];
+            const note2 = scale2[s % scale2.length];
+            this.playTone(note2, 'sawtooth', 0.12, 0.09);
+            break;
+
+          case 'era3': // 3ª Revolución: Digital, transistores, microchips
+            if (s % 4 === 0) this.playKick(100);
+            if (s % 4 === 2) this.playTone(440, 'square', 0.05, 0.08);
+            // High chiptune melody
+            const scale3 = [261.6, 329.6, 392.0, 523.2, 659.2];
+            if (s % 2 === 0) {
+              const note3 = scale3[(s / 2) % scale3.length];
+              this.playTone(note3, 'square', 0.08, 0.07);
+            }
+            break;
+
+          case 'era4': // 4ª Revolución: Cyberpunk, IA, Ciberfísica
+            if (s % 4 === 0) this.playKick(50);
+            if (s === 8) this.playKick(65);
+            if (s === 4 || s === 12) this.playNoiseHiss(0.2, 0.12);
+            // Lush futuristic synth pads
+            const scale4 = [110, 164.8, 220, 329.6, 440];
+            const note4 = scale4[(s * 2) % scale4.length];
+            this.playTone(note4, 'sawtooth', 0.22, 0.1);
+            if (s === 14) this.playTone(880, 'sine', 0.15, 0.05); // Data chime
+            break;
+
+          case 'outro':
+            if (s % 4 === 0) this.playKick(70);
+            if (s % 4 === 2) this.playTone(330, 'triangle', 0.18, 0.15);
+            break;
+        }
+      }
+    }
+
+    const TIMELINE_DATA = [
+      {
+        id: 'intro',
+        start: 0,
+        end: 12,
+        badge: 'PRÓLOGO HISTÓRICO',
+        period: 'SIGLO XVIII - SIGLO XXI',
+        title: 'EL SALTO EVOLUTIVO DE LA PRODUCCIÓN',
+        text: 'Durante milenios la energía dependió de músculos y bestias. En 250 años, 4 revoluciones reinventaron la economía, la sociedad y la tecnología.',
+        color: '#FFE600',
+        bgTheme: '#111116',
+        accent: '#FFE600'
+      },
+      {
+        id: 'era1',
+        start: 12,
+        end: 28,
+        badge: '1ª REVOLUCIÓN INDUSTRIAL',
+        period: '1760 — 1840 | GRAN BRETAÑA',
+        title: 'EL VAPOR Y LA MECANIZACIÓN FABRIL',
+        text: 'James Watt perfecciona la máquina de vapor (1769). Nace la fábrica moderna textil, el ferrocarril de Stephenson (1814) y la nueva clase obrera.',
+        color: '#FF6B00',
+        bgTheme: '#1A1208',
+        accent: '#FF8800'
+      },
+      {
+        id: 'era2',
+        start: 28,
+        end: 44,
+        badge: '2ª REVOLUCIÓN INDUSTRIAL',
+        period: '1870 — 1914 | EE.UU. Y ALEMANIA',
+        title: 'ELECTRICIDAD, ACERO Y CADENA DE MONTAJE',
+        text: 'Convertidor Bessemer (1856), petróleo y motor Otto-Daimler. Henry Ford implanta la línea de montaje en serie (1913): nace el consumo masivo.',
+        color: '#FFE600',
+        bgTheme: '#141400',
+        accent: '#FFE600'
+      },
+      {
+        id: 'era3',
+        start: 44,
+        end: 60,
+        badge: '3ª REVOLUCIÓN INDUSTRIAL',
+        period: '1960 — 2000 | ERA DIGITAL',
+        title: 'SEMICONDUCTORES, AUTOMATIZACIÓN & INTERNET',
+        text: 'El transistor (1947), chips de silicio, autómatas PLCs y satélites. Con ARPANET e Internet florece la sociedad de la información globalizada.',
+        color: '#00F0FF',
+        bgTheme: '#00141A',
+        accent: '#00F0FF'
+      },
+      {
+        id: 'era4',
+        start: 60,
+        end: 74,
+        badge: '4ª REVOLUCIÓN INDUSTRIAL',
+        period: '2010 — PRESENTE | INDUSTRIA 4.0',
+        title: 'SISTEMAS CIBERFÍSICOS & INTELIGENCIA ARTIFICIAL',
+        text: 'Klaus Schwab (WEF): Convergencia físico-digital-biológica. IoT, Big Data, Gemelos Digitales, Robótica colaborativa y algoritmos autónomos.',
+        color: '#00FF66',
+        bgTheme: '#02180E',
+        accent: '#00FF66'
+      },
+      {
+        id: 'outro',
+        start: 74,
+        end: 80,
+        badge: 'SÍNTESIS CRONOLÓGICA',
+        period: 'PERSPECTIVA & FUTURO',
+        title: 'HACIA LA INTEGRACIÓN SOSTENIBLE (5.0)',
+        text: 'De las máquinas térmicas al software cognitivo: el ser humano redefine su rol como diseñador ético y custodio de la innovación.',
+        color: '#FF52A0',
+        bgTheme: '#180410',
+        accent: '#FF52A0'
+      }
+    ];
+
+    const canvas = document.getElementById('motionCanvas');
+    const ctx = canvas.getContext('2d');
+    const miniAudioCanvas = document.getElementById('miniAudioCanvas');
+    const miniCtx = miniAudioCanvas.getContext('2d');
+
+    // Canvas sizing
+    function resizeCanvas() {
+      const rect = canvas.getBoundingClientRect();
+      canvas.width = rect.width * window.devicePixelRatio;
+      canvas.height = rect.height * window.devicePixelRatio;
+      ctx.scale(window.devicePixelRatio, window.devicePixelRatio);
+    }
+    window.addEventListener('resize', resizeCanvas);
+    resizeCanvas();
+
+    // Player state
+    const TOTAL_DURATION = 80.0;
+    let currentTime = 0;
+    let isPlaying = false;
+    let lastFrameTime = performance.now();
+    let audioEngine = new IndustrialAudioEngine();
+
+    // DOM Elements
+    const hudBadge = document.getElementById('hudBadge');
+    const hudPeriod = document.getElementById('hudPeriod');
+    const captionTitle = document.getElementById('captionTitle');
+    const captionBody = document.getElementById('captionBody');
+    const captionCard = document.getElementById('captionCard');
+    const timeCurrent = document.getElementById('timeCurrent');
+    const timelineScrubber = document.getElementById('timelineScrubber');
+    const btnPlayPause = document.getElementById('btnPlayPause');
+    const btnRestart = document.getElementById('btnRestart');
+    const btnMute = document.getElementById('btnMute');
+    const volumeSlider = document.getElementById('volumeSlider');
+    const startOverlay = document.getElementById('startOverlay');
+    const btnStart = document.getElementById('btnStart');
+    const chapterButtons = document.querySelectorAll('.chapter-btn');
+
+    /* Formatting Helper */
+    function formatTime(sec) {
+      const m = Math.floor(sec / 60);
+      const s = Math.floor(sec % 60);
+      return `${String(m).padStart(2, '0')}:${String(s).padStart(2, '0')}`;
+    }
+
+    /* Current Scene Retrieval */
+    function getCurrentScene(time) {
+      return TIMELINE_DATA.find(s => time >= s.start && time < s.end) || TIMELINE_DATA[TIMELINE_DATA.length - 1];
+    }
+
+    function drawSceneVisuals(scene, progressInScene, w, h, t) {
+      const cx = w / 2;
+      const cy = h / 2 - 30;
+
+      switch (scene.id) {
+        case 'intro':
+          drawIntroGraphics(cx, cy, w, h, t, progressInScene);
+          break;
+        case 'era1':
+          drawEra1SteamPiston(cx, cy, w, h, t, progressInScene);
+          break;
+        case 'era2':
+          drawEra2AssemblyLine(cx, cy, w, h, t, progressInScene);
+          break;
+        case 'era3':
+          drawEra3SiliconNetwork(cx, cy, w, h, t, progressInScene);
+          break;
+        case 'era4':
+          drawEra4CyberPhysicalMesh(cx, cy, w, h, t, progressInScene);
+          break;
+        case 'outro':
+          drawOutroMatrix(cx, cy, w, h, t, progressInScene);
+          break;
+      }
+    }
+
+    // Intro Graphic: Geometric testcard & rotating chronometer
+    function drawIntroGraphics(cx, cy, w, h, t, prog) {
+      ctx.save();
+      // Retro grid
+      ctx.strokeStyle = '#333340';
+      ctx.lineWidth = 1;
+      const step = 40;
+      for (let x = 0; x < w; x += step) {
+        ctx.beginPath(); ctx.moveTo(x, 0); ctx.lineTo(x, h); ctx.stroke();
+      }
+      for (let y = 0; y < h; y += step) {
+        ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(w, y); ctx.stroke();
+      }
+
+      // Central brutalist badge
+      ctx.translate(cx, cy);
+      ctx.rotate(Math.sin(t * 0.5) * 0.05);
+
+      // Shadow
+      ctx.fillStyle = '#000000';
+      ctx.fillRect(-160 + 8, -100 + 8, 320, 200);
+
+      // Card
+      ctx.fillStyle = '#FFE600';
+      ctx.strokeStyle = '#000000';
+      ctx.lineWidth = 6;
+      ctx.fillRect(-160, -100, 320, 200);
+      ctx.strokeRect(-160, -100, 320, 200);
+
+      // Inner graphic
+      ctx.fillStyle = '#000';
+      ctx.font = '900 28px "Cabinet Grotesk", sans-serif';
+      ctx.textAlign = 'center';
+      ctx.fillText('CRONOLOGÍA', 0, -40);
+      ctx.font = '800 16px "JetBrains Mono", monospace';
+      ctx.fillText('1760 — SIGLO XXI', 0, -10);
+
+      // Rotating gear emblem
+      ctx.rotate(t * 1.5);
+      ctx.strokeStyle = '#000';
+      ctx.lineWidth = 4;
+      ctx.beginPath();
+      ctx.arc(0, 45, 30, 0, Math.PI * 2);
+      ctx.stroke();
+      for (let i = 0; i < 8; i++) {
+        const ang = (i / 8) * Math.PI * 2;
+        ctx.strokeRect(Math.cos(ang) * 30 - 4, Math.sin(ang) * 30 + 45 - 4, 8, 8);
+      }
+      ctx.restore();
+    }
+
+    function drawEra1SteamPiston(cx, cy, w, h, t, prog) {
+      ctx.save();
+      // Industrial factory roofs in background
+      ctx.fillStyle = '#2A1808';
+      ctx.beginPath();
+      ctx.moveTo(0, h);
+      ctx.lineTo(0, h - 140);
+      for (let i = 0; i < w; i += 80) {
+        ctx.lineTo(i + 40, h - 220);
+        ctx.lineTo(i + 80, h - 140);
+      }
+      ctx.lineTo(w, h);
+      ctx.closePath();
+      ctx.fill();
+
+      // Chimneys emitting steam particles
+      ctx.fillStyle = 'rgba(200, 190, 180, 0.25)';
+      for (let p = 0; p < 12; p++) {
+        const offset = ((t * 40 + p * 35) % 180);
+        const radius = 15 + p * 4;
+        ctx.beginPath();
+        ctx.arc(w * 0.2 + Math.sin(p + t) * 20, (h - 220) - offset, radius, 0, Math.PI * 2);
+        ctx.arc(w * 0.8 + Math.cos(p + t) * 25, (h - 220) - offset, radius, 0, Math.PI * 2);
+        ctx.fill();
+      }
+
+      // Center: Mechanical Steam Piston Schematic
+      ctx.translate(cx, cy);
+      const pistonY = Math.sin(t * 6) * 45;
+
+      // Cylinder body (Neobrutalist)
+      ctx.fillStyle = '#000';
+      ctx.fillRect(-65 + 6, -95 + 6, 130, 190);
+      ctx.fillStyle = '#E89020';
+      ctx.strokeStyle = '#000';
+      ctx.lineWidth = 5;
+      ctx.fillRect(-65, -95, 130, 190);
+      ctx.strokeRect(-65, -95, 130, 190);
+
+      // Piston Rod
+      ctx.fillStyle = '#FFE600';
+      ctx.fillRect(-14, -130 + pistonY, 28, 120);
+      ctx.strokeRect(-14, -130 + pistonY, 28, 120);
+
+      // Piston Head
+      ctx.fillStyle = '#FFFFFF';
+      ctx.fillRect(-55, -20 + pistonY, 110, 36);
+      ctx.strokeRect(-55, -20 + pistonY, 110, 36);
+
+      // Steam Pressure Gauge Badge
+      ctx.fillStyle = '#FFE600';
+      ctx.fillRect(80, -70, 70, 70);
+      ctx.strokeRect(80, -70, 70, 70);
+      ctx.fillStyle = '#000';
+      ctx.font = '800 12px "JetBrains Mono"';
+      ctx.textAlign = 'center';
+      ctx.fillText('WATT', 115, -45);
+      ctx.fillText('1769', 115, -25);
+
+      ctx.restore();
+    }
+
+    function drawEra2AssemblyLine(cx, cy, w, h, t, prog) {
+      ctx.save();
+      // Moving assembly conveyor belt at bottom
+      const beltY = h - 160;
+      ctx.fillStyle = '#1A1A1A';
+      ctx.fillRect(0, beltY, w, 40);
+      ctx.strokeStyle = '#FFE600';
+      ctx.lineWidth = 4;
+      ctx.beginPath();
+      ctx.moveTo(0, beltY);
+      ctx.lineTo(w, beltY);
+      ctx.stroke();
+
+      // Moving Ford Model T parts on conveyor
+      const beltOffset = (t * 120) % 180;
+      for (let x = -100 + beltOffset; x < w + 100; x += 180) {
+        ctx.fillStyle = '#000';
+        ctx.fillRect(x + 4, beltY - 45 + 4, 70, 35);
+        ctx.fillStyle = '#FFE600';
+        ctx.strokeStyle = '#000';
+        ctx.lineWidth = 4;
+        ctx.fillRect(x, beltY - 45, 70, 35);
+        ctx.strokeRect(x, beltY - 45, 70, 35);
+        ctx.fillStyle = '#000';
+        ctx.font = '900 12px "JetBrains Mono"';
+        ctx.textAlign = 'center';
+        ctx.fillText('FORD-T', x + 35, beltY - 24);
+      }
+
+      // Center: Bessemer steel vessel & Electric Sparks
+      ctx.translate(cx, cy);
+
+      // Steel Crucible Body
+      ctx.fillStyle = '#000';
+      ctx.beginPath();
+      ctx.arc(6, 6, 85, 0, Math.PI);
+      ctx.lineTo(76, -70);
+      ctx.lineTo(-64, -70);
+      ctx.closePath();
+      ctx.fill();
+
+      ctx.fillStyle = '#FF5200';
+      ctx.strokeStyle = '#000';
+      ctx.lineWidth = 6;
+      ctx.beginPath();
+      ctx.arc(0, 0, 85, 0, Math.PI);
+      ctx.lineTo(70, -70);
+      ctx.lineTo(-70, -70);
+      ctx.closePath();
+      ctx.fill();
+      ctx.stroke();
+
+      // Molten Steel Glow
+      ctx.fillStyle = '#FFE600';
+      ctx.beginPath();
+      ctx.arc(0, 20, 60, 0, Math.PI);
+      ctx.fill();
+
+      // Electrical Bolts (Edison / Tesla)
+      ctx.strokeStyle = '#00F0FF';
+      ctx.lineWidth = 3;
+      ctx.beginPath();
+      for (let i = 0; i < 6; i++) {
+        const sx = Math.sin(t * 15 + i) * 110;
+        const sy = -100 - (i * 12);
+        ctx.lineTo(sx, sy);
+      }
+      ctx.stroke();
+
+      // Floating Badge: Bessemer / 1856
+      ctx.fillStyle = '#FFFFFF';
+      ctx.strokeStyle = '#000';
+      ctx.lineWidth = 3;
+      ctx.fillRect(-160, -90, 110, 44);
+      ctx.strokeRect(-160, -90, 110, 44);
+      ctx.fillStyle = '#000';
+      ctx.font = '800 11px "JetBrains Mono"';
+      ctx.fillText('BESSEMER 1856', -105, -74);
+      ctx.fillText('ACERO MASIVO', -105, -58);
+
+      ctx.restore();
+    }
+
+    function drawEra3SiliconNetwork(cx, cy, w, h, t, prog) {
+      ctx.save();
+      // Binary data waterfall streams
+      ctx.fillStyle = 'rgba(0, 240, 255, 0.18)';
+      ctx.font = '700 12px "JetBrains Mono"';
+      for (let col = 20; col < w; col += 60) {
+        const seed = (Math.sin(col) * 100);
+        for (let row = 30; row < h - 120; row += 24) {
+          const bit = (Math.floor(t * 8 + seed + row) % 2 === 0) ? '1' : '0';
+          ctx.fillText(bit, col, row);
+        }
+      }
+
+      // Center: Intel 8080 Microprocessor Schematic
+      ctx.translate(cx, cy);
+
+      // Shadow
+      ctx.fillStyle = '#000';
+      ctx.fillRect(-110 + 8, -90 + 8, 220, 180);
+
+      // Chip Base
+      ctx.fillStyle = '#001E2B';
+      ctx.strokeStyle = '#00F0FF';
+      ctx.lineWidth = 5;
+      ctx.fillRect(-110, -90, 220, 180);
+      ctx.strokeRect(-110, -90, 220, 180);
+
+      // Pins on side
+      ctx.fillStyle = '#FFE600';
+      for (let i = -70; i <= 70; i += 20) {
+        ctx.fillRect(-130, i - 4, 20, 8);
+        ctx.strokeRect(-130, i - 4, 20, 8);
+        ctx.fillRect(110, i - 4, 20, 8);
+        ctx.strokeRect(110, i - 4, 20, 8);
+      }
+
+      // Internal Silicon Core
+      ctx.fillStyle = '#003B52';
+      ctx.fillRect(-60, -50, 120, 100);
+      ctx.strokeStyle = '#FFFFFF';
+      ctx.lineWidth = 2;
+      ctx.strokeRect(-60, -50, 120, 100);
+
+      // Chip Labels
+      ctx.fillStyle = '#00F0FF';
+      ctx.font = '900 18px "JetBrains Mono"';
+      ctx.textAlign = 'center';
+      ctx.fillText('TRANSISTOR', 0, -10);
+      ctx.font = '700 12px "JetBrains Mono"';
+      ctx.fillStyle = '#FFF';
+      ctx.fillText('1947 • SILICON CHIP', 0, 15);
+      ctx.fillText('ARPANET / WWW', 0, 32);
+
+      // Orbiting Satellite Icon
+      const satAngle = t * 1.5;
+      const satX = Math.cos(satAngle) * 160;
+      const satY = Math.sin(satAngle) * 100;
+      ctx.fillStyle = '#FFE600';
+      ctx.fillRect(satX - 10, satY - 10, 20, 20);
+      ctx.strokeStyle = '#000';
+      ctx.strokeRect(satX - 10, satY - 10, 20, 20);
+
+      ctx.restore();
+    }
+
+    function drawEra4CyberPhysicalMesh(cx, cy, w, h, t, prog) {
+      ctx.save();
+      // Cyber Mesh / Neural Network lines
+      ctx.translate(cx, cy);
+      const nodeCount = 9;
+      const nodes = [];
+
+      for (let i = 0; i < nodeCount; i++) {
+        const ang = (i / nodeCount) * Math.PI * 2 + (t * 0.4);
+        const dist = 110 + Math.sin(t * 2 + i) * 25;
+        nodes.push({ x: Math.cos(ang) * dist, y: Math.sin(ang) * dist });
+      }
+
+      // Connect nodes with cyber pulses
+      ctx.strokeStyle = '#00FF66';
+      ctx.lineWidth = 2;
+      for (let i = 0; i < nodes.length; i++) {
+        for (let j = i + 1; j < nodes.length; j++) {
+          ctx.beginPath();
+          ctx.moveTo(nodes[i].x, nodes[i].y);
+          ctx.lineTo(nodes[j].x, nodes[j].y);
+          ctx.stroke();
+        }
+      }
+
+      // Draw node boxes (IoT, CPS, BigData, Cobots)
+      const labels = ['IA', 'IoT', 'CLOUD', 'CPS', 'ROBOT', 'BIG DATA', '5G', 'TWIN', 'EDGE'];
+      nodes.forEach((node, idx) => {
+        ctx.fillStyle = '#000';
+        ctx.fillRect(node.x - 22 + 4, node.y - 14 + 4, 44, 28);
+        ctx.fillStyle = '#00FF66';
+        ctx.strokeStyle = '#000';
+        ctx.lineWidth = 2;
+        ctx.fillRect(node.x - 22, node.y - 14, 44, 28);
+        ctx.strokeRect(node.x - 22, node.y - 14, 44, 28);
+
+        ctx.fillStyle = '#000';
+        ctx.font = '900 10px "JetBrains Mono"';
+        ctx.textAlign = 'center';
+        ctx.fillText(labels[idx % labels.length], node.x, node.y + 4);
+      });
+
+      // Center: Cyber-Physical Core (Smart Factory Brain)
+      ctx.fillStyle = '#000';
+      ctx.fillRect(-65 + 6, -45 + 6, 130, 90);
+      ctx.fillStyle = '#FFE600';
+      ctx.strokeStyle = '#000';
+      ctx.lineWidth = 4;
+      ctx.fillRect(-65, -45, 130, 90);
+      ctx.strokeRect(-65, -45, 130, 90);
+
+      ctx.fillStyle = '#000';
+      ctx.font = '900 16px "Cabinet Grotesk"';
+      ctx.fillText('INDUSTRIA 4.0', 0, -15);
+      ctx.font = '800 11px "JetBrains Mono"';
+      ctx.fillText('CPS & IA', 0, 8);
+      ctx.font = '700 9px "JetBrains Mono"';
+      ctx.fillText('M2M • KLAUS SCHWAB', 0, 26);
+
+      ctx.restore();
+    }
+
+    function drawOutroMatrix(cx, cy, w, h, t, prog) {
+      ctx.save();
+      ctx.translate(cx, cy);
+
+      ctx.fillStyle = '#000';
+      ctx.fillRect(-220 + 6, -110 + 6, 440, 220);
+      ctx.fillStyle = '#FFFFFF';
+      ctx.strokeStyle = '#000';
+      ctx.lineWidth = 6;
+      ctx.fillRect(-220, -110, 440, 220);
+      ctx.strokeRect(-220, -110, 440, 220);
+
+      ctx.fillStyle = '#000';
+      ctx.font = '900 22px "Cabinet Grotesk"';
+      ctx.textAlign = 'center';
+      ctx.fillText('BALANCE DE LA TRANSFORMACIÓN', 0, -70);
+
+      const items = [
+        { era: '1.0 (1760)', tech: 'VAPOR & CARBÓN', col: '#FF6B00' },
+        { era: '2.0 (1870)', tech: 'ELECTRICIDAD & SERIE', col: '#FFE600' },
+        { era: '3.0 (1960)', tech: 'SILICIO & INTERNET', col: '#00F0FF' },
+        { era: '4.0 (2010+)', tech: 'IA & CIBERFÍSICA', col: '#00FF66' }
+      ];
+
+      items.forEach((item, idx) => {
+        const y = -35 + idx * 36;
+        ctx.fillStyle = item.col;
+        ctx.fillRect(-190, y, 14, 20);
+        ctx.strokeRect(-190, y, 14, 20);
+
+        ctx.fillStyle = '#000';
+        ctx.font = '800 13px "JetBrains Mono"';
+        ctx.textAlign = 'left';
+        ctx.fillText(item.era, -165, y + 15);
+        ctx.font = '700 12px "JetBrains Mono"';
+        ctx.fillText(item.tech, 10, y + 15);
+      });
+
+      ctx.restore();
+    }
+
+    function drawMiniSpectrum() {
+      miniCtx.fillStyle = '#000';
+      miniCtx.fillRect(0, 0, miniAudioCanvas.width, miniAudioCanvas.height);
+
+      if (!audioEngine.analyser || !isPlaying) {
+        miniCtx.fillStyle = '#555';
+        miniCtx.fillRect(0, miniAudioCanvas.height / 2, miniAudioCanvas.width, 2);
+        return;
+      }
+
+      const bufferLength = audioEngine.analyser.frequencyBinCount;
+      const dataArray = new Uint8Array(bufferLength);
+      audioEngine.analyser.getByteFrequencyData(dataArray);
+
+      const barWidth = (miniAudioCanvas.width / bufferLength) * 2.2;
+      let x = 0;
+
+      for (let i = 0; i < bufferLength; i++) {
+        const barHeight = (dataArray[i] / 255) * miniAudioCanvas.height;
+        miniCtx.fillStyle = '#FFE600';
+        miniCtx.fillRect(x, miniAudioCanvas.height - barHeight, barWidth - 1, barHeight);
+        x += barWidth;
+      }
+    }
+
+    let lastSceneId = null;
+
+    function mainVideoLoop(timestamp) {
+      const delta = (timestamp - lastFrameTime) / 1000;
+      lastFrameTime = timestamp;
+
+      if (isPlaying) {
+        currentTime += delta;
+        if (currentTime >= TOTAL_DURATION) {
+          currentTime = TOTAL_DURATION;
+          isPlaying = false;
+          btnPlayPause.textContent = 'REPLAY';
+        }
+      }
+
+      // Update Slider and Clock
+      timelineScrubber.value = currentTime;
+      timeCurrent.textContent = formatTime(currentTime);
+
+      // Determine active scene
+      const scene = getCurrentScene(currentTime);
+      const sceneProgress = (currentTime - scene.start) / (scene.end - scene.start);
+
+      // Trigger scene change updates
+      if (scene.id !== lastSceneId) {
+        lastSceneId = scene.id;
+        audioEngine.setEra(scene.id);
+
+        // Update HUD
+        hudBadge.textContent = scene.badge;
+        hudBadge.style.backgroundColor = scene.color;
+        hudPeriod.textContent = scene.period;
+        captionTitle.textContent = scene.title;
+        captionTitle.style.color = scene.color === '#000000' ? '#FF52A0' : scene.color;
+        captionBody.textContent = scene.text;
+
+        // Visual glitch effect on caption
+        captionCard.classList.add('glitch-active');
+        setTimeout(() => captionCard.classList.remove('glitch-active'), 350);
+
+        // Update active chapter button styling
+        chapterButtons.forEach(btn => {
+          const seek = parseFloat(btn.dataset.seek);
+          if (seek >= scene.start && seek < scene.end) {
+            btn.classList.add('bg-black', 'text-white');
+            btn.classList.remove('bg-neutral-200');
+          } else {
+            btn.classList.remove('bg-black', 'text-white');
+            btn.classList.add('bg-neutral-200');
+          }
+        });
+      }
+
+      // Clear & render canvas
+      const w = canvas.getBoundingClientRect().width;
+      const h = canvas.getBoundingClientRect().height;
+
+      // Base background color transition
+      ctx.fillStyle = scene.bgTheme;
+      ctx.fillRect(0, 0, w, h);
+
+      // Render visuals
+      drawSceneVisuals(scene, sceneProgress, w, h, currentTime);
+
+      // Draw Mini Audio visualizer
+      drawMiniSpectrum();
+
+      requestAnimationFrame(mainVideoLoop);
+    }
+
+    btnStart.addEventListener('click', () => {
+      startOverlay.classList.add('hidden');
+      audioEngine.init();
+      if (audioEngine.ctx.state === 'suspended') {
+        audioEngine.ctx.resume();
+      }
+      isPlaying = true;
+      btnPlayPause.textContent = 'PAUSA';
+    });
+
+    btnPlayPause.addEventListener('click', () => {
+      if (!audioEngine.ctx) {
+        audioEngine.init();
+      }
+      if (audioEngine.ctx && audioEngine.ctx.state === 'suspended') {
+        audioEngine.ctx.resume();
+      }
+
+      if (currentTime >= TOTAL_DURATION) {
+        currentTime = 0;
+      }
+
+      isPlaying = !isPlaying;
+      btnPlayPause.textContent = isPlaying ? 'PAUSA' : 'PLAY';
+    });
+
+    btnRestart.addEventListener('click', () => {
+      currentTime = 0;
+      timelineScrubber.value = 0;
+      if (!isPlaying) {
+        isPlaying = true;
+        btnPlayPause.textContent = 'PAUSA';
+      }
+    });
+
+    timelineScrubber.addEventListener('input', (e) => {
+      currentTime = parseFloat(e.target.value);
+      timeCurrent.textContent = formatTime(currentTime);
+      const scene = getCurrentScene(currentTime);
+      audioEngine.setEra(scene.id);
+    });
+
+    chapterButtons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        const seek = parseFloat(btn.dataset.seek);
+        currentTime = seek;
+        timelineScrubber.value = seek;
+        const scene = getCurrentScene(currentTime);
+        audioEngine.setEra(scene.id);
+        if (!isPlaying) {
+          if (!audioEngine.ctx) audioEngine.init();
+          if (audioEngine.ctx && audioEngine.ctx.state === 'suspended') audioEngine.ctx.resume();
+          isPlaying = true;
+          btnPlayPause.textContent = 'PAUSA';
+        }
+      });
+    });
+
+    btnMute.addEventListener('click', () => {
+      const isMuted = audioEngine.toggleMute();
+      btnMute.textContent = isMuted ? 'AUDIO: OFF' : 'AUDIO: ON';
+      btnMute.classList.toggle('bg-red-600', isMuted);
+      btnMute.classList.toggle('bg-nb-purple', !isMuted);
+    });
+
+    volumeSlider.addEventListener('input', (e) => {
+      audioEngine.setVolume(parseFloat(e.target.value));
+    });
+
+    // Start video animation frame
+    requestAnimationFrame(mainVideoLoop);
+  </script>
+</body>
+</html>

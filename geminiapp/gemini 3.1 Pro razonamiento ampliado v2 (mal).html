@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Las 4 Revoluciones Industriales</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;700;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --color-1: #FAFF00; /* Yellow */
+            --color-2: #00F0FF; /* Cyan */
+            --color-3: #FF00E5; /* Pink */
+            --color-4: #00FF38; /* Green */
+            --bg-color: #F4F4F0;
+        }
+        
+        body {
+            font-family: 'Space Grotesk', sans-serif;
+            background-color: var(--bg-color);
+            margin: 0;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            width: 100vw;
+        }
+
+        /* Contenedor principal estilo video 16:9 */
+        .video-container {
+            position: relative;
+            width: 100%;
+            max-width: 1280px;
+            aspect-ratio: 16 / 9;
+            background: #fff;
+            border: 8px solid #000;
+            box-shadow: 16px 16px 0px #000;
+            overflow: hidden;
+        }
+
+        .slide {
+            position: absolute;
+            inset: 0;
+            opacity: 0;
+            transition: opacity 1.2s ease-in-out;
+            pointer-events: none;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 2rem;
+            z-index: 0;
+        }
+
+        .slide.active {
+            opacity: 1;
+            z-index: 10;
+            pointer-events: auto;
+        }
+
+        /* Efectos Brutalistas recurrentes */
+        .brutal-box {
+            border: 4px solid #000;
+            box-shadow: 8px 8px 0px #000;
+            background: #fff;
+        }
+        
+        .brutal-text-shadow {
+            text-shadow: 4px 4px 0px #000;
+        }
+
+        .anim-target { opacity: 0; }
+        
+        .active .pop-in {
+            animation: popIn 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+        }
+        .active .slide-up-fade {
+            animation: slideUpFade 0.8s ease-out forwards;
+        }
+        .active .slide-right-fade {
+            animation: slideRightFade 0.8s ease-out forwards;
+        }
+        .active .slide-left-fade {
+            animation: slideLeftFade 0.8s ease-out forwards;
+        }
+
+        /* Retrasos escalonados para la entrada secuencial de elementos */
+        .delay-1 { animation-delay: 0.3s; }
+        .delay-2 { animation-delay: 0.6s; }
+        .delay-3 { animation-delay: 0.9s; }
+        .delay-4 { animation-delay: 1.2s; }
+        .delay-5 { animation-delay: 1.5s; }
+
+        @keyframes popIn {
+            0% { transform: scale(0.5) rotate(-10deg); opacity: 0; }
+            100% { transform: scale(1) rotate(0deg); opacity: 1; }
+        }
+
+        @keyframes slideUpFade {
+            0% { transform: translateY(50px); opacity: 0; }
+            100% { transform: translateY(0); opacity: 1; }
+        }
+
+        @keyframes slideRightFade {
+            0% { transform: translateX(-50px); opacity: 0; }
+            100% { transform: translateX(0); opacity: 1; }
+        }
+        
+        @keyframes slideLeftFade {
+            0% { transform: translateX(50px); opacity: 0; }
+            100% { transform: translateX(0); opacity: 1; }
+        }
+
+        /* Rotaciones excéntricas para el estilo Neobrutalista */
+        .rotate-slight-right { transform: rotate(3deg); }
+        .rotate-slight-left { transform: rotate(-3deg); }
+        .rotate-more-right { transform: rotate(6deg); }
+
+        /* Floating Animation para los gráficos vectoriales */
+        @keyframes float {
+            0% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-15px) rotate(2deg); }
+            100% { transform: translateY(0px) rotate(0deg); }
+        }
+        .active .floating-svg {
+            animation: float 4s ease-in-out infinite;
+        }
+        
+        /* Animación para engranajes */
+        @keyframes spin {
+            100% { transform: rotate(360deg); }
+        }
+        .active .spin-slow {
+            animation: spin 8s linear infinite;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Música de fondo libre de derechos - uso de un CDN público y estable -->
+    <audio id="bgm" preload="auto">
+        <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3" type="audio/mpeg">
+    </audio>
+
+    <div class="video-container" id="screen">
+        
+        <div id="intro-slide" class="slide active bg-yellow-300 flex-col gap-8">
+            <h1 class="text-6xl md:text-8xl font-black text-center brutal-box p-6 bg-white rotate-slight-left">
+                LAS 4 REVOLUCIONES <br> INDUSTRIALES
+            </h1>
+            <p class="text-2xl font-bold bg-black text-white p-4 uppercase tracking-widest shadow-[6px_6px_0px_#FF00E5] border-2 border-black">
+                Cronología Educativa (1760 - Presente)
+            </p>
+            <button id="play-btn" onclick="startVideo()" class="mt-8 px-12 py-6 text-4xl font-black bg-[#00FF38] brutal-box transition-transform hover:translate-x-[4px] hover:translate-y-[4px] hover:shadow-[4px_4px_0px_#000] cursor-pointer">
+                ▶ INICIAR VIDEO
+            </button>
+            <p class="text-sm font-bold mt-4 animate-pulse">Asegúrate de tener el volumen encendido</p>
+        </div>
+
+        <div id="slide-1" class="slide bg-[#FF4500]">
+            <div class="w-full h-full flex flex-col md:flex-row items-center justify-between p-8 relative">
+                
+                <!-- Textos -->
+                <div class="w-full md:w-1/2 flex flex-col items-start gap-6 z-20">
+                    <div class="anim-target slide-right-fade delay-1 brutal-box bg-white px-6 py-2 text-3xl font-black">
+                        1760 - 1840
+                    </div>
+                    <h2 class="anim-target slide-up-fade delay-2 text-6xl md:text-8xl font-black text-white brutal-text-shadow leading-none">
+                        PRIMERA<br>REVOLUCIÓN
+                    </h2>
+                    <div class="anim-target slide-up-fade delay-3 brutal-box bg-yellow-300 p-6 rotate-slight-right mt-4 w-full max-w-lg">
+                        <ul class="text-2xl md:text-3xl font-bold leading-relaxed space-y-3">
+                            <li class="flex items-center gap-3"><span class="text-4xl">🚂</span> Máquina de vapor</li>
+                            <li class="flex items-center gap-3"><span class="text-4xl">⛏️</span> Uso del carbón mineral</li>
+                            <li class="flex items-center gap-3"><span class="text-4xl">🧵</span> Mecanización textil</li>
+                        </ul>
+                    </div>
+                    <p class="anim-target slide-up-fade delay-4 text-xl font-bold bg-black text-white p-3 rotate-slight-left border-2 border-white self-end mr-10">
+                        Nace el sistema de fábrica y la clase obrera
+                    </p>
+                </div>
+
+                <!-- Gráfico Neobrutalista: Máquina de Vapor / Engranajes -->
+                <div class="w-full md:w-1/2 flex justify-center items-center mt-10 md:mt-0">
+                    <div class="anim-target pop-in delay-2 floating-svg brutal-box bg-white p-8 rounded-full border-[8px] relative w-[300px] h-[300px] flex justify-center items-center">
+                        <div class="spin-slow w-full h-full absolute flex justify-center items-center">
+                            <svg width="250" height="250" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path fill-rule="evenodd" clip-rule="evenodd" d="M50 25C36.1929 25 25 36.1929 25 50C25 63.8071 36.1929 75 50 75C63.8071 75 75 63.8071 75 50C75 36.1929 63.8071 25 50 25ZM35 50C35 41.7157 41.7157 35 50 35C58.2843 35 65 41.7157 65 50C65 58.2843 58.2843 65 50 65C41.7157 65 35 58.2843 35 50Z" fill="black"/>
+                                <!-- Dientes del engranaje -->
+                                <rect x="42" y="5" width="16" height="20" fill="black"/>
+                                <rect x="42" y="75" width="16" height="20" fill="black"/>
+                                <rect x="5" y="42" width="20" height="16" fill="black"/>
+                                <rect x="75" y="42" width="20" height="16" fill="black"/>
+                                <rect x="19" y="19" width="16" height="16" transform="rotate(45 19 19)" fill="black"/>
+                                <rect x="69" y="69" width="16" height="16" transform="rotate(45 69 69)" fill="black"/>
+                                <rect x="19" y="80.3" width="16" height="16" transform="rotate(-45 19 80.3)" fill="black"/>
+                                <rect x="69" y="30.3" width="16" height="16" transform="rotate(-45 69 30.3)" fill="black"/>
+                            </svg>
+                        </div>
+                        <!-- Nube de vapor central -->
+                        <div class="anim-target pop-in delay-3 absolute bg-gray-200 border-4 border-black w-24 h-24 rounded-full shadow-[4px_4px_0px_#000] -top-4 -right-4"></div>
+                        <div class="anim-target pop-in delay-4 absolute bg-gray-200 border-4 border-black w-16 h-16 rounded-full shadow-[4px_4px_0px_#000] -top-12 right-12"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="slide-2" class="slide bg-[var(--color-2)]">
+            <div class="w-full h-full flex flex-col md:flex-row-reverse items-center justify-between p-8 relative">
+                
+                <!-- Textos -->
+                <div class="w-full md:w-1/2 flex flex-col items-end text-right gap-6 z-20">
+                    <div class="anim-target slide-left-fade delay-1 brutal-box bg-[#FF00E5] text-white px-6 py-2 text-3xl font-black rotate-slight-right">
+                        1870 - 1914
+                    </div>
+                    <h2 class="anim-target slide-up-fade delay-2 text-6xl md:text-8xl font-black text-black brutal-text-shadow leading-none">
+                        SEGUNDA<br>REVOLUCIÓN
+                    </h2>
+                    <div class="anim-target slide-up-fade delay-3 brutal-box bg-white p-6 rotate-slight-left mt-4 text-left w-full max-w-lg">
+                        <ul class="text-2xl md:text-3xl font-bold leading-relaxed space-y-3">
+                            <li class="flex items-center gap-3"><span class="text-4xl">⚡</span> Electricidad y Petróleo</li>
+                            <li class="flex items-center gap-3"><span class="text-4xl">🚗</span> Motor de combustión</li>
+                            <li class="flex items-center gap-3"><span class="text-4xl">🏭</span> Producción en masa (Acero)</li>
+                        </ul>
+                    </div>
+                    <p class="anim-target slide-up-fade delay-4 text-xl font-bold bg-yellow-300 text-black border-4 border-black p-3 rotate-slight-right shadow-[4px_4px_0px_#000] self-start ml-10">
+                        Cadenas de montaje y telecomunicaciones
+                    </p>
+                </div>
+
+                <!-- Gráfico Neobrutalista: Fábrica, Rayo y Foco -->
+                <div class="w-full md:w-1/2 flex justify-center items-center mt-10 md:mt-0">
+                    <div class="anim-target pop-in delay-2 floating-svg brutal-box bg-yellow-300 p-8 border-[6px] w-[300px] h-[300px] relative">
+                        <!-- Bombilla (Foco) de Edison abstracta -->
+                        <div class="absolute bottom-10 left-1/2 transform -translate-x-1/2 w-32 h-32 bg-white rounded-full border-8 border-black z-10 flex justify-center items-center">
+                           <div class="w-4 h-12 bg-black absolute bottom-0 translate-y-10"></div> 
+                           <div class="w-8 h-4 bg-black absolute bottom-0 translate-y-14"></div> 
+                        </div>
+                        
+                        <!-- Rayo eléctrico dinámico -->
+                        <svg class="absolute inset-0 w-full h-full z-20 anim-target pop-in delay-4" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M65 10L35 50H55L45 90L85 40H60L65 10Z" fill="#00F0FF" stroke="black" stroke-width="4"/>
+                        </svg>
+                        
+                        <!-- Elementos de producción en masa (cajas) -->
+                        <div class="absolute bottom-4 left-4 w-12 h-12 bg-[#FF00E5] border-4 border-black"></div>
+                        <div class="absolute bottom-4 left-20 w-12 h-12 bg-[#FF00E5] border-4 border-black"></div>
+                        <div class="absolute bottom-4 right-4 w-12 h-12 bg-[#FF00E5] border-4 border-black"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="slide-3" class="slide bg-[var(--color-3)]">
+            <div class="w-full h-full flex flex-col md:flex-row items-center justify-between p-8 relative">
+                
+                <!-- Textos -->
+                <div class="w-full md:w-1/2 flex flex-col items-start gap-6 z-20">
+                    <div class="anim-target slide-right-fade delay-1 brutal-box bg-[#00FF38] px-6 py-2 text-3xl font-black rotate-slight-left">
+                        1960 - 2000
+                    </div>
+                    <h2 class="anim-target slide-up-fade delay-2 text-6xl md:text-8xl font-black text-white brutal-text-shadow leading-none">
+                        TERCERA<br>REVOLUCIÓN
+                    </h2>
+                    <div class="anim-target slide-up-fade delay-3 brutal-box bg-white p-6 rotate-slight-right mt-4 text-black w-full max-w-lg">
+                        <ul class="text-2xl md:text-3xl font-bold leading-relaxed space-y-3">
+                            <li class="flex items-center gap-3"><span class="text-4xl">💻</span> Informática y PCs</li>
+                            <li class="flex items-center gap-3"><span class="text-4xl">🌐</span> Nacimiento de Internet</li>
+                            <li class="flex items-center gap-3"><span class="text-4xl">🤖</span> Automatización (PLCs)</li>
+                        </ul>
+                    </div>
+                    <p class="anim-target slide-up-fade delay-4 text-xl font-bold bg-cyan-400 text-black border-4 border-black p-3 rotate-slight-left shadow-[4px_4px_0px_#000] self-end mr-10">
+                        La era digital y de la información
+                    </p>
+                </div>
+
+                <!-- Gráfico Neobrutalista: PC Retro y Conexión -->
+                <div class="w-full md:w-1/2 flex justify-center items-center mt-10 md:mt-0">
+                    <div class="anim-target pop-in delay-2 floating-svg brutal-box bg-blue-600 p-8 border-[8px] w-[320px] h-[300px] relative flex flex-col items-center justify-end pb-4">
+                        <!-- Monitor -->
+                        <div class="w-64 h-48 bg-gray-200 border-8 border-black rounded-lg mb-2 relative overflow-hidden flex flex-col">
+                            <div class="w-full h-8 border-b-8 border-black flex items-center px-2 gap-2 bg-white">
+                                <div class="w-4 h-4 bg-red-500 rounded-full border-2 border-black"></div>
+                                <div class="w-4 h-4 bg-yellow-400 rounded-full border-2 border-black"></div>
+                                <div class="w-4 h-4 bg-green-500 rounded-full border-2 border-black"></div>
+                            </div>
+                            <div class="flex-1 bg-black p-4 flex flex-col gap-2">
+                                <div class="w-3/4 h-3 bg-[#00FF38] anim-target slide-right-fade delay-3"></div>
+                                <div class="w-1/2 h-3 bg-[#00FF38] anim-target slide-right-fade delay-4"></div>
+                                <div class="w-5/6 h-3 bg-[#00FF38] anim-target slide-right-fade delay-5"></div>
+                                <div class="w-4 h-6 bg-[#00FF38] mt-2 animate-pulse"></div>
+                            </div>
+                        </div>
+                        <!-- Base del monitor -->
+                        <div class="w-24 h-6 bg-gray-200 border-x-8 border-t-8 border-black"></div>
+                        <div class="w-48 h-4 bg-gray-200 border-8 border-black"></div>
+                        
+                        <!-- Elementos de red abstractos flotando -->
+                        <div class="absolute -top-6 -right-6 w-16 h-16 bg-yellow-300 border-4 border-black rounded-full flex justify-center items-center anim-target pop-in delay-4">
+                            <span class="text-2xl font-black">@</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="slide-4" class="slide bg-[var(--color-4)]">
+            <div class="w-full h-full flex flex-col md:flex-row-reverse items-center justify-between p-8 relative">
+                
+                <!-- Textos -->
+                <div class="w-full md:w-1/2 flex flex-col items-end text-right gap-6 z-20">
+                    <div class="anim-target slide-left-fade delay-1 brutal-box bg-[var(--color-1)] px-6 py-2 text-3xl font-black rotate-slight-right">
+                        2010 - PRESENTE
+                    </div>
+                    <h2 class="anim-target slide-up-fade delay-2 text-6xl md:text-8xl font-black text-black brutal-text-shadow leading-none">
+                        CUARTA<br>REVOLUCIÓN
+                    </h2>
+                    <div class="anim-target slide-up-fade delay-3 brutal-box bg-white p-6 rotate-slight-left mt-4 text-left w-full max-w-lg">
+                        <ul class="text-2xl md:text-3xl font-bold leading-relaxed space-y-3">
+                            <li class="flex items-center gap-3"><span class="text-4xl">🧠</span> Inteligencia Artificial</li>
+                            <li class="flex items-center gap-3"><span class="text-4xl">📡</span> Internet de las Cosas (IoT)</li>
+                            <li class="flex items-center gap-3"><span class="text-4xl">📊</span> Big Data y Dataficación</li>
+                        </ul>
+                    </div>
+                    <p class="anim-target slide-up-fade delay-4 text-xl font-bold bg-[#FF00E5] text-white border-4 border-black p-3 rotate-more-right shadow-[4px_4px_0px_#000] self-start ml-10 max-w-md text-left">
+                        Hiperconectividad, sistemas ciberfísicos y convergencia tecnológico-biológica.
+                    </p>
+                </div>
+
+                <!-- Gráfico Neobrutalista: Nube, IA y Nodos conectados -->
+                <div class="w-full md:w-1/2 flex justify-center items-center mt-10 md:mt-0">
+                    <div class="anim-target pop-in delay-2 floating-svg brutal-box bg-black p-8 border-[8px] border-white w-[320px] h-[320px] relative">
+                        
+                        <!-- Nube Central -->
+                        <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-10 w-40 h-24 bg-white rounded-full border-8 border-black flex justify-center items-center">
+                            <span class="text-4xl font-black">AI</span>
+                        </div>
+                        <div class="absolute top-1/3 left-1/3 w-20 h-20 bg-white rounded-full border-8 border-black z-0"></div>
+                        <div class="absolute top-1/3 right-1/4 w-16 h-16 bg-white rounded-full border-8 border-black z-0"></div>
+
+                        <!-- Nodos (Dispositivos IoT) -->
+                        <div class="absolute top-4 left-4 w-12 h-12 bg-yellow-300 border-4 border-black rounded-full anim-target pop-in delay-3"></div>
+                        <div class="absolute bottom-8 left-8 w-14 h-14 bg-cyan-400 border-4 border-black rounded-none rotate-12 anim-target pop-in delay-4"></div>
+                        <div class="absolute bottom-12 right-6 w-16 h-16 bg-[#FF00E5] border-4 border-black rounded-full anim-target pop-in delay-5"></div>
+                        <div class="absolute top-10 right-10 w-10 h-10 bg-[#00FF38] border-4 border-black rotate-45 anim-target pop-in delay-3"></div>
+
+                        <!-- Líneas de conexión dinámicas (SVG) -->
+                        <svg class="absolute inset-0 w-full h-full z-0 pointer-events-none" viewBox="0 0 320 320">
+                            <!-- Conexiones que aparecen secuencialmente -->
+                            <line x1="160" y1="160" x2="40" y2="40" stroke="white" stroke-width="6" stroke-dasharray="10 10" class="anim-target pop-in delay-3" />
+                            <line x1="160" y1="160" x2="60" y2="280" stroke="white" stroke-width="6" stroke-dasharray="10 10" class="anim-target pop-in delay-4" />
+                            <line x1="160" y1="160" x2="280" y2="250" stroke="white" stroke-width="6" stroke-dasharray="10 10" class="anim-target pop-in delay-5" />
+                            <line x1="160" y1="160" x2="280" y2="60" stroke="white" stroke-width="6" stroke-dasharray="10 10" class="anim-target pop-in delay-3" />
+                        </svg>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="slide-5" class="slide bg-white">
+            <div class="w-full h-full border-[16px] border-black flex flex-col items-center justify-center text-center gap-8 z-20 bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0MCIgaGVpZ2h0PSI0MCI+CjxyZWN0IHdpZHRoPSI0MCIgaGVpZ2h0PSI0MCIgZmlsbD0iI2ZmZiIvPgo8Y2lyY2xlIGN4PSIyMCIgY3k9IjIwIiByPSIyIiBmaWxsPSIjMDAwIi8+Cjwvc3ZnPg==')]">
+                <h2 class="anim-target pop-in delay-1 text-6xl md:text-8xl font-black text-white brutal-box bg-blue-600 p-8 rotate-slight-right brutal-text-shadow leading-none">
+                    EL FUTURO<br>ES AHORA
+                </h2>
+                <div class="anim-target slide-up-fade delay-2 bg-black text-white p-4 font-bold text-2xl max-w-2xl border-4 border-[#00FF38] shadow-[8px_8px_0px_#FF00E5] rotate-slight-left">
+                    "La tecnología no determina el curso, sino la relación que los usuarios establecen con ella."
+                </div>
+                <button onclick="resetVideo()" class="anim-target slide-up-fade delay-3 mt-8 px-12 py-6 text-4xl font-black bg-yellow-300 brutal-box transition-transform hover:translate-x-[4px] hover:translate-y-[4px] hover:shadow-[4px_4px_0px_#000] cursor-pointer flex items-center gap-4">
+                    <span>🔄</span> REPETIR VIDEO
+                </button>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        const slides = document.querySelectorAll('.slide');
+        const audio = document.getElementById('bgm');
+        let requestAnimFrameId;
+        let isPlaying = false;
+
+        // Tiempos exactos en segundos en los que debe cambiar cada escena
+        // Estos tiempos se pueden ajustar para cuadrar perfectamente con los "drops" de la música
+        const slideTimings = [
+            { slideIndex: 1, startTime: 0.1 },  // Inicia escena 1 casi de inmediato al pulsar play
+            { slideIndex: 2, startTime: 8.0 },  // Inicia escena 2 a los 8 segundos
+            { slideIndex: 3, startTime: 16.0 }, // Inicia escena 3 a los 16 segundos
+            { slideIndex: 4, startTime: 24.0 }, // Inicia escena 4 a los 24 segundos
+            { slideIndex: 5, startTime: 33.0 }  // Final a los 33 segundos
+        ];
+
+        let currentActiveSlide = 0;
+
+        function showSlide(index) {
+            if (currentActiveSlide === index) return; // Evita re-ejecutar si ya estamos en ese slide
+
+            // Remover clase active y limpiar animaciones de todos los slides
+            slides.forEach(s => {
+                s.classList.remove('active');
+                const anims = s.querySelectorAll('.anim-target');
+                anims.forEach(el => {
+                    el.classList.remove('pop-in', 'slide-up-fade', 'slide-right-fade', 'slide-left-fade');
+                });
+            });
+
+            // Activar slide actual
+            const newSlide = slides[index];
+            newSlide.classList.add('active');
+            currentActiveSlide = index;
+
+            // Reflow forzado y reaplicación de clases de animación basadas en el DOM
+            setTimeout(() => {
+                void newSlide.offsetWidth; // Reflow
+                // Las animaciones se disparan automáticamente gracias a la regla CSS: .active .pop-in { ... }
+                // Simplemente necesitamos que el DOM las reconozca de nuevo.
+            }, 50);
+        }
+
+        // Loop de sincronización vinculado al tiempo del audio
+        function syncLoop() {
+            if (!isPlaying) return;
+
+            const currentTime = audio.currentTime;
+
+            // Determinar qué slide debería mostrarse basándose en el tiempo actual del audio
+            let targetSlide = 0; // Default a intro
+            
+            for (let i = slideTimings.length - 1; i >= 0; i--) {
+                if (currentTime >= slideTimings[i].startTime) {
+                    targetSlide = slideTimings[i].slideIndex;
+                    break;
+                }
+            }
+
+            // Si el audio termina o se pausa por llegar al final previsto (opcional)
+            if (currentTime >= audio.duration || targetSlide === 5) {
+               showSlide(5);
+               // Opcional: pausar el audio al llegar al final
+               // if(currentTime >= 35) { isPlaying = false; audio.pause(); }
+            } else {
+                showSlide(targetSlide);
+            }
+
+            // Continuar el bucle si sigue reproduciendo
+            if (isPlaying) {
+                requestAnimFrameId = requestAnimationFrame(syncLoop);
+            }
+        }
+
+        function startVideo() {
+            audio.currentTime = 0;
+            isPlaying = true;
+            
+            // Iniciar audio
+            audio.play().then(() => {
+                // Iniciar bucle de sincronización
+                requestAnimFrameId = requestAnimationFrame(syncLoop);
+            }).catch(e => {
+                console.error("Error al reproducir audio:", e);
+                alert("Por favor, interactúa con la página para permitir la reproducción de audio.");
+            });
+        }
+
+        function resetVideo() {
+            isPlaying = false;
+            cancelAnimationFrame(requestAnimFrameId);
+            audio.pause();
+            audio.currentTime = 0;
+            
+            // Volver a la pantalla de inicio (slide 0)
+            showSlide(0);
+        }
+        
+        // Inicializar mostrando la slide 0 (Intro)
+        showSlide(0);
+    </script>
+</body>
+</html>
