@@ -53,7 +53,7 @@
       <thead><tr><th>Modelo</th><th>Arnés</th><th>Tipo</th><th>Prompts</th><th>Tiempo</th><th>Consumo</th><th>¿Se autoverificó en el navegador?</th><th>Duración del vídeo</th></tr></thead>
       <tbody>
         <tr><td>Claude Opus 5.5</td><td>Claude Code</td><td>Agéntico</td><td>1</td><td>22 min</td><td>15 % límite 5 h · 2 % semanal (Pro)</td><td class="y">Sí, a fondo (capturas, consola, fps, análisis del audio)</td><td>1:54</td></tr>
-        <tr><td>DeepSeek V4 Flash (max)</td><td>OpenCode 2</td><td>Agéntico</td><td>1</td><td>&lt; 10 min (estimado)</td><td>0,08 € (API)</td><td class="y">Sí, con muchas autoiteraciones</td><td>2:55</td></tr>
+        <tr><td>DeepSeek V4 Flash (max)</td><td>OpenCode 2</td><td>Agéntico</td><td>1</td><td>&lt; 10 min (estimado)</td><td>0,08 € (coste equivalente, plan OpenCode Go)</td><td class="y">Sí, con muchas autoiteraciones</td><td>2:55</td></tr>
         <tr><td>Gemini 3.8 Flash (high)</td><td>Antigravity CLI</td><td>Agéntico</td><td>1</td><td>10 min</td><td>11 % límite 5 h · 5 % semanal</td><td class="y">Sí, con bastante detalle</td><td>4:20</td></tr>
         <tr><td>Gemini 3.1 Pro (high)</td><td>Antigravity CLI</td><td>Agéntico</td><td>1</td><td>5 min</td><td>3 % límite 5 h · 1 % semanal</td><td class="m">Mínima: comprobó que cargaba y avanzaba</td><td>0:31</td></tr>
         <tr><td>Gemini 3.8 Flash</td><td>App de Gemini</td><td>Chat</td><td>1</td><td>—</td><td>—</td><td class="n">No (no puede)</td><td>1:20</td></tr>
@@ -62,7 +62,14 @@
       </tbody>
     </table>
   </div>
-  <p class="note">Los consumos no son comparables entre sí: euros de API frente a porcentajes de límites de planes distintos. Antigravity tuvo problemas de <i>timeout</i> con el MCP de Chrome, sobre todo con 3.1 Pro (quizá por mi sistema). La app de Gemini no es un arnés agéntico: no puede ejecutar ni revisar lo que genera, así que iteré con 3.1 Pro hasta tener una versión completa para que la comparación tuviera sentido.</p>
+  <p class="note">Los consumos no son comparables entre sí: todas las herramientas se usaron con planes de suscripción, pero OpenCode Go informa del coste equivalente en euros y los demás, de porcentajes de sus propios límites. Antigravity tuvo problemas de <i>timeout</i> con el MCP de Chrome, sobre todo con 3.1 Pro (quizá por mi sistema). La app de Gemini no es un arnés agéntico: no puede ejecutar ni revisar lo que genera, así que iteré con 3.1 Pro hasta tener una versión completa para que la comparación tuviera sentido.</p>
+  <div class="prices box">
+    <div>
+      <h3>¿Y cuánto cuesta cada modelo por token?</h3>
+      <p>Para una referencia homogénea, aquí están los precios por millón de tokens de los cinco modelos según OpenCode Zen, en un dashboard que mantengo. Ojo: son precios de referencia, no lo que costó esta prueba, que se hizo con planes de suscripción. Gemini 3.1 Pro aparece dos veces porque tiene dos tramos de precio según el tamaño del contexto (hasta 200K tokens y más), no porque sean dos modelos distintos.</p>
+    </div>
+    <a class="btn" href="https://pfelipm.github.io/opencode-zen-precios/?compare=1&amp;ids=claude-opus-5-5%2Cdeepseek-v4-flash%2Cgemini-3.8-flash%2Cgemini-3.1-pro%2Cgemini-3.1-pro-high" target="_blank" rel="noopener">💶 Ver precios por token</a>
+  </div>
 </section>
 
 <section id="resultados">
@@ -83,7 +90,7 @@
       <div class="hd"><h3>DeepSeek V4 Flash (max)</h3><small>OpenCode 2</small></div>
       <video controls preload="none" poster="videos/deepseek-v4-flash.jpg" src="videos/deepseek-v4-flash.mp4"></video>
       <div class="bd">
-        <div class="facts"><span>2:55</span><span>1 prompt</span><span>< 10 min</span><span>0,08 €</span><span>0 errores JS</span></div>
+        <div class="facts"><span>2:55</span><span>1 prompt</span><span>< 10 min</span><span>0,08 € equivalentes</span><span>0 errores JS</span></div>
         <ul><li>Capítulos con portadilla de color, fichas de hitos, cifras destacadas, rótulo «REC» con código de tiempo, titulares en movimiento y créditos finales.</li><li>Animaciones con CSS (35 <code>@keyframes</code>) y canvas; audio con Web Audio. Incluye un README.</li><li>El coste más bajo con diferencia y una autoverificación en el navegador muy activa.</li></ul>
         <p class="op"><b>Mi valoración:</b> Me gusta mucho: tras la de Claude, la más sofisticada, y con una relación calidad/precio increíble. Pegas: algunos títulos de color se confunden con el fondo y el audio tiene poco impacto, es un poco ñoño.</p>
         <div class="act"><a class="btn" href="DeepSeekV4-Flash-max/index.html" target="_blank" rel="noopener">▶ Abrir versión ejecutable</a><a class="btn alt" href="videos/deepseek-v4-flash.mp4">Descargar MP4</a></div>
@@ -203,7 +210,7 @@
     <div class="find box"><h3>A Gemini 3.8 Flash le gusta exhibirse</h3><p>Sus tres versiones llenan la pantalla de cosas que nadie pidió: «60 FPS // UHD MASTER», «AUDIO SYNTH: DUAL-OSC STEREO ENGINE», rótulos sobre su propia estética… Parecen más una demostración de lo que sabe hacer en frontend que un vídeo para aprender. Hay que atarlo en corto en el prompt.</p></div>
     <div class="find box"><h3>Iterar a ciegas tiene regresiones</h3><p>Sin poder probar el resultado, cada versión de la app reescribía el archivo entero: arreglar el audio rompía las animaciones y viceversa (v5, v7). Hicieron falta 9 prompts.</p></div>
     <div class="find box"><h3>¿Qué es un «vídeo»?</h3><p>Unos entendieron un reproductor a pantalla completa; otros, una página con el reproductor arriba y fichas debajo. Gemini 3.8 Flash en Antigravity fue el único que añadió narración con voz.</p></div>
-    <div class="find box"><h3>Coste y tiempo</h3><p>DeepSeek V4 Flash lo hizo por 0,08 €. Claude tardó más (22 min) porque se dedicó a probar, medir y corregir. Las cifras no son comparables entre sí, pero el contraste es llamativo.</p></div>
+    <div class="find box"><h3>Coste y tiempo</h3><p>DeepSeek V4 Flash lo hizo por el equivalente a 0,08 € (dentro del plan OpenCode Go). Claude tardó más (22 min) porque se dedicó a probar, medir y corregir. Las cifras no son comparables entre sí, pero el contraste es llamativo.</p></div>
   </div>
 </section>
 
