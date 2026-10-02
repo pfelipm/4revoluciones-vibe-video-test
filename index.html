@@ -25,7 +25,7 @@
   <span class="tag dark">Prueba informal</span>
   <nav>
     <a href="#prompt">Prompt</a><a href="#tabla">Comparativa</a><a href="#resultados">Resultados</a>
-    <a href="#saga">Saga Gemini</a><a href="#hallazgos">Hallazgos</a><a href="#english">English</a>
+    <a href="#saga">Saga Gemini</a><a href="#hallazgos">Hallazgos</a><a href="#coste">Coste</a><a href="#english">English</a>
   </nav>
 </header>
 
@@ -212,6 +212,22 @@
     <div class="find box"><h3>¿Qué es un «vídeo»?</h3><p>Unos entendieron un reproductor a pantalla completa; otros, una página con el reproductor arriba y fichas debajo. Gemini 3.8 Flash en Antigravity fue el único que añadió narración con voz.</p></div>
     <div class="find box"><h3>Coste y tiempo</h3><p>DeepSeek V4 Flash lo hizo por el equivalente a 0,08 € (dentro del plan OpenCode Go). Claude tardó más (22 min) porque se dedicó a probar, medir y corregir. Las cifras no son comparables entre sí, pero el contraste es llamativo.</p></div>
   </div>
+</section>
+
+<section id="coste">
+  <h2>¿Y cuánto ha costado todo esto con Claude?</h2>
+  <p style="margin-bottom:18px">Me suscribí al plan Pro de Claude el mismo día de la prueba y era la primera vez que usaba Claude Code: las propias estadísticas lo delatan (una sesión, un día activo). Generar el vídeo de la prueba fueron 22 minutos y un 2 % de mi límite semanal. Pero la jornada no acabó ahí: con Claude Code también analicé las demás versiones, grabé tres tandas de vídeos (corrigiendo recortes, la voz y las portadas), monté este sitio y lo publiqué en GitHub. Todo eso supuso alrededor de un 7 % más. Estas son las estadísticas de toda la jornada:</p>
+  <div class="costs">
+    <div class="cfig box"><b>~5 h</b><span>de sesión (5 h 7 min)</span></div>
+    <div class="cfig box"><b>9 %</b><span>del límite semanal del plan Pro (2 % el vídeo + 7 % el resto)</span></div>
+    <div class="cfig box"><b>185 M</b><span>tokens, el 99 % leídos de caché</span></div>
+    <div class="cfig box"><b>≈ 63 $</b><span>coste equivalente a precio de API</span></div>
+  </div>
+  <div class="shots">
+    <figure class="box"><a href="sitio/claude-stats.png" target="_blank" rel="noopener"><img src="sitio/claude-stats.png" alt="Estadísticas de Claude Code: sesión de 5 h 7 min y 185,2 millones de tokens" loading="lazy"></a><figcaption><b>Stats:</b> toda la jornada, mi primer día con Claude Code («Sessions: 1», «Active days: 1/1»). 185,2 M tokens: 800,7 k de salida y 183,2 M leídos de caché.</figcaption></figure>
+    <figure class="box"><a href="sitio/claude-uso.png" target="_blank" rel="noopener"><img src="sitio/claude-uso.png" alt="Panel de uso de Claude Code: 22,81 $ desde el último arranque y 9 % del límite semanal" loading="lazy"></a><figcaption><b>Usage:</b> al terminar el vídeo de la prueba salí de Claude Code y retomé la misma conversación para montar todo lo demás. El bloque «Session» (22,81 $, 2 h 53 min) solo cuenta desde ese reinicio; por eso es menor que el total. El 9 % semanal sí recoge toda la jornada.</figcaption></figure>
+  </div>
+  <p class="note">El coste equivalente es una estimación con los precios por token de Opus 5.5 (4 $ entrada, 20 $ salida, 0,20 $ lectura de caché y 8 $ escritura de caché a 1 h, por millón): aplicados a la sesión parcial, dan exactamente los 22,76 $ que muestra Claude Code. Yo no he pagado eso: todo entra en la suscripción Pro. Dos curiosidades del panel: el 92 % del uso se hizo con más de 150 k tokens de contexto (las sesiones largas encarecen cada petición) y el 14 % vino de las capturas y consultas al navegador mediante el MCP de Chrome DevTools.</p>
 </section>
 
 <section id="metodo">
